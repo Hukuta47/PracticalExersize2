@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="API/API.csproj" />
+  <Project Path="API/API.csproj" Id="2f5effcf-c250-4211-987f-1d9c776e0c7a" />
   <Project Path="ClassLibrary/ClassLibrary.csproj" />
 </Solution>
