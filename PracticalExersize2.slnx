@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="API Comfort/API Comfort.csproj" Id="9c1c0519-9e4a-479a-984d-bfb0e33bd44e" />
   <Project Path="API/API.csproj" Id="2f5effcf-c250-4211-987f-1d9c776e0c7a" />
   <Project Path="ClassLibrary/ClassLibrary.csproj" />
 </Solution>
