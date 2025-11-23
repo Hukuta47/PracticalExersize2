@@ -1,0 +1,30 @@
+meta {
+  name: AddPartner
+  type: http
+  seq: 16
+}
+
+post {
+  url: https://localhost:7082/partners
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "typeId": 1,
+    "name": "ООО МебельСтиль",
+    "legalAddress": "Москва, ул. Ленина 10",
+    "inn": "1234567890",
+    "directorFullName": "Иванов Иван Иванович",
+    "numberPhone": "+79280000000",
+    "email": "test@mail.ru",
+    "rating": 4.5
+  }
+  
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

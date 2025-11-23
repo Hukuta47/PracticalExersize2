@@ -1,0 +1,29 @@
+meta {
+  name: GetRequestsList
+  type: http
+  seq: 18
+}
+
+get {
+  url: https://localhost:7082/requests
+  body: none
+  auth: inherit
+}
+
+body:json {
+  {
+    "typeId": 2,
+    "name": "Обновлённый партнёр",
+    "legalAddress": "Новый адрес",
+    "inn": "9876543210",
+    "directorFullName": "Петров Петр Петрович",
+    "numberPhone": "+79991234567",
+    "email": "upd@mail.ru",
+    "rating": 4.2
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

@@ -1,0 +1,29 @@
+meta {
+  name: ChangePartner
+  type: http
+  seq: 17
+}
+
+put {
+  url: https://localhost:7082/partners/1
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "typeId": 2,
+    "name": "Обновлённый партнёр",
+    "legalAddress": "Новый адрес",
+    "inn": "9876543210",
+    "directorFullName": "Петров Петр Петрович",
+    "numberPhone": "+79991234567",
+    "email": "upd@mail.ru",
+    "rating": 4.2
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

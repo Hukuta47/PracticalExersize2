@@ -1,0 +1,24 @@
+meta {
+  name: CalculateMaterial
+  type: http
+  seq: 13
+}
+
+get {
+  url: https://localhost:7082/calc-material?productTypeId=1&materialTypeId=2&count=5&p1=0.5&p2=1.2
+  body: none
+  auth: inherit
+}
+
+params:query {
+  productTypeId: 1
+  materialTypeId: 2
+  count: 5
+  p1: 0.5
+  p2: 1.2
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ComfortDesktop.Windows"
         mc:Ignorable="d"
-        ResizeMode="NoResize" SizeToContent="WidthAndHeight">
+        ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
 	<Grid Margin="16">
 		<Grid.RowDefinitions>
 			<RowDefinition/>

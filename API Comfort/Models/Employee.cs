@@ -13,7 +13,7 @@ public partial class Employee
 
     public string Birthday { get; set; } = null!;
 
-    public int PassportId { get; set; }
+    public int? PassportId { get; set; }
 
     public string Login { get; set; } = null!;
 
@@ -21,7 +21,7 @@ public partial class Employee
 
     public string NumberPhone { get; set; } = null!;
 
-    public virtual EmployeePassport Passport { get; set; } = null!;
+    public virtual EmployeePassport? Passport { get; set; }
 
     public virtual EmployeeRole Role { get; set; } = null!;
 }

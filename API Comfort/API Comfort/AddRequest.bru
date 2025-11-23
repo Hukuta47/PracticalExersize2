@@ -1,0 +1,28 @@
+meta {
+  name: AddRequest
+  type: http
+  seq: 19
+}
+
+post {
+  url: https://localhost:7082/requests
+  body: none
+  auth: inherit
+}
+
+body:json {
+  {
+    "typeId": 2,
+    "name": "Обновлённый партнёр",
+    "legalAddress": "Новый адрес",
+    "inn": "9876543210",
+    "directorFullName": "Петров Петр Петрович",
+    "numberPhone": "+79991234567",
+    "email": "upd@mail.ru",
+    "rati
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

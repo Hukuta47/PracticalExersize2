@@ -1,0 +1,16 @@
+meta {
+  name: GetPartnersList
+  type: http
+  seq: 13
+}
+
+get {
+  url: https://localhost:7082/partners
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

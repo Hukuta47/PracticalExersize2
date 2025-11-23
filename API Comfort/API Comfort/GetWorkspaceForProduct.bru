@@ -1,0 +1,15 @@
+meta {
+  name: GetWorkspaceForProduct
+  type: http
+  seq: 8
+}
+
+get {
+  url: https://localhost:7082/products/10/workspaces
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}

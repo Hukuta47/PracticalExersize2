@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace API_Comfort.Models;
 
@@ -16,10 +17,10 @@ public partial class Product
     public double MinimumCostPartner { get; set; }
 
     public int ProductMaterialId { get; set; }
-
+    [JsonIgnore]
     public virtual ProductMaterial ProductMaterial { get; set; } = null!;
-
+    [JsonIgnore]
     public virtual ProductType ProductType { get; set; } = null!;
-
+    [JsonIgnore]
     public virtual ICollection<ProductsWorkSpace> ProductsWorkSpaces { get; set; } = new List<ProductsWorkSpace>();
 }

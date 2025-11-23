@@ -44,10 +44,10 @@ public partial class ComfortDBContext : DbContext
     public virtual DbSet<Workspace> Workspaces { get; set; }
 
     public virtual DbSet<WorkspaceType> WorkspaceTypes { get; set; }
+    
+    string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Other\\ComfortDatabase.db");
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlite("Data Source=C:\\Users\\Hukuta\\source\\repos\\Hukuta47\\PracticalExersize2\\API Comfort\\bin\\Debug\\net10.0\\Other\\ComfortDatabase.db");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlite($"Data Source={dbPath}").UseLazyLoadingProxies();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -55,9 +55,7 @@ public partial class ComfortDBContext : DbContext
         {
             entity.ToTable("Employee");
 
-            entity.HasOne(d => d.Passport).WithMany(p => p.Employees)
-                .HasForeignKey(d => d.PassportId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+            entity.HasOne(d => d.Passport).WithMany(p => p.Employees).HasForeignKey(d => d.PassportId);
 
             entity.HasOne(d => d.Role).WithMany(p => p.Employees)
                 .HasForeignKey(d => d.RoleId)
@@ -82,6 +80,13 @@ public partial class ComfortDBContext : DbContext
         modelBuilder.Entity<Partner>(entity =>
         {
             entity.ToTable("Partner");
+
+            entity.Property(e => e.Inn).HasColumnName("INN");
+            entity.Property(e => e.Rating).HasColumnType("REAL (1)");
+
+            entity.HasOne(d => d.Type).WithMany(p => p.Partners)
+                .HasForeignKey(d => d.TypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
         modelBuilder.Entity<PartnerOffer>(entity =>
