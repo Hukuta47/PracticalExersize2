@@ -1,509 +1,915 @@
 ﻿@page
 @model ProductsModel
 @{
-    ViewData["Title"] = "Управление продукцией";
+    ViewData["Title"] = "АРСЕНАЛ ПРОДУКЦИИ";
 }
 
 <style>
     :root {
-        --primary-color: #355CBD;
-        --primary-light: #D2DFFF;
-        --primary-lighter: #F0F5FF;
-        --accent-color: #6B8CE8;
-        --text-primary: #355CBD;
-        --text-secondary: #6B8CE8;
-        --text-light: #8FA6E8;
-        --bg-main: #F5F7FF;
-        --bg-card: #FFFFFF;
-        --border-color: #E1E8FF;
-        --shadow: 0 2px 12px rgba(53, 92, 189, 0.08);
-        --danger-color: #FF4757;
+        --metal-dark: #0a0e14;
+        --metal-medium: #141a23;
+        --metal-light: #1e2430;
+        --accent-orange: #ed8936;
+        --accent-red: #f56565;
+        --accent-green: #48bb78;
+        --accent-blue: #4299e1;
+        --accent-purple: #9f7aea;
+        --text-light: #e2e8f0;
+        --text-gray: #a0aec0;
+        --bg-dark: #05080c;
+        --bg-card: #0f1419;
+        --border-dark: #2d3748;
+        --glow-orange: 0 0 25px rgba(237, 137, 54, 0.5);
+        --glow-blue: 0 0 25px rgba(66, 153, 225, 0.5);
+        --glow-green: 0 0 25px rgba(72, 187, 120, 0.5);
+        --glow-purple: 0 0 25px rgba(159, 122, 234, 0.5);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
 
     body {
-        background-color: var(--bg-main);
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, var(--bg-dark) 0%, #0a0f1a 100%);
+        font-family: 'Rajdhani', 'Arial', sans-serif;
+        color: var(--text-light);
+        min-height: 100vh;
+        padding: 0;
+        overflow-x: hidden;
     }
 
-    .modern-card {
+    .arsenal-command {
+        max-width: 1600px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* Mission Header */
+    .mission-header {
         background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        box-shadow: var(--shadow);
-        margin-bottom: 25px;
+        border: 3px solid var(--border-dark);
+        border-radius: 20px;
+        padding: 30px 40px;
+        margin-bottom: 30px;
+        position: relative;
+        box-shadow: var(--glow-purple);
+        text-align: center;
+    }
+
+        .mission-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-blue), var(--accent-green));
+        }
+
+    .mission-title {
+        font-size: 42px;
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--accent-orange), var(--accent-purple));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+        text-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    }
+
+    .mission-tagline {
+        color: var(--text-gray);
+        font-size: 18px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+    }
+
+    /* Deployment Terminal */
+    .deployment-terminal {
+        background: var(--bg-card);
+        border: 3px solid var(--border-dark);
+        border-radius: 15px;
         overflow: hidden;
+        position: relative;
+        box-shadow: var(--glow-orange);
+        margin-bottom: 30px;
     }
 
-    .card-header-modern {
-        background: var(--primary-color) !important;
-        color: white;
-        padding: 20px 25px;
-        border-bottom: 1px solid var(--border-color);
+    .terminal-header {
+        background: linear-gradient(135deg, var(--metal-medium), var(--metal-light));
+        padding: 25px 30px;
+        border-bottom: 3px solid var(--border-dark);
+        position: relative;
     }
 
-    .card-body-modern {
-        padding: 25px;
-    }
+        .terminal-header::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-orange), transparent);
+        }
 
-    .page-header {
-        background: white;
-        border-radius: 12px;
-        padding: 25px;
-        margin-bottom: 25px;
-        border: 1px solid var(--border-color);
-        box-shadow: var(--shadow);
-    }
-
-    .page-title {
-        color: var(--text-primary);
+    .terminal-title {
         font-size: 24px;
         font-weight: 700;
-        margin-bottom: 8px;
-    }
-
-    .page-subtitle {
-        color: var(--text-secondary);
-        font-size: 14px;
-        font-weight: 500;
-    }
-
-    .form-label-modern {
-        color: var(--text-primary);
-        font-weight: 600;
-        font-size: 14px;
-        margin-bottom: 8px;
-    }
-
-    .form-control-modern {
-        height: 42px;
-        border: 2px solid var(--border-color);
-        border-radius: 8px;
-        padding: 10px 12px;
-        font-size: 14px;
-        color: var(--text-primary);
-        background: white;
-    }
-
-    .form-control-modern:focus {
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 0.2rem rgba(53, 92, 189, 0.1);
-    }
-
-    .form-select-modern {
-        height: 42px;
-        border: 2px solid var(--border-color);
-        border-radius: 8px;
-        padding: 10px 12px;
-        font-size: 14px;
-        color: var(--text-primary);
-        background: white;
-    }
-
-    .form-select-modern:focus {
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 0.2rem rgba(53, 92, 189, 0.1);
-    }
-
-    .input-group-modern {
-        border-radius: 8px;
-    }
-
-    .input-group-modern .form-control-modern {
-        border-right: none;
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-
-    .input-group-modern .input-group-text {
-        background: var(--primary-lighter);
-        border: 2px solid var(--border-color);
-        border-left: none;
-        border-top-right-radius: 8px;
-        border-bottom-right-radius: 8px;
-        color: var(--text-primary);
-        font-weight: 600;
-    }
-
-    .btn-modern {
-        background: var(--primary-color);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        padding: 12px 24px;
-        font-size: 14px;
-        font-weight: 600;
-        transition: all 0.2s ease;
-    }
-
-    .btn-modern:hover {
-        background: #2A4A9C;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(53, 92, 189, 0.2);
-    }
-
-    .btn-danger-modern {
-        background: var(--danger-color);
-        color: white;
-        border: none;
-        border-radius: 6px;
-        padding: 6px 12px;
-        font-size: 12px;
-        transition: all 0.2s ease;
-    }
-
-    .btn-danger-modern:hover {
-        background: #E84151;
-        transform: translateY(-1px);
-    }
-
-    .btn-outline-modern {
-        background: transparent;
-        border: 2px solid var(--primary-color);
-        color: var(--primary-color);
-        border-radius: 6px;
-        padding: 6px 12px;
-        font-size: 12px;
-        transition: all 0.2s ease;
-    }
-
-    .btn-outline-modern:hover {
-        background: var(--primary-color);
-        color: white;
-        transform: translateY(-1px);
-    }
-
-    .btn-info-modern {
-        background: transparent;
-        border: 2px solid var(--accent-color);
-        color: var(--accent-color);
-        border-radius: 6px;
-        padding: 6px 12px;
-        font-size: 12px;
-        transition: all 0.2s ease;
-    }
-
-    .btn-info-modern:hover {
-        background: var(--accent-color);
-        color: white;
-        transform: translateY(-1px);
-    }
-
-    .table-modern {
-        background: white;
-        border-radius: 8px;
-        overflow: hidden;
-        border: 1px solid var(--border-color);
-    }
-
-    .table-modern thead th {
-        background: var(--primary-color);
-        color: white;
-        font-weight: 600;
-        padding: 12px 15px;
-        border: none;
-        font-size: 14px;
-    }
-
-    .table-modern tbody tr {
-        transition: background-color 0.2s ease;
-    }
-
-    .table-modern tbody tr:nth-child(even) {
-        background-color: var(--primary-lighter);
-    }
-
-    .table-modern tbody tr:hover {
-        background-color: var(--primary-light);
-    }
-
-    .table-modern tbody td {
-        padding: 12px 15px;
-        border-color: var(--border-color);
-        color: var(--text-primary);
-        font-size: 14px;
-        vertical-align: middle;
-    }
-
-    .alert-modern {
-        background: var(--primary-lighter);
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        color: var(--text-primary);
-        padding: 15px 20px;
-        margin-bottom: 20px;
-    }
-
-    .alert-success {
-        background: #d4edda;
-        border-color: #c3e6cb;
-        color: #155724;
-    }
-
-    .alert-danger {
-        background: #f8d7da;
-        border-color: #f5c6cb;
-        color: #721c24;
-    }
-
-    .action-buttons {
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
         display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
+        align-items: center;
+        gap: 15px;
     }
 
-    .empty-state {
+    .terminal-icon {
+        font-size: 28px;
+    }
+
+    .terminal-body {
+        padding: 30px;
+    }
+
+    /* Deployment Grid */
+    .deployment-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-bottom: 25px;
+    }
+
+
+    /* Input Units */
+    .input-unit {
+        margin-bottom: 25px;
+        position: relative;
+    }
+
+    .input-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-gray);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 12px;
+    }
+
+    .tactical-input {
+        width: 100%;
+        height: 55px;
+        background: var(--metal-dark);
+        border: 2px solid var(--border-dark);
+        border-radius: 10px;
+        padding: 0 20px;
+        font-size: 16px;
+        color: var(--text-light);
+        font-family: 'Rajdhani', sans-serif;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+        .tactical-input:focus {
+            border-color: var(--accent-orange);
+            box-shadow: var(--glow-orange);
+            outline: none;
+            transform: translateY(-2px);
+        }
+
+    .tactical-select {
+        width: 100%;
+        height: 55px;
+        background: var(--metal-dark);
+        border: 2px solid var(--border-dark);
+        border-radius: 10px;
+        padding: 0 20px;
+        font-size: 16px;
+        color: var(--text-light);
+        font-family: 'Rajdhani', sans-serif;
+        font-weight: 600;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23ed8936' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 20px center;
+        transition: all 0.3s ease;
+    }
+
+        .tactical-select:focus {
+            border-color: var(--accent-orange);
+            box-shadow: var(--glow-orange);
+            outline: none;
+            transform: translateY(-2px);
+        }
+
+    /* Price Input */
+    .price-squad {
+        position: relative;
+    }
+
+    .price-input {
+        padding-right: 60px !important;
+    }
+
+    .currency-tag {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--accent-orange);
+        color: white;
+        padding: 5px 12px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* Deploy Button */
+    .deploy-btn {
+        width: 100%;
+        height: 65px;
+        background: linear-gradient(135deg, var(--accent-orange), #c05621);
+        border: none;
+        border-radius: 12px;
+        color: white;
+        font-size: 20px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .deploy-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .deploy-btn:hover::before {
+            left: 100%;
+        }
+
+        .deploy-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--glow-orange);
+        }
+
+    /* Arsenal Terminal */
+    .arsenal-terminal {
+        background: var(--bg-card);
+        border: 3px solid var(--border-dark);
+        border-radius: 15px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: var(--glow-blue);
+    }
+
+    .arsenal-header {
+        background: linear-gradient(135deg, var(--metal-medium), var(--metal-light));
+        padding: 25px 30px;
+        border-bottom: 3px solid var(--border-dark);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+        .arsenal-header::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-blue), transparent);
+        }
+
+    .arsenal-title {
+        font-size: 22px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .arsenal-count {
+        background: var(--accent-blue);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .arsenal-body {
+        padding: 0;
+    }
+
+    /* Arsenal Table */
+    .arsenal-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--metal-dark);
+    }
+
+        .arsenal-table th {
+            background: var(--metal-medium);
+            padding: 20px 25px;
+            text-align: left;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            border-bottom: 3px solid var(--border-dark);
+            color: var(--accent-blue);
+            position: sticky;
+            top: 0;
+        }
+
+        .arsenal-table td {
+            padding: 18px 25px;
+            border-bottom: 1px solid var(--border-dark);
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .arsenal-table tr:hover td {
+            background: rgba(66, 153, 225, 0.1);
+            transform: translateX(5px);
+        }
+
+    .data-badge {
+        background: var(--metal-light);
+        color: var(--text-light);
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .badge-orange {
+        background: var(--accent-orange);
+    }
+
+    .badge-green {
+        background: var(--accent-green);
+    }
+
+    .badge-purple {
+        background: var(--accent-purple);
+    }
+
+    .badge-blue {
+        background: var(--accent-blue);
+    }
+
+    .badge-red {
+        background: var(--accent-red);
+    }
+
+    /* Action Panel */
+    .action-panel {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+    }
+
+    .action-btn {
+        padding: 8px 16px;
+        border: 2px solid;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .btn-edit {
+        background: transparent;
+        border-color: var(--accent-blue);
+        color: var(--accent-blue);
+    }
+
+        .btn-edit:hover {
+            background: var(--accent-blue);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .btn-workshops {
+        background: transparent;
+        border-color: var(--accent-purple);
+        color: var(--accent-purple);
+    }
+
+        .btn-workshops:hover {
+            background: var(--accent-purple);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .btn-delete {
+        background: transparent;
+        border-color: var(--accent-red);
+        color: var(--accent-red);
+    }
+
+        .btn-delete:hover {
+            background: var(--accent-red);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    /* Summary Panel */
+    .summary-panel {
+        background: var(--metal-dark);
+        border: 2px solid var(--border-dark);
+        border-radius: 12px;
+        padding: 25px 30px;
+        margin: 25px;
+    }
+
+    .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
         text-align: center;
-        padding: 40px 20px;
+    }
+
+    .summary-item {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .summary-label {
+        font-size: 12px;
+        color: var(--text-gray);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+    }
+
+    .summary-value {
+        font-size: 20px;
+        font-weight: 800;
         color: var(--text-light);
     }
 
-    .empty-state i {
-        font-size: 48px;
-        margin-bottom: 15px;
+    /* Empty State */
+    .empty-state {
+        text-align: center;
+        padding: 80px 40px;
+        color: var(--text-gray);
+    }
+
+    .empty-icon {
+        font-size: 80px;
+        margin-bottom: 25px;
+        display: block;
         opacity: 0.5;
+    }
+
+    .empty-title {
+        font-size: 24px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 15px;
+    }
+
+    .empty-description {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    /* Alert Systems */
+    .system-alert {
+        background: rgba(237, 137, 54, 0.1);
+        border: 2px solid var(--accent-orange);
+        border-radius: 12px;
+        padding: 25px 30px;
+        margin: 25px auto;
+        max-width: 800px;
+        box-shadow: var(--glow-orange);
+        text-align: center;
+    }
+
+    .system-alert-success {
+        background: rgba(72, 187, 120, 0.1);
+        border-color: var(--accent-green);
+        box-shadow: var(--glow-green);
+    }
+
+    .system-alert-danger {
+        background: rgba(245, 101, 101, 0.1);
+        border-color: var(--accent-red);
+        box-shadow: 0 0 25px rgba(245, 101, 101, 0.4);
+    }
+
+    .alert-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 16px;
+    }
+
+    /* Mobile Responsive */
+    @@media (max-width: 768px) {
+        .arsenal-command {
+            padding: 15px;
+        }
+
+        .mission-header {
+            padding: 25px;
+        }
+
+        .mission-title {
+            font-size: 32px;
+        }
+
+        .arsenal-header {
+            flex-direction: column;
+            gap: 15px;
+            text-align: center;
+        }
+
+        .arsenal-table th,
+        .arsenal-table td {
+            padding: 12px 15px;
+        }
+
+        .action-panel {
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .summary-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .arsenal-command {
+            padding: 10px;
+        }
+
+        .mission-header {
+            padding: 20px;
+        }
+
+        .mission-title {
+            font-size: 24px;
+        }
+
+        .summary-grid {
+            grid-template-columns: 1fr;
+        }
     }
 </style>
 
-<div class="container-fluid">
-    <!-- Page Header -->
-    <div class="page-header">
-        <div class="d-flex align-items-center">
-            <div class="me-3" style="font-size: 28px;">📦</div>
-            <div>
-                <h1 class="page-title">Управление продукцией</h1>
-                <p class="page-subtitle">Добавление, редактирование и удаление продукции компании</p>
-            </div>
-        </div>
+<div class="arsenal-command">
+    <!-- Mission Header -->
+    <div class="mission-header">
+        <h1 class="mission-title">АРСЕНАЛ ПРОДУКЦИИ</h1>
+        <div class="mission-tagline">УПРАВЛЕНИЕ ПРОИЗВОДСТВЕННЫМ ПОРТФЕЛЕМ КОМПАНИИ</div>
     </div>
 
-    <!-- Messages -->
+    <!-- System Alerts -->
     @if (!string.IsNullOrEmpty(Model.Message))
     {
-            <div class="alert-modern @(Model.MessageType == "success" ? "alert-success" : Model.MessageType == "warning" ? "alert-warning" : "alert-danger")">
-                <div class="d-flex justify-content-between align-items-center">
-                    <span>@Model.Message</span>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            </div>
-    }
-
-    <!-- Add Product Form -->
-    <div class="modern-card">
-        <div class="card-header-modern">
-            <div class="d-flex align-items-center">
-                <div class="me-2">➕</div>
-                <h5 class="mb-0">Добавить новый продукт</h5>
+        <div class="system-alert @(Model.MessageType == "success" ? "system-alert-success" : Model.MessageType == "warning" ? "system-alert" : "system-alert-danger")">
+            <div class="alert-content">
+                <span>@(Model.MessageType == "success" ? "✅" : Model.MessageType == "warning" ? "⚠️" : "🚫")</span>
+                <span>@Model.Message</span>
             </div>
         </div>
-        <div class="card-body-modern">
+    }
+
+    <!-- Deployment Terminal -->
+    <div class="deployment-terminal">
+        <div class="terminal-header">
+            <div class="terminal-title">
+                <span class="terminal-icon">🚀</span>
+                РАЗВЕРТЫВАНИЕ НОВОГО ИЗДЕЛИЯ
+            </div>
+        </div>
+        <div class="terminal-body">
             <form method="post" asp-page-handler="Create">
-                <div class="row">
+                <div class="deployment-grid">
                     <!-- Left Column -->
-                    <div class="col-md-6">
-                        <div class="mb-4">
-                            <label asp-for="NewProduct.ArticleNumber" class="form-label-modern">Артикул *</label>
-                            <input asp-for="NewProduct.ArticleNumber" class="form-control-modern" required maxlength="20" />
-                            <span asp-validation-for="NewProduct.ArticleNumber" class="text-danger"></span>
+                    <div>
+                        <div class="input-unit">
+                            <label class="input-label">ИДЕНТИФИКАТОР АРТИКУЛА</label>
+                            <input asp-for="NewProduct.ArticleNumber" class="tactical-input" required maxlength="20" placeholder="ВВЕДИТЕ АРТИКУЛ" />
+                            <span asp-validation-for="NewProduct.ArticleNumber" class="validation-error" style="color: var(--accent-red); font-size: 12px; margin-top: 5px; display: block;"></span>
                         </div>
 
-                        <div class="mb-4">
-                            <label asp-for="NewProduct.ProductName" class="form-label-modern">Наименование *</label>
-                            <input asp-for="NewProduct.ProductName" class="form-control-modern" required maxlength="200" />
-                            <span asp-validation-for="NewProduct.ProductName" class="text-danger"></span>
+                        <div class="input-unit">
+                            <label class="input-label">ТАКТИЧЕСКОЕ НАИМЕНОВАНИЕ</label>
+                            <input asp-for="NewProduct.ProductName" class="tactical-input" required maxlength="200" placeholder="ВВЕДИТЕ НАИМЕНОВАНИЕ" />
+                            <span asp-validation-for="NewProduct.ProductName" class="validation-error" style="color: var(--accent-red); font-size: 12px; margin-top: 5px; display: block;"></span>
                         </div>
                     </div>
 
                     <!-- Right Column -->
-                    <div class="col-md-6">
-                        <div class="mb-4">
-                            <label asp-for="NewProduct.ProductTypeID" class="form-label-modern">Тип продукции *</label>
-                            <select asp-for="NewProduct.ProductTypeID" asp-items="Model.ProductTypes" class="form-select-modern" required>
-                                <option value="">-- Выберите тип --</option>
+                    <div>
+                        <div class="input-unit">
+                            <label class="input-label">КЛАССИФИКАЦИЯ ПРОДУКЦИИ</label>
+                            <select asp-for="NewProduct.ProductTypeID" asp-items="Model.ProductTypes" class="tactical-select" required>
+                                <option value="">-- ВЫБЕРИТЕ КАТЕГОРИЮ --</option>
                             </select>
-                            <span asp-validation-for="NewProduct.ProductTypeID" class="text-danger"></span>
+                            <span asp-validation-for="NewProduct.ProductTypeID" class="validation-error" style="color: var(--accent-red); font-size: 12px; margin-top: 5px; display: block;"></span>
                         </div>
 
-                        <div class="mb-4">
-                            <label asp-for="NewProduct.MaterialTypeID" class="form-label-modern">Основной материал *</label>
-                            <select asp-for="NewProduct.MaterialTypeID" asp-items="Model.MaterialTypes" class="form-select-modern" required>
-                                <option value="">-- Выберите материал --</option>
+                        <div class="input-unit">
+                            <label class="input-label">ОСНОВНОЙ МАТЕРИАЛ</label>
+                            <select asp-for="NewProduct.MaterialTypeID" asp-items="Model.MaterialTypes" class="tactical-select" required>
+                                <option value="">-- ВЫБЕРИТЕ МАТЕРИАЛ --</option>
                             </select>
-                            <span asp-validation-for="NewProduct.MaterialTypeID" class="text-danger"></span>
+                            <span asp-validation-for="NewProduct.MaterialTypeID" class="validation-error" style="color: var(--accent-red); font-size: 12px; margin-top: 5px; display: block;"></span>
                         </div>
 
-                        <div class="mb-4">
-                            <label asp-for="NewProduct.MinPartnerPrice" class="form-label-modern">Минимальная стоимость для партнера *</label>
-                            <div class="input-group input-group-modern">
-                                <input asp-for="NewProduct.MinPartnerPrice" class="form-control-modern" type="number" step="0.01" min="0" required />
-                                <span class="input-group-text">₽</span>
+                        <div class="input-unit">
+                            <label class="input-label">СТРАТЕГИЧЕСКАЯ СТОИМОСТЬ</label>
+                            <div class="price-squad">
+                                <input asp-for="NewProduct.MinPartnerPrice" class="tactical-input price-input" type="number" step="0.01" min="0" required placeholder="0.00" />
+                                <div class="currency-tag">RUB</div>
                             </div>
-                            <span asp-validation-for="NewProduct.MinPartnerPrice" class="text-danger"></span>
+                            <span asp-validation-for="NewProduct.MinPartnerPrice" class="validation-error" style="color: var(--accent-red); font-size: 12px; margin-top: 5px; display: block;"></span>
                         </div>
                     </div>
                 </div>
 
-                <div class="text-end pt-3" style="border-top: 1px solid var(--border-color);">
-                    <button type="submit" class="btn-modern">
-                        <i class="fas fa-plus me-2"></i>Добавить продукт
-                    </button>
-                </div>
+                <button type="submit" class="deploy-btn">
+                    🚀 АКТИВИРОВАТЬ ПРОДУКТ
+                </button>
             </form>
         </div>
     </div>
 
-    <!-- Products List -->
-    <div class="modern-card">
-        <div class="card-header-modern">
-            <div class="d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center">
-                    <div class="me-2">📋</div>
-                    <h5 class="mb-0">Список продукции</h5>
-                </div>
-                <span class="badge" style="background: rgba(255,255,255,0.2); color: white; padding: 6px 12px; border-radius: 20px;">
-                    @Model.Products.Count продуктов
-                </span>
+    <!-- Arsenal Terminal -->
+    <div class="arsenal-terminal">
+        <div class="arsenal-header">
+            <div class="arsenal-title">
+                <span>📦</span>
+                ТЕКУЩИЙ АРСЕНАЛ
+            </div>
+            <div class="arsenal-count">
+                @Model.Products.Count ЕДИНИЦ
             </div>
         </div>
-        <div class="card-body-modern">
+        <div class="arsenal-body">
             @if (Model.Products.Any())
             {
-                    <div class="table-responsive">
-                        <table class="table table-modern">
-                            <thead>
-                                <tr>
-                                    <th>Артикул</th>
-                                    <th>Наименование</th>
-                                    <th>Тип продукции</th>
-                                    <th>Материал</th>
-                                    <th>Минимальная цена</th>
-                                    <th>Действия</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                <div style="overflow-x: auto;">
+                    <table class="arsenal-table">
+                        <thead>
+                            <tr>
+                                <th>ИДЕНТИФИКАТОР</th>
+                                <th>НАИМЕНОВАНИЕ</th>
+                                <th>КЛАСС</th>
+                                <th>МАТЕРИАЛ</th>
+                                <th>СТОИМОСТЬ</th>
+                                <th>ОПЕРАЦИИ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             @foreach (var product in Model.Products)
                             {
-                                        <tr>
-                                            <td>
-                                                <span style="font-weight: 600; color: var(--text-primary);">@product.ArticleNumber</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div style="font-size: 16px; margin-right: 8px;">📦</div>
-                                                    <span>@product.ProductName</span>
-                                                </div>
-                                            </td>
-                                            <td>@product.ProductType</td>
-                                            <td>@product.MaterialType</td>
-                                            <td>
-                                                <span style="font-weight: 600; color: var(--text-primary);">
+                                <tr>
+                                    <td>
+                                        <span class="data-badge badge-blue">@product.ArticleNumber</span>
+                                    </td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 10px;">
+                                            <span style="font-size: 18px;">📦</span>
+                                            <span style="font-weight: 700;">@product.ProductName</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="data-badge badge-purple">@product.ProductType</span>
+                                    </td>
+                                    <td>
+                                        <span class="data-badge badge-orange">@product.MaterialType</span>
+                                    </td>
+                                    <td>
+                                        <span style="font-weight: 800; color: var(--accent-green);">
                                             @product.MinPartnerPrice.ToString("C2")
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <div class="action-buttons">
-                                                    <a asp-page="/EditProduct" asp-route-id="@product.ProductID" class="btn-outline-modern" title="Редактировать">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <a asp-page="/ProductWorkshops" asp-route-id="@product.ProductID" class="btn-info-modern" title="Цеха производства">
-                                                        <i class="fas fa-industry"></i>
-                                                    </a>
-                                                    <form method="post" asp-page-handler="Delete" asp-route-id="@product.ProductID" class="d-inline">
-                                                        <button type="submit" class="btn-danger-modern"
-                                                                onclick="return confirm('Вы уверены, что хотите удалить продукт \"@product.ProductName\"?')"
-                                                                title="Удалить">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="action-panel">
+                                            <a asp-page="/EditProduct" asp-route-id="@product.ProductID" class="action-btn btn-edit" title="КОРРЕКТИРОВКА">
+                                                ✏️
+                                            </a>
+                                            <a asp-page="/ProductWorkshops" asp-route-id="@product.ProductID" class="action-btn btn-workshops" title="ПРОИЗВОДСТВЕННЫЕ ЦЕХА">
+                                                🏭
+                                            </a>
+                                            <form method="post" asp-page-handler="Delete" asp-route-id="@product.ProductID" class="d-inline">
+                                                <button type="submit" class="action-btn btn-delete"
+                                                        onclick="return confirm('ПОДТВЕРЖДЕНИЕ УНИЧТОЖЕНИЯ: Изделие \" @product.ProductName\" будет удалено из системы. Продолжить?')"
+                                                        title="УНИЧТОЖИТЬ">
+                                                    🗑️
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
                             }
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
+                </div>
 
-                    <!-- Summary -->
-                    <div class="mt-4 p-3" style="background: var(--primary-lighter); border-radius: 8px; border: 1px solid var(--border-color);">
-                        <div class="row text-center">
-                            <div class="col-md-3">
-                                <div style="font-size: 12px; color: var(--text-secondary);">Всего продуктов</div>
-                                <div style="font-size: 16px; font-weight: 600; color: var(--text-primary);">
-                                @Model.Products.Count
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div style="font-size: 12px; color: var(--text-secondary);">Уникальных типов</div>
-                                <div style="font-size: 16px; font-weight: 600; color: var(--text-primary);">
-                                @Model.Products.Select(p => p.ProductType).Distinct().Count()
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div style="font-size: 12px; color: var(--text-secondary);">Материалов</div>
-                                <div style="font-size: 16px; font-weight: 600; color: var(--text-primary);">
-                                @Model.Products.Select(p => p.MaterialType).Distinct().Count()
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div style="font-size: 12px; color: var(--text-secondary);">Средняя цена</div>
-                                <div style="font-size: 16px; font-weight: 600; color: var(--text-primary);">
-                                @Model.Products.Average(p => p.MinPartnerPrice).ToString("C0")
-                                </div>
-                            </div>
+                <!-- Summary Panel -->
+                <div class="summary-panel">
+                    <div class="summary-grid">
+                        <div class="summary-item">
+                            <div class="summary-label">ВСЕГО ИЗДЕЛИЙ</div>
+                            <div class="summary-value">@Model.Products.Count</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">УНИКАЛЬНЫХ КЛАССОВ</div>
+                            <div class="summary-value">@Model.Products.Select(p => p.ProductType).Distinct().Count()</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">МАТЕРИАЛОВ</div>
+                            <div class="summary-value">@Model.Products.Select(p => p.MaterialType).Distinct().Count()</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">СРЕДНЯЯ СТОИМОСТЬ</div>
+                            <div class="summary-value">@Model.Products.Average(p => p.MinPartnerPrice).ToString("C0")</div>
                         </div>
                     </div>
+                </div>
             }
             else
             {
-                    <div class="empty-state">
-                        <div style="font-size: 64px;">📦</div>
-                        <h5 style="color: var(--text-primary); margin-bottom: 10px;">Продукция не найдена</h5>
-                        <p style="color: var(--text-light);">Добавьте первый продукт, используя форму выше.</p>
+                <div class="empty-state">
+                    <span class="empty-icon">📦</span>
+                    <div class="empty-title">АРСЕНАЛ ПУСТ</div>
+                    <div class="empty-description">
+                        СИСТЕМА ОЖИДАЕТ РАЗВЕРТЫВАНИЯ ПЕРВОГО ИЗДЕЛИЯ<br>
+                        ИСПОЛЬЗУЙТЕ ФОРМУ ВЫШЕ ДЛЯ АКТИВАЦИИ
                     </div>
+                </div>
             }
         </div>
     </div>
 </div>
 
 @section Scripts {
-        <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // Add interactive effects to form controls
-                const formControls = document.querySelectorAll('.form-control-modern, .form-select-modern');
-                formControls.forEach(control => {
-                    control.addEventListener('focus', function() {
-                        this.style.borderColor = 'var(--primary-color)';
-                    });
-
-                    control.addEventListener('blur', function() {
-                        this.style.borderColor = 'var(--border-color)';
-                    });
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add tactical input validation effects
+            const inputs = document.querySelectorAll('.tactical-input, .tactical-select');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    const isValid = this.checkValidity();
+                    if (this.value) {
+                        if (isValid) {
+                            this.style.borderColor = '#48bb78';
+                            this.style.boxShadow = '0 0 15px rgba(72, 187, 120, 0.3)';
+                        } else {
+                            this.style.borderColor = '#f56565';
+                            this.style.boxShadow = '0 0 15px rgba(245, 101, 101, 0.3)';
+                        }
+                    } else {
+                        this.style.borderColor = '#2d3748';
+                        this.style.boxShadow = 'none';
+                    }
                 });
 
-                // Add animation to table rows
-                const tableRows = document.querySelectorAll('.table-modern tbody tr');
-                tableRows.forEach((row, index) => {
-                    row.style.opacity = '0';
-                    row.style.transform = 'translateX(-20px)';
+                input.addEventListener('blur', function() {
+                    this.style.borderColor = '#2d3748';
+                    this.style.boxShadow = 'none';
+                });
+            });
+
+            // Add deployment animation
+            const deployBtn = document.querySelector('.deploy-btn');
+            if (deployBtn) {
+                deployBtn.addEventListener('click', function() {
+                    this.style.background = 'linear-gradient(135deg, #48bb78, #2f855a)';
+                    setTimeout(() => {
+                        this.style.background = 'linear-gradient(135deg, var(--accent-orange), #c05621)';
+                    }, 1000);
+                });
+            }
+
+            // Add arsenal row animation
+            const arsenalRows = document.querySelectorAll('.arsenal-table tbody tr');
+            arsenalRows.forEach((row, index) => {
+                row.style.opacity = '0';
+                row.style.transform = 'translateX(-30px)';
+
+                setTimeout(() => {
+                    row.style.transition = 'all 0.4s ease';
+                    row.style.opacity = '1';
+                    row.style.transform = 'translateX(0)';
+                }, index * 80);
+            });
+
+            // Add real-time arsenal updates simulation
+            function simulateArsenalUpdates() {
+                const badges = document.querySelectorAll('.data-badge');
+                badges.forEach(badge => {
+                    if (badge.classList.contains('badge-blue')) {
+                        badge.style.background = '#ed8936';
+                        setTimeout(() => {
+                            badge.style.background = '';
+                        }, 800);
+                    }
+                });
+            }
+
+            // Update every 12 seconds
+            setInterval(simulateArsenalUpdates, 12000);
+
+            // Add price formatting
+            const priceInput = document.querySelector('.price-input');
+            if (priceInput) {
+                priceInput.addEventListener('blur', function() {
+                    const value = parseFloat(this.value);
+                    if (!isNaN(value)) {
+                        this.value = value.toFixed(2);
+                    }
+                });
+            }
+
+            // Add mission-critical form validation
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function(e) {
+                const requiredFields = this.querySelectorAll('[required]');
+                let missionReady = true;
+
+                requiredFields.forEach(field => {
+                    if (!field.value) {
+                        field.style.borderColor = '#f56565';
+                        field.style.boxShadow = '0 0 15px rgba(245, 101, 101, 0.3)';
+                        missionReady = false;
+                    }
+                });
+
+                if (!missionReady) {
+                    e.preventDefault();
+                    // Create tactical alert
+                    const alert = document.createElement('div');
+                    alert.style.cssText = `
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: #f56565;
+                        color: white;
+                        padding: 15px 25px;
+                        border-radius: 8px;
+                        font-weight: bold;
+                        z-index: 10000;
+                        animation: slideIn 0.3s ease;
+                    `;
+                    alert.textContent = '🚨 ЗАПОЛНИТЕ ВСЕ КРИТИЧЕСКИЕ ПОЛЯ!';
+                    document.body.appendChild(alert);
 
                     setTimeout(() => {
-                        row.style.transition = 'all 0.3s ease';
-                        row.style.opacity = '1';
-                        row.style.transform = 'translateX(0)';
-                    }, index * 50);
-                });
-
-                // Add currency formatting
-                const priceInput = document.querySelector('input[asp-for="NewProduct.MinPartnerPrice"]');
-                if (priceInput) {
-                    priceInput.addEventListener('blur', function() {
-                        const value = parseFloat(this.value);
-                        if (!isNaN(value)) {
-                            this.value = value.toFixed(2);
-                        }
-                    });
+                        alert.remove();
+                    }, 3000);
                 }
             });
-        </script>
+        });
+
+    </script>
 }

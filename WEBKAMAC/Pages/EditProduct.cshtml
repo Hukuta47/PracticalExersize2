@@ -1,293 +1,505 @@
 ﻿@page "{id:int}"
 @model EditProductModel
 @{
-    ViewData["Title"] = "Редактирование продукта";
+    ViewData["Title"] = "РЕДАКТИРОВАНИЕ ПРОДУКЦИИ";
 }
 
 <style>
     :root {
-        --primary-color: #355CBD;
-        --primary-light: #D2DFFF;
-        --primary-lighter: #F0F5FF;
-        --accent-color: #6B8CE8;
-        --text-primary: #355CBD;
-        --text-secondary: #6B8CE8;
-        --text-light: #8FA6E8;
-        --bg-main: #F5F7FF;
-        --bg-card: #FFFFFF;
-        --border-color: #E1E8FF;
-        --shadow: 0 2px 12px rgba(53, 92, 189, 0.08);
+        --metal-dark: #0f1419;
+        --metal-medium: #1a202c;
+        --metal-light: #2d3748;
+        --accent-orange: #ed8936;
+        --accent-red: #f56565;
+        --accent-green: #48bb78;
+        --accent-blue: #4299e1;
+        --accent-purple: #9f7aea;
+        --text-light: #e2e8f0;
+        --text-gray: #a0aec0;
+        --bg-dark: #0a0e14;
+        --bg-card: #141a23;
+        --border-dark: #2d3748;
+        --glow-orange: 0 0 20px rgba(237, 137, 54, 0.4);
+        --glow-blue: 0 0 20px rgba(66, 153, 225, 0.4);
+        --glow-green: 0 0 20px rgba(72, 187, 120, 0.4);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
 
     body {
-        background-color: var(--bg-main);
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, var(--bg-dark) 0%, #0f172a 100%);
+        font-family: 'Rajdhani', 'Arial', sans-serif;
+        color: var(--text-light);
+        min-height: 100vh;
+        padding: 0;
     }
 
-    .modern-card {
+    .command-center {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* Mission Header */
+    .mission-header {
         background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        box-shadow: var(--shadow);
-        margin-bottom: 25px;
+        border: 3px solid var(--border-dark);
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 30px;
+        position: relative;
+        box-shadow: var(--glow-blue);
+    }
+
+        .mission-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-blue), var(--accent-green));
+        }
+
+    .mission-path {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+        font-size: 14px;
+    }
+
+    .path-item {
+        color: var(--text-gray);
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: color 0.3s ease;
+    }
+
+        .path-item:hover {
+            color: var(--accent-orange);
+        }
+
+    .path-separator {
+        color: var(--accent-blue);
+    }
+
+    .path-current {
+        color: var(--accent-orange);
+        font-weight: 700;
+    }
+
+    .mission-title {
+        font-size: 36px;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--accent-orange), var(--accent-blue));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 5px;
+    }
+
+    .mission-tagline {
+        color: var(--text-gray);
+        font-size: 16px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* Edit Terminal */
+    .edit-terminal {
+        background: var(--bg-card);
+        border: 3px solid var(--border-dark);
+        border-radius: 15px;
         overflow: hidden;
+        position: relative;
+        box-shadow: var(--glow-orange);
     }
 
-    .card-header-modern {
-        background: var(--primary-color) !important;
-        color: white;
-        padding: 20px 25px;
-        border-bottom: 1px solid var(--border-color);
+    .terminal-header {
+        background: linear-gradient(135deg, var(--metal-medium), var(--metal-light));
+        padding: 25px 30px;
+        border-bottom: 3px solid var(--border-dark);
+        position: relative;
     }
 
-    .card-body-modern {
-        padding: 25px;
-    }
+        .terminal-header::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-orange), transparent);
+        }
 
-    .page-header {
-        background: white;
-        border-radius: 12px;
-        padding: 25px;
-        margin-bottom: 25px;
-        border: 1px solid var(--border-color);
-        box-shadow: var(--shadow);
-    }
-
-    .page-title {
-        color: var(--text-primary);
+    .terminal-title {
         font-size: 24px;
         font-weight: 700;
-        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
     }
 
-    .breadcrumb-modern {
-        background: transparent;
-        padding: 0;
-        margin-bottom: 15px;
+    .terminal-icon {
+        font-size: 28px;
     }
 
-    .breadcrumb-modern .breadcrumb-item a {
-        color: var(--text-secondary);
-        text-decoration: none;
-        font-weight: 500;
+    .terminal-body {
+        padding: 40px;
     }
 
-    .breadcrumb-modern .breadcrumb-item.active {
-        color: var(--text-primary);
-        font-weight: 600;
+    /* Input Grid */
+    .input-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-bottom: 40px;
     }
 
-    .form-label-modern {
-        color: var(--text-primary);
-        font-weight: 600;
+    
+
+    /* Input Groups */
+    .input-unit {
+        margin-bottom: 25px;
+        position: relative;
+    }
+
+    .input-label {
+        display: block;
         font-size: 14px;
-        margin-bottom: 8px;
-    }
-
-    .form-control-modern {
-        height: 42px;
-        border: 2px solid var(--border-color);
-        border-radius: 8px;
-        padding: 10px 12px;
-        font-size: 14px;
-        color: var(--text-primary);
-        background: white;
-    }
-
-    .form-control-modern:focus {
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 0.2rem rgba(53, 92, 189, 0.1);
-    }
-
-    .form-select-modern {
-        height: 42px;
-        border: 2px solid var(--border-color);
-        border-radius: 8px;
-        padding: 10px 12px;
-        font-size: 14px;
-        color: var(--text-primary);
-        background: white;
-    }
-
-    .form-select-modern:focus {
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 0.2rem rgba(53, 92, 189, 0.1);
-    }
-
-    .input-group-modern {
-        border-radius: 8px;
-    }
-
-    .input-group-modern .form-control-modern {
-        border-right: none;
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-
-    .input-group-modern .input-group-text {
-        background: var(--primary-lighter);
-        border: 2px solid var(--border-color);
-        border-left: none;
-        border-top-right-radius: 8px;
-        border-bottom-right-radius: 8px;
-        color: var(--text-primary);
         font-weight: 600;
+        color: var(--text-gray);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 12px;
     }
 
-    .btn-modern {
-        background: var(--primary-color);
+    .tactical-input {
+        width: 100%;
+        height: 55px;
+        background: var(--metal-dark);
+        border: 2px solid var(--border-dark);
+        border-radius: 10px;
+        padding: 0 20px;
+        font-size: 16px;
+        color: var(--text-light);
+        font-family: 'Rajdhani', sans-serif;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+        .tactical-input:focus {
+            border-color: var(--accent-orange);
+            box-shadow: var(--glow-orange);
+            outline: none;
+            transform: translateY(-2px);
+        }
+
+    .tactical-select {
+        width: 100%;
+        height: 55px;
+        background: var(--metal-dark);
+        border: 2px solid var(--border-dark);
+        border-radius: 10px;
+        padding: 0 20px;
+        font-size: 16px;
+        color: var(--text-light);
+        font-family: 'Rajdhani', sans-serif;
+        font-weight: 600;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23ed8936' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 20px center;
+        transition: all 0.3s ease;
+    }
+
+        .tactical-select:focus {
+            border-color: var(--accent-orange);
+            box-shadow: var(--glow-orange);
+            outline: none;
+            transform: translateY(-2px);
+        }
+
+    /* Price Input */
+    .price-squad {
+        position: relative;
+    }
+
+    .price-input {
+        padding-right: 60px !important;
+    }
+
+    .currency-tag {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--accent-orange);
         color: white;
+        padding: 5px 12px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* Action Panel */
+    .action-panel {
+        display: flex;
+        justify-content: flex-end;
+        gap: 20px;
+        padding-top: 30px;
+        border-top: 2px solid var(--border-dark);
+    }
+
+    .action-btn {
+        height: 55px;
+        padding: 0 35px;
         border: none;
-        border-radius: 8px;
-        padding: 12px 24px;
-        font-size: 14px;
-        font-weight: 600;
-        transition: all 0.2s ease;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: 'Rajdhani', sans-serif;
     }
 
-    .btn-modern:hover {
-        background: #2A4A9C;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(53, 92, 189, 0.2);
+    .btn-abort {
+        background: var(--metal-light);
+        color: var(--text-gray);
+        border: 2px solid var(--border-dark);
     }
 
-    .btn-secondary-modern {
-        background: #6c757d;
+        .btn-abort:hover {
+            background: var(--accent-red);
+            color: white;
+            border-color: var(--accent-red);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(245, 101, 101, 0.4);
+        }
+
+    .btn-confirm {
+        background: linear-gradient(135deg, var(--accent-orange), #c05621);
         color: white;
-        border: none;
-        border-radius: 8px;
-        padding: 12px 24px;
-        font-size: 14px;
-        font-weight: 600;
-        transition: all 0.2s ease;
+        border: 2px solid var(--accent-orange);
     }
 
-    .btn-secondary-modern:hover {
-        background: #5a6268;
-        transform: translateY(-1px);
-        color: white;
-    }
+        .btn-confirm:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-orange);
+        }
 
-    .alert-modern {
-        background: var(--primary-lighter);
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        color: var(--text-primary);
-        padding: 15px 20px;
-        margin-bottom: 20px;
+    /* Alert Systems */
+    .alert-system {
+        background: rgba(237, 137, 54, 0.1);
+        border: 2px solid var(--accent-orange);
+        border-radius: 12px;
+        padding: 25px 30px;
+        margin-bottom: 30px;
+        box-shadow: var(--glow-orange);
     }
 
     .alert-success {
-        background: #d4edda;
-        border-color: #c3e6cb;
-        color: #155724;
+        background: rgba(72, 187, 120, 0.1);
+        border-color: var(--accent-green);
+        box-shadow: var(--glow-green);
     }
 
     .alert-danger {
-        background: #f8d7da;
-        border-color: #f5c6cb;
-        color: #721c24;
+        background: rgba(245, 101, 101, 0.1);
+        border-color: var(--accent-red);
+        box-shadow: 0 0 20px rgba(245, 101, 101, 0.4);
     }
 
-    .text-danger {
-        color: #dc3545 !important;
+    .alert-icon {
+        font-size: 24px;
+        margin-right: 15px;
+    }
+
+    .alert-content {
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* Validation Styles */
+    .validation-error {
+        color: var(--accent-red);
         font-size: 12px;
-        font-weight: 500;
-        margin-top: 5px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: 8px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    /* Mobile Responsive */
+    @@media (max-width: 768px) {
+        .command-center {
+            padding: 15px;
+        }
+
+        .mission-header {
+            padding: 20px;
+        }
+
+        .mission-title {
+            font-size: 28px;
+        }
+
+        .terminal-body {
+            padding: 25px;
+        }
+
+        .action-panel {
+            flex-direction: column;
+        }
+
+        .action-btn {
+            width: 100%;
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .command-center {
+            padding: 10px;
+        }
+
+        .mission-header {
+            padding: 15px;
+        }
+
+        .mission-title {
+            font-size: 24px;
+        }
+
+        .terminal-header {
+            padding: 20px;
+        }
+
+        .terminal-title {
+            font-size: 18px;
+        }
     }
 </style>
 
-<div class="container-fluid">
-    <!-- Page Header -->
-    <div class="page-header">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb breadcrumb-modern">
-                <li class="breadcrumb-item"><a asp-page="/Products" style="color: var(--text-secondary); text-decoration: none; font-weight: 500;">📦 Продукция</a></li>
-                <li class="breadcrumb-item active" style="color: var(--text-primary); font-weight: 600;">✏️ Редактирование</li>
-            </ol>
-        </nav>
-        <div class="d-flex align-items-center">
-            <div class="me-3" style="font-size: 28px;">✏️</div>
-            <div>
-                <h1 class="page-title">Редактирование продукта</h1>
-                <p class="page-subtitle" style="color: var(--text-secondary); font-size: 14px; margin-bottom: 0;">Изменение параметров продукта производства</p>
-            </div>
+<div class="command-center">
+    <!-- Mission Header -->
+    <div class="mission-header">
+        <div class="mission-path">
+            <a href="/Products" class="path-item">🎯 ПРОДУКЦИЯ</a>
+            <span class="path-separator">▶</span>
+            <span class="path-current">⚡ РЕДАКТИРОВАНИЕ</span>
         </div>
+        <h1 class="mission-title">КОРРЕКТИРОВКА ПРОДУКЦИИ</h1>
+        <div class="mission-tagline">ОБНОВЛЕНИЕ ТАКТИЧЕСКИХ ПАРАМЕТРОВ ИЗДЕЛИЯ</div>
     </div>
 
-    <!-- Messages -->
+    <!-- Alert Systems -->
     @if (!string.IsNullOrEmpty(Model.Message))
     {
-            <div class="alert-modern @(Model.MessageType == "success" ? "alert-success" : Model.MessageType == "warning" ? "alert-warning" : "alert-danger")">
-                <div class="d-flex justify-content-between align-items-center">
-                    <span>@Model.Message</span>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            </div>
-    }
-
-    <!-- Edit Form -->
-    <div class="modern-card">
-        <div class="card-header-modern">
-            <div class="d-flex align-items-center">
-                <div class="me-2">📝</div>
-                <h5 class="mb-0">Редактировать продукт</h5>
+        <div class="alert-system @(Model.MessageType == "success" ? "alert-success" : Model.MessageType == "warning" ? "alert-system" : "alert-danger")">
+            <div class="alert-content">
+                <span class="alert-icon">@(Model.MessageType == "success" ? "✅" : Model.MessageType == "warning" ? "⚠️" : "🚫")</span>
+                <span>@Model.Message</span>
             </div>
         </div>
-        <div class="card-body-modern">
+    }
+
+    <!-- Edit Terminal -->
+    <div class="edit-terminal">
+        <div class="terminal-header">
+            <div class="terminal-title">
+                <span class="terminal-icon">🔧</span>
+                КОРРЕКТИРОВКА ПАРАМЕТРОВ
+            </div>
+        </div>
+        <div class="terminal-body">
             <form method="post">
-                <div class="row">
+                <div class="input-grid">
                     <!-- Left Column -->
-                    <div class="col-md-6">
-                        <div class="mb-4">
-                            <label asp-for="Product.ArticleNumber" class="form-label-modern">Артикул *</label>
-                            <input asp-for="Product.ArticleNumber" class="form-control-modern" required maxlength="20" />
-                            <span asp-validation-for="Product.ArticleNumber" class="text-danger"></span>
+                    <div>
+                        <!-- Article Number -->
+                        <div class="input-unit">
+                            <label class="input-label">ИДЕНТИФИКАТОР АРТИКУЛА</label>
+                            <input asp-for="Product.ArticleNumber" class="tactical-input" required maxlength="20" placeholder="ВВЕДИТЕ АРТИКУЛ" />
+                            <span asp-validation-for="Product.ArticleNumber" class="validation-error">
+                                🚫 @Html.ValidationMessageFor(m => m.Product.ArticleNumber)
+                            </span>
                         </div>
 
-                        <div class="mb-4">
-                            <label asp-for="Product.ProductName" class="form-label-modern">Наименование *</label>
-                            <input asp-for="Product.ProductName" class="form-control-modern" required maxlength="200" />
-                            <span asp-validation-for="Product.ProductName" class="text-danger"></span>
+                        <!-- Product Name -->
+                        <div class="input-unit">
+                            <label class="input-label">НАИМЕНОВАНИЕ ПРОДУКЦИИ</label>
+                            <input asp-for="Product.ProductName" class="tactical-input" required maxlength="200" placeholder="ВВЕДИТЕ НАИМЕНОВАНИЕ" />
+                            <span asp-validation-for="Product.ProductName" class="validation-error">
+                                🚫 @Html.ValidationMessageFor(m => m.Product.ProductName)
+                            </span>
                         </div>
                     </div>
 
                     <!-- Right Column -->
-                    <div class="col-md-6">
-                        <div class="mb-4">
-                            <label asp-for="Product.ProductTypeID" class="form-label-modern">Тип продукции *</label>
-                            <select asp-for="Product.ProductTypeID" asp-items="Model.ProductTypes" class="form-select-modern" required>
-                                <option value="">-- Выберите тип --</option>
+                    <div>
+                        <!-- Product Type -->
+                        <div class="input-unit">
+                            <label class="input-label">КЛАССИФИКАЦИЯ ПРОДУКЦИИ</label>
+                            <select asp-for="Product.ProductTypeID" asp-items="Model.ProductTypes" class="tactical-select" required>
+                                <option value="">-- ВЫБЕРИТЕ КАТЕГОРИЮ --</option>
                             </select>
-                            <span asp-validation-for="Product.ProductTypeID" class="text-danger"></span>
+                            <span asp-validation-for="Product.ProductTypeID" class="validation-error">
+                                🚫 @Html.ValidationMessageFor(m => m.Product.ProductTypeID)
+                            </span>
                         </div>
 
-                        <div class="mb-4">
-                            <label asp-for="Product.MaterialTypeID" class="form-label-modern">Основной материал *</label>
-                            <select asp-for="Product.MaterialTypeID" asp-items="Model.MaterialTypes" class="form-select-modern" required>
-                                <option value="">-- Выберите материал --</option>
+                        <!-- Material Type -->
+                        <div class="input-unit">
+                            <label class="input-label">ОСНОВНОЙ МАТЕРИАЛ</label>
+                            <select asp-for="Product.MaterialTypeID" asp-items="Model.MaterialTypes" class="tactical-select" required>
+                                <option value="">-- ВЫБЕРИТЕ МАТЕРИАЛ --</option>
                             </select>
-                            <span asp-validation-for="Product.MaterialTypeID" class="text-danger"></span>
+                            <span asp-validation-for="Product.MaterialTypeID" class="validation-error">
+                                🚫 @Html.ValidationMessageFor(m => m.Product.MaterialTypeID)
+                            </span>
                         </div>
 
-                        <div class="mb-4">
-                            <label asp-for="Product.MinPartnerPrice" class="form-label-modern">Минимальная стоимость для партнера *</label>
-                            <div class="input-group input-group-modern">
-                                <input asp-for="Product.MinPartnerPrice" class="form-control-modern" type="number" step="0.01" min="0" required />
-                                <span class="input-group-text">₽</span>
+                        <!-- Partner Price -->
+                        <div class="input-unit">
+                            <label class="input-label">СТРАТЕГИЧЕСКАЯ СТОИМОСТЬ</label>
+                            <div class="price-squad">
+                                <input asp-for="Product.MinPartnerPrice" class="tactical-input price-input" type="number" step="0.01" min="0" required placeholder="0.00" />
+                                <div class="currency-tag">RUB</div>
                             </div>
-                            <span asp-validation-for="Product.MinPartnerPrice" class="text-danger"></span>
+                            <span asp-validation-for="Product.MinPartnerPrice" class="validation-error">
+                                🚫 @Html.ValidationMessageFor(m => m.Product.MinPartnerPrice)
+                            </span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Action Buttons -->
-                <div class="text-end pt-3" style="border-top: 1px solid var(--border-color);">
-                    <a asp-page="/Products" class="btn btn-secondary-modern me-2">
-                        <i class="fas fa-times me-2"></i>Отмена
+                <!-- Action Panel -->
+                <div class="action-panel">
+                    <a asp-page="/Products" class="action-btn btn-abort">
+                        🚫 ОТМЕНА
                     </a>
-                    <button type="submit" class="btn btn-modern">
-                        <i class="fas fa-save me-2"></i>Сохранить изменения
+                    <button type="submit" class="action-btn btn-confirm">
+                        💾 ПОДТВЕРДИТЬ КОРРЕКТИРОВКУ
                     </button>
                 </div>
             </form>
@@ -296,32 +508,105 @@
 </div>
 
 @section Scripts {
-        <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // Add interactive effects to form controls
-                const formControls = document.querySelectorAll('.form-control-modern, .form-select-modern');
-                formControls.forEach(control => {
-                    control.addEventListener('focus', function() {
-                        this.style.borderColor = 'var(--primary-color)';
-                    });
-
-                    control.addEventListener('blur', function() {
-                        this.style.borderColor = 'var(--border-color)';
-                    });
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tactical input validation effects
+            const inputs = document.querySelectorAll('.tactical-input, .tactical-select');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    const isValid = this.checkValidity();
+                    if (this.value) {
+                        if (isValid) {
+                            this.style.borderColor = '#48bb78';
+                            this.style.boxShadow = '0 0 15px rgba(72, 187, 120, 0.3)';
+                        } else {
+                            this.style.borderColor = '#f56565';
+                            this.style.boxShadow = '0 0 15px rgba(245, 101, 101, 0.3)';
+                        }
+                    } else {
+                        this.style.borderColor = '#2d3748';
+                        this.style.boxShadow = 'none';
+                    }
                 });
 
-                // Add currency formatting
-                const priceInput = document.querySelector('input[asp-for="Product.MinPartnerPrice"]');
-                if (priceInput) {
-                    priceInput.addEventListener('blur', function() {
-                        const value = parseFloat(this.value);
-                        if (!isNaN(value)) {
-                            this.value = value.toFixed(2);
-                        }
-                    });
+                input.addEventListener('blur', function() {
+                    this.style.borderColor = '#2d3748';
+                    this.style.boxShadow = 'none';
+                });
+            });
+
+            // Price formatting
+            const priceInput = document.querySelector('.price-input');
+            if (priceInput) {
+                priceInput.addEventListener('blur', function() {
+                    const value = parseFloat(this.value);
+                    if (!isNaN(value)) {
+                        this.value = value.toFixed(2);
+                    }
+                });
+
+                priceInput.addEventListener('focus', function() {
+                    this.style.borderColor = '#ed8936';
+                    this.style.boxShadow = '0 0 15px rgba(237, 137, 54, 0.3)';
+                });
+            }
+
+            // Mission-critical form validation
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function(e) {
+                const requiredFields = this.querySelectorAll('[required]');
+                let missionReady = true;
+
+                requiredFields.forEach(field => {
+                    if (!field.value) {
+                        field.style.borderColor = '#f56565';
+                        field.style.boxShadow = '0 0 15px rgba(245, 101, 101, 0.3)';
+                        missionReady = false;
+
+                        // Create field alert
+                        const alert = document.createElement('div');
+                        alert.style.cssText = `
+                            position: fixed;
+                            top: 20px;
+                            right: 20px;
+                            background: #f56565;
+                            color: white;
+                            padding: 15px 25px;
+                            border-radius: 8px;
+                            font-weight: bold;
+                            z-index: 10000;
+                            animation: slideIn 0.3s ease;
+                        `;
+                        alert.textContent = '🚨 ЗАПОЛНИТЕ ВСЕ КРИТИЧЕСКИЕ ПОЛЯ!';
+                        document.body.appendChild(alert);
+
+                        setTimeout(() => {
+                            alert.remove();
+                        }, 3000);
+                    }
+                });
+
+                if (!missionReady) {
+                    e.preventDefault();
                 }
             });
-        </script>
+
+            // Add tactical animation to form
+            const formElements = document.querySelectorAll('.input-unit');
+            formElements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateX(-20px)';
+
+                setTimeout(() => {
+                    element.style.transition = 'all 0.5s ease';
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateX(0)';
+                }, index * 100);
+            });
+        });
+
+        
+    </script>
 }
