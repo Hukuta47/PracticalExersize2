@@ -1,0 +1,370 @@
+﻿@page
+@model ManufacturingModel
+@{
+    ViewData["Title"] = "Производство";
+}
+
+<style>
+    :root {
+        --primary-color: #355CBD;
+        --primary-light: #D2DFFF;
+        --primary-lighter: #F0F5FF;
+        --accent-color: #6B8CE8;
+        --text-primary: #355CBD;
+        --text-secondary: #6B8CE8;
+        --text-light: #8FA6E8;
+        --bg-main: #F5F7FF;
+        --bg-card: #FFFFFF;
+        --border-color: #E1E8FF;
+        --shadow: 0 2px 12px rgba(53, 92, 189, 0.08);
+    }
+
+    body {
+        background-color: var(--bg-main);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .modern-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        margin-bottom: 25px;
+        overflow: hidden;
+    }
+
+    .card-header-modern {
+        background: var(--primary-color) !important;
+        color: white;
+        padding: 20px 25px;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .card-body-modern {
+        padding: 25px;
+    }
+
+    .page-header {
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 25px;
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow);
+    }
+
+    .page-title {
+        color: var(--text-primary);
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .page-subtitle {
+        color: var(--text-secondary);
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .table-modern {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+    }
+
+    .table-modern thead th {
+        background: var(--primary-color);
+        color: white;
+        font-weight: 600;
+        padding: 12px 15px;
+        border: none;
+        font-size: 14px;
+    }
+
+    .table-modern tbody tr {
+        transition: background-color 0.2s ease;
+    }
+
+    .table-modern tbody tr:nth-child(even) {
+        background-color: var(--primary-lighter);
+    }
+
+    .table-modern tbody tr:hover {
+        background-color: var(--primary-light);
+    }
+
+    .table-modern tbody td {
+        padding: 12px 15px;
+        border-color: var(--border-color);
+        color: var(--text-primary);
+        font-size: 14px;
+    }
+
+    .alert-modern {
+        background: var(--primary-lighter);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        color: var(--text-primary);
+        padding: 15px 20px;
+        margin-bottom: 20px;
+    }
+
+    .kpi-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .kpi-card {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: var(--shadow);
+    }
+
+    .kpi-icon {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .kpi-value {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 5px;
+    }
+
+    .kpi-label {
+        font-size: 12px;
+        color: var(--text-secondary);
+        font-weight: 500;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .stat-item {
+        background: var(--primary-lighter);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .stat-value {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 5px;
+    }
+
+    .stat-label {
+        font-size: 12px;
+        color: var(--text-secondary);
+    }
+</style>
+
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="d-flex align-items-center">
+            <div class="me-3" style="font-size: 28px;">🏭</div>
+            <div>
+                <h1 class="page-title">Производство</h1>
+                <p class="page-subtitle">Данные о производственном процессе</p>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.ManufacturingData.Any())
+    {
+            <!-- KPI Cards -->
+            <div class="kpi-cards">
+                <div class="kpi-card">
+                    <div class="kpi-icon">📊</div>
+                    <div class="kpi-value">@Model.ManufacturingData.Count</div>
+                    <div class="kpi-label">Всего записей</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">🏗️</div>
+                    <div class="kpi-value">@Model.ManufacturingData.Select(x => x.WorkshopName).Distinct().Count()</div>
+                    <div class="kpi-label">Уникальных цехов</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">⏱️</div>
+                    <div class="kpi-value">@Model.ManufacturingData.Sum(x => x.ManufacturingTimeHours).ToString("F1")</div>
+                    <div class="kpi-label">Общее время (ч)</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">👥</div>
+                    <div class="kpi-value">@Model.ManufacturingData.Sum(x => x.WorkersCount)</div>
+                    <div class="kpi-label">Всего рабочих</div>
+                </div>
+            </div>
+
+            <!-- Statistics -->
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">@Model.ManufacturingData.Select(x => x.ProductName).Distinct().Count()</div>
+                    <div class="stat-label">Уникальных продуктов</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">@(Model.ManufacturingData.Any() ? Model.ManufacturingData.Average(x => x.ManufacturingTimeHours).ToString("F1") : "0.0")</div>
+                    <div class="stat-label">Среднее время (ч)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">@(Model.ManufacturingData.Any() ? Model.ManufacturingData.Average(x => x.WorkersCount).ToString("F1") : "0.0")</div>
+                    <div class="stat-label">Среднее рабочих</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">@(Model.ManufacturingData.Any() ? Model.ManufacturingData.Average(x => x.MinPartnerPrice).ToString("C0") : "₽0")</div>
+                    <div class="stat-label">Средняя цена</div>
+                </div>
+            </div>
+    }
+
+    <!-- Manufacturing Data Table -->
+    <div class="modern-card">
+        <div class="card-header-modern">
+            <div class="d-flex align-items-center">
+                <div class="me-2">📋</div>
+                <h5 class="mb-0">Производственные данные</h5>
+            </div>
+        </div>
+        <div class="card-body-modern">
+            @if (Model.ManufacturingData.Any())
+            {
+                    <div class="table-responsive">
+                        <table class="table table-modern">
+                            <thead>
+                                <tr>
+                                    <th>Продукт</th>
+                                    <th>Цех</th>
+                                    <th>Тип цеха</th>
+                                    <th>Время (ч)</th>
+                                    <th>Рабочих</th>
+                                    <th>Тип продукции</th>
+                                    <th>Материал</th>
+                                    <th>Цена</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var data in Model.ManufacturingData)
+                            {
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div style="font-size: 16px; margin-right: 8px;">📦</div>
+                                                    <span>@data.ProductName</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div style="font-size: 16px; margin-right: 8px;">🏭</div>
+                                                    <span>@data.WorkshopName</span>
+                                                </div>
+                                            </td>
+                                            <td>@data.WorkshopType</td>
+                                            <td>
+                                                <span class="badge" style="background: var(--primary-light); color: var(--text-primary); padding: 4px 8px; border-radius: 6px;">
+                                            @data.ManufacturingTimeHours ч
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="badge" style="background: var(--primary-lighter); color: var(--text-primary); padding: 4px 8px; border-radius: 6px;">
+                                                    👥 @data.WorkersCount
+                                                </span>
+                                            </td>
+                                            <td>@data.ProductType</td>
+                                            <td>@data.MaterialType</td>
+                                            <td>
+                                                <span style="font-weight: 600; color: var(--text-primary);">
+                                            @data.MinPartnerPrice.ToString("C2")
+                                                </span>
+                                            </td>
+                                        </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Summary -->
+                    <div class="mt-4 p-3" style="background: var(--primary-lighter); border-radius: 8px; border: 1px solid var(--border-color);">
+                        <div class="row text-center">
+                            <div class="col-md-3">
+                                <div style="font-size: 12px; color: var(--text-secondary);">Общее время</div>
+                                <div style="font-size: 16px; font-weight: 600; color: var(--text-primary);">
+                                @Model.ManufacturingData.Sum(x => x.ManufacturingTimeHours).ToString("F1") ч
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div style="font-size: 12px; color: var(--text-secondary);">Всего рабочих</div>
+                                <div style="font-size: 16px; font-weight: 600; color: var(--text-primary);">
+                                @Model.ManufacturingData.Sum(x => x.WorkersCount)
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div style="font-size: 12px; color: var(--text-secondary);">Среднее время</div>
+                                <div style="font-size: 16px; font-weight: 600; color: var(--text-primary);">
+                                @(Model.ManufacturingData.Any() ? Model.ManufacturingData.Average(x => x.ManufacturingTimeHours).ToString("F1") : "0.0") ч
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div style="font-size: 12px; color: var(--text-secondary);">Записей</div>
+                                <div style="font-size: 16px; font-weight: 600; color: var(--text-primary);">
+                                @Model.ManufacturingData.Count
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            }
+            else
+            {
+                    <div class="alert-modern text-center">
+                        <div style="font-size: 48px; margin-bottom: 15px;">🏭</div>
+                        <h5 style="color: var(--text-primary);">Нет данных о производстве</h5>
+                        <p style="color: var(--text-light);">Данные о производственных процессах пока не добавлены в систему.</p>
+                    </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add animation to table rows
+        const tableRows = document.querySelectorAll('.table-modern tbody tr');
+        tableRows.forEach((row, index) => {
+            row.style.opacity = '0';
+            row.style.transform = 'translateX(-20px)';
+
+            setTimeout(() => {
+                row.style.transition = 'all 0.3s ease';
+                row.style.opacity = '1';
+                row.style.transform = 'translateX(0)';
+            }, index * 50);
+        });
+
+        // Add hover effects to KPI cards
+        const kpiCards = document.querySelectorAll('.kpi-card');
+        kpiCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+                this.style.boxShadow = '0 4px 20px rgba(53, 92, 189, 0.12)';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = 'var(--shadow)';
+            });
+        });
+    });
+</script>

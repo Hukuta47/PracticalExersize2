@@ -1,0 +1,407 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Производственная компания Комфорт";
+}
+
+<style>
+    :root {
+        --primary-color: #355CBD;
+        --primary-light: #D2DFFF;
+        --primary-lighter: #F0F5FF;
+        --accent-color: #6B8CE8;
+        --text-primary: #355CBD;
+        --text-secondary: #6B8CE8;
+        --text-light: #8FA6E8;
+        --bg-main: #F5F7FF;
+        --bg-card: #FFFFFF;
+        --border-color: #E1E8FF;
+        --shadow: 0 2px 12px rgba(53, 92, 189, 0.08);
+    }
+
+    body {
+        background-color: var(--bg-main);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .modern-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        margin-bottom: 25px;
+        overflow: hidden;
+    }
+
+    .card-header-modern {
+        background: var(--primary-color) !important;
+        color: white;
+        padding: 20px 25px;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .card-body-modern {
+        padding: 25px;
+    }
+
+    .page-header {
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 25px;
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow);
+        text-align: center;
+    }
+
+    .page-title {
+        color: var(--text-primary);
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .page-subtitle {
+        color: var(--text-secondary);
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .kpi-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .kpi-card {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 25px;
+        text-align: center;
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+    }
+
+    .kpi-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 20px rgba(53, 92, 189, 0.12);
+    }
+
+    .kpi-icon {
+        font-size: 32px;
+        margin-bottom: 15px;
+    }
+
+    .kpi-value {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 5px;
+    }
+
+    .kpi-label {
+        font-size: 14px;
+        color: var(--text-secondary);
+        font-weight: 500;
+    }
+
+    .table-modern {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+    }
+
+    .table-modern thead th {
+        background: var(--primary-color);
+        color: white;
+        font-weight: 600;
+        padding: 12px 15px;
+        border: none;
+        font-size: 14px;
+    }
+
+    .table-modern tbody tr {
+        transition: background-color 0.2s ease;
+    }
+
+    .table-modern tbody tr:nth-child(even) {
+        background-color: var(--primary-lighter);
+    }
+
+    .table-modern tbody tr:hover {
+        background-color: var(--primary-light);
+    }
+
+    .table-modern tbody td {
+        padding: 12px 15px;
+        border-color: var(--border-color);
+        color: var(--text-primary);
+        font-size: 14px;
+    }
+
+    .alert-modern {
+        background: var(--primary-lighter);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        color: var(--text-primary);
+        padding: 15px 20px;
+        margin-bottom: 20px;
+    }
+
+    .alert-warning {
+        background: #fff3cd;
+        border-color: #ffeaa7;
+        color: #856404;
+    }
+
+    .alert-success {
+        background: #d4edda;
+        border-color: #c3e6cb;
+        color: #155724;
+    }
+
+    .btn-modern {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-modern:hover {
+        background: #2A4A9C;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(53, 92, 189, 0.2);
+        color: white;
+        text-decoration: none;
+    }
+
+    .content-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 25px;
+        margin-top: 20px;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 40px 20px;
+        color: var(--text-light);
+    }
+
+    .empty-state i {
+        font-size: 48px;
+        margin-bottom: 15px;
+        opacity: 0.5;
+    }
+</style>
+
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+        <div style="font-size: 48px; margin-bottom: 15px;"></div>
+        <h1 class="page-title">Производственная компания "Комфорт"</h1>
+        <p class="page-subtitle">Система управления производством мебели</p>
+
+        @if (!Model.HasData)
+        {
+                <div class="alert-modern alert-warning" style="max-width: 600px; margin: 20px auto;">
+                    <div class="d-flex align-items-center">
+                        <div style="font-size: 20px; margin-right: 10px;">⚠️</div>
+                        <div>
+                            <strong>Внимание:</strong> Не удалось подключиться к API. Отображаются тестовые данные.
+                            <br><small>Проверьте, запущен ли API на https://localhost:44366/</small>
+                        </div>
+                    </div>
+                </div>
+        }
+        else
+        {
+                <div class="alert-modern alert-success" style="max-width: 600px; margin: 20px auto;">
+                    <div class="d-flex align-items-center">
+                        <div style="font-size: 20px; margin-right: 10px;">✅</div>
+                        <div>
+                            Подключено к API. Загружено @Model.Products.Count продуктов и @Model.ManufacturingData.Count производственных записей.
+                        </div>
+                    </div>
+                </div>
+        }
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="kpi-cards">
+        <div class="kpi-card">
+            <div class="kpi-icon">📦</div>
+            <div class="kpi-value">@Model.TotalProducts</div>
+            <div class="kpi-label">Всего продуктов</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-icon">🏗️</div>
+            <div class="kpi-value">@Model.TotalWorkshops</div>
+            <div class="kpi-label">Цехов</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-icon">⏱️</div>
+            <div class="kpi-value">@Model.TotalManufacturingTime.ToString("F1")</div>
+            <div class="kpi-label">Общее время производства (ч)</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-icon">👥</div>
+            <div class="kpi-value">@Model.ManufacturingData.Sum(x => x.WorkersCount)</div>
+            <div class="kpi-label">Всего рабочих</div>
+        </div>
+    </div>
+
+    <!-- Content Grid -->
+    <div class="content-grid">
+        <!-- Products Card -->
+        <div class="modern-card">
+            <div class="card-header-modern">
+                <div class="d-flex align-items-center">
+                    <div class="me-2">📦</div>
+                    <h5 class="mb-0">Продукция</h5>
+                </div>
+            </div>
+            <div class="card-body-modern">
+                @if (Model.Products.Any())
+                {
+                        <div class="table-responsive">
+                            <table class="table table-modern">
+                                <thead>
+                                    <tr>
+                                        <th>Артикул</th>
+                                        <th>Наименование</th>
+                                        <th>Тип</th>
+                                        <th>Цена</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach (var product in Model.Products.Take(5))
+                                {
+                                            <tr>
+                                                <td>@product.ArticleNumber</td>
+                                                <td>@product.ProductName</td>
+                                                <td>@product.ProductType</td>
+                                                <td>@product.MinPartnerPrice.ToString("C2")</td>
+                                            </tr>
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    @if (Model.Products.Count > 5)
+                    {
+                                <div class="text-center mt-3">
+                                    <a asp-page="/Products" class="btn-modern">📋 Показать все</a>
+                                </div>
+                    }
+                }
+                else
+                {
+                        <div class="empty-state">
+                            <div>📦</div>
+                            <p class="text-muted">Нет данных о продукции</p>
+                        </div>
+                }
+            </div>
+        </div>
+
+        <!-- Manufacturing Card -->
+        <div class="modern-card">
+            <div class="card-header-modern">
+                <div class="d-flex align-items-center">
+                    <div class="me-2">🏭</div>
+                    <h5 class="mb-0">Производство</h5>
+                </div>
+            </div>
+            <div class="card-body-modern">
+                @if (Model.ManufacturingData.Any())
+                {
+                        <div class="table-responsive">
+                            <table class="table table-modern">
+                                <thead>
+                                    <tr>
+                                        <th>Продукт</th>
+                                        <th>Цех</th>
+                                        <th>Время (ч)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach (var data in Model.ManufacturingData.Take(5))
+                                {
+                                            <tr>
+                                                <td>@data.ProductName</td>
+                                                <td>@data.WorkshopName</td>
+                                                <td>@data.ManufacturingTimeHours</td>
+                                            </tr>
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    @if (Model.ManufacturingData.Count > 5)
+                    {
+                                <div class="text-center mt-3">
+                                    <a asp-page="/Manufacturing" class="btn-modern">📋 Показать все</a>
+                                </div>
+                    }
+                }
+                else
+                {
+                        <div class="empty-state">
+                            <div>🏭</div>
+                            <p class="text-muted">Нет данных о производстве</p>
+                        </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="modern-card">
+        <div class="card-body-modern text-center">
+            <h5 style="color: var(--text-primary); margin-bottom: 20px;">🚀 Быстрые действия</h5>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a asp-page="/Products" class="btn-modern">📦 Управление продукцией</a>
+                <a asp-page="/Manufacturing" class="btn-modern">🏭 Производственные данные</a>
+                <a asp-page="/Analysis" class="btn-modern">📊 Аналитика</a>
+                <a asp-page="/CalculateRawMaterial" class="btn-modern">🧮 Расчет сырья</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add animation to KPI cards
+        const kpiCards = document.querySelectorAll('.kpi-card');
+        kpiCards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+
+            setTimeout(() => {
+                card.style.transition = 'all 0.5s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+
+        // Add hover effects to table rows
+        const tableRows = document.querySelectorAll('.table-modern tbody tr');
+        tableRows.forEach(row => {
+            row.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(5px)';
+            });
+
+            row.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0)';
+            });
+        });
+    });
+</script>

@@ -1,0 +1,327 @@
+﻿@page "{id:int}"
+@model EditProductModel
+@{
+    ViewData["Title"] = "Редактирование продукта";
+}
+
+<style>
+    :root {
+        --primary-color: #355CBD;
+        --primary-light: #D2DFFF;
+        --primary-lighter: #F0F5FF;
+        --accent-color: #6B8CE8;
+        --text-primary: #355CBD;
+        --text-secondary: #6B8CE8;
+        --text-light: #8FA6E8;
+        --bg-main: #F5F7FF;
+        --bg-card: #FFFFFF;
+        --border-color: #E1E8FF;
+        --shadow: 0 2px 12px rgba(53, 92, 189, 0.08);
+    }
+
+    body {
+        background-color: var(--bg-main);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .modern-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        margin-bottom: 25px;
+        overflow: hidden;
+    }
+
+    .card-header-modern {
+        background: var(--primary-color) !important;
+        color: white;
+        padding: 20px 25px;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .card-body-modern {
+        padding: 25px;
+    }
+
+    .page-header {
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 25px;
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow);
+    }
+
+    .page-title {
+        color: var(--text-primary);
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .breadcrumb-modern {
+        background: transparent;
+        padding: 0;
+        margin-bottom: 15px;
+    }
+
+    .breadcrumb-modern .breadcrumb-item a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .breadcrumb-modern .breadcrumb-item.active {
+        color: var(--text-primary);
+        font-weight: 600;
+    }
+
+    .form-label-modern {
+        color: var(--text-primary);
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .form-control-modern {
+        height: 42px;
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        padding: 10px 12px;
+        font-size: 14px;
+        color: var(--text-primary);
+        background: white;
+    }
+
+    .form-control-modern:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(53, 92, 189, 0.1);
+    }
+
+    .form-select-modern {
+        height: 42px;
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        padding: 10px 12px;
+        font-size: 14px;
+        color: var(--text-primary);
+        background: white;
+    }
+
+    .form-select-modern:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(53, 92, 189, 0.1);
+    }
+
+    .input-group-modern {
+        border-radius: 8px;
+    }
+
+    .input-group-modern .form-control-modern {
+        border-right: none;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .input-group-modern .input-group-text {
+        background: var(--primary-lighter);
+        border: 2px solid var(--border-color);
+        border-left: none;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        color: var(--text-primary);
+        font-weight: 600;
+    }
+
+    .btn-modern {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+    }
+
+    .btn-modern:hover {
+        background: #2A4A9C;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(53, 92, 189, 0.2);
+    }
+
+    .btn-secondary-modern {
+        background: #6c757d;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+    }
+
+    .btn-secondary-modern:hover {
+        background: #5a6268;
+        transform: translateY(-1px);
+        color: white;
+    }
+
+    .alert-modern {
+        background: var(--primary-lighter);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        color: var(--text-primary);
+        padding: 15px 20px;
+        margin-bottom: 20px;
+    }
+
+    .alert-success {
+        background: #d4edda;
+        border-color: #c3e6cb;
+        color: #155724;
+    }
+
+    .alert-danger {
+        background: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+    }
+
+    .text-danger {
+        color: #dc3545 !important;
+        font-size: 12px;
+        font-weight: 500;
+        margin-top: 5px;
+    }
+</style>
+
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-modern">
+                <li class="breadcrumb-item"><a asp-page="/Products" style="color: var(--text-secondary); text-decoration: none; font-weight: 500;">📦 Продукция</a></li>
+                <li class="breadcrumb-item active" style="color: var(--text-primary); font-weight: 600;">✏️ Редактирование</li>
+            </ol>
+        </nav>
+        <div class="d-flex align-items-center">
+            <div class="me-3" style="font-size: 28px;">✏️</div>
+            <div>
+                <h1 class="page-title">Редактирование продукта</h1>
+                <p class="page-subtitle" style="color: var(--text-secondary); font-size: 14px; margin-bottom: 0;">Изменение параметров продукта производства</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Messages -->
+    @if (!string.IsNullOrEmpty(Model.Message))
+    {
+            <div class="alert-modern @(Model.MessageType == "success" ? "alert-success" : Model.MessageType == "warning" ? "alert-warning" : "alert-danger")">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span>@Model.Message</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            </div>
+    }
+
+    <!-- Edit Form -->
+    <div class="modern-card">
+        <div class="card-header-modern">
+            <div class="d-flex align-items-center">
+                <div class="me-2">📝</div>
+                <h5 class="mb-0">Редактировать продукт</h5>
+            </div>
+        </div>
+        <div class="card-body-modern">
+            <form method="post">
+                <div class="row">
+                    <!-- Left Column -->
+                    <div class="col-md-6">
+                        <div class="mb-4">
+                            <label asp-for="Product.ArticleNumber" class="form-label-modern">Артикул *</label>
+                            <input asp-for="Product.ArticleNumber" class="form-control-modern" required maxlength="20" />
+                            <span asp-validation-for="Product.ArticleNumber" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Product.ProductName" class="form-label-modern">Наименование *</label>
+                            <input asp-for="Product.ProductName" class="form-control-modern" required maxlength="200" />
+                            <span asp-validation-for="Product.ProductName" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="col-md-6">
+                        <div class="mb-4">
+                            <label asp-for="Product.ProductTypeID" class="form-label-modern">Тип продукции *</label>
+                            <select asp-for="Product.ProductTypeID" asp-items="Model.ProductTypes" class="form-select-modern" required>
+                                <option value="">-- Выберите тип --</option>
+                            </select>
+                            <span asp-validation-for="Product.ProductTypeID" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Product.MaterialTypeID" class="form-label-modern">Основной материал *</label>
+                            <select asp-for="Product.MaterialTypeID" asp-items="Model.MaterialTypes" class="form-select-modern" required>
+                                <option value="">-- Выберите материал --</option>
+                            </select>
+                            <span asp-validation-for="Product.MaterialTypeID" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Product.MinPartnerPrice" class="form-label-modern">Минимальная стоимость для партнера *</label>
+                            <div class="input-group input-group-modern">
+                                <input asp-for="Product.MinPartnerPrice" class="form-control-modern" type="number" step="0.01" min="0" required />
+                                <span class="input-group-text">₽</span>
+                            </div>
+                            <span asp-validation-for="Product.MinPartnerPrice" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="text-end pt-3" style="border-top: 1px solid var(--border-color);">
+                    <a asp-page="/Products" class="btn btn-secondary-modern me-2">
+                        <i class="fas fa-times me-2"></i>Отмена
+                    </a>
+                    <button type="submit" class="btn btn-modern">
+                        <i class="fas fa-save me-2"></i>Сохранить изменения
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Add interactive effects to form controls
+                const formControls = document.querySelectorAll('.form-control-modern, .form-select-modern');
+                formControls.forEach(control => {
+                    control.addEventListener('focus', function() {
+                        this.style.borderColor = 'var(--primary-color)';
+                    });
+
+                    control.addEventListener('blur', function() {
+                        this.style.borderColor = 'var(--border-color)';
+                    });
+                });
+
+                // Add currency formatting
+                const priceInput = document.querySelector('input[asp-for="Product.MinPartnerPrice"]');
+                if (priceInput) {
+                    priceInput.addEventListener('blur', function() {
+                        const value = parseFloat(this.value);
+                        if (!isNaN(value)) {
+                            this.value = value.toFixed(2);
+                        }
+                    });
+                }
+            });
+        </script>
+}

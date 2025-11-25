@@ -1,0 +1,400 @@
+﻿@page
+@model CalculateRawMaterialModel
+@{
+    ViewData["Title"] = "Расчет сырья";
+}
+
+<style>
+    :root {
+        --primary-color: #355CBD;
+        --primary-light: #D2DFFF;
+        --primary-lighter: #F0F5FF;
+        --accent-color: #6B8CE8;
+        --text-primary: #355CBD;
+        --text-secondary: #6B8CE8;
+        --text-light: #8FA6E8;
+        --bg-main: #F5F7FF;
+        --bg-card: #FFFFFF;
+        --border-color: #E1E8FF;
+        --shadow: 0 2px 12px rgba(53, 92, 189, 0.08);
+        --success-color: #28a745;
+        --danger-color: #dc3545;
+    }
+
+    body {
+        background-color: var(--bg-main);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .modern-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        margin-bottom: 25px;
+        overflow: hidden;
+    }
+
+    .card-header-modern {
+        background: var(--primary-color) !important;
+        color: white;
+        padding: 20px 25px;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .card-body-modern {
+        padding: 25px;
+    }
+
+    .page-header {
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 25px;
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow);
+    }
+
+    .page-title {
+        color: var(--text-primary);
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .page-subtitle {
+        color: var(--text-secondary);
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .form-label-modern {
+        color: var(--text-primary);
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .form-control-modern {
+        height: 42px;
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        padding: 10px 12px;
+        font-size: 14px;
+        color: var(--text-primary);
+        background: white;
+    }
+
+    .form-control-modern:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(53, 92, 189, 0.1);
+    }
+
+    .form-select-modern {
+        height: 42px;
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        padding: 10px 12px;
+        font-size: 14px;
+        color: var(--text-primary);
+        background: white;
+    }
+
+    .form-select-modern:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(53, 92, 189, 0.1);
+    }
+
+    .btn-modern {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: 600;
+        height: 50px;
+        transition: all 0.2s ease;
+    }
+
+    .btn-modern:hover {
+        background: #2A4A9C;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(53, 92, 189, 0.2);
+    }
+
+    .result-card {
+        background: var(--primary-lighter);
+        border: 2px solid var(--border-color);
+        border-radius: 12px;
+        padding: 30px;
+        text-align: center;
+        height: 100%;
+    }
+
+    .result-value {
+        font-size: 42px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 8px;
+    }
+
+    .result-label {
+        font-size: 16px;
+        color: var(--text-secondary);
+        font-weight: 500;
+    }
+
+    .details-card {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    .details-title {
+        color: var(--text-primary);
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .details-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .details-list li {
+        padding: 8px 0;
+        border-bottom: 1px solid var(--border-color);
+        color: var(--text-primary);
+        font-size: 13px;
+    }
+
+    .details-list li:last-child {
+        border-bottom: none;
+    }
+
+    .formula-card {
+        background: var(--primary-lighter);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 15px;
+        margin-top: 20px;
+    }
+
+    .formula-text {
+        font-family: 'Consolas', 'Courier New', monospace;
+        font-size: 13px;
+        color: var(--text-primary);
+        line-height: 1.4;
+    }
+
+    .alert-modern {
+        background: var(--primary-lighter);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        color: var(--text-primary);
+        padding: 15px 20px;
+        margin-bottom: 20px;
+    }
+
+    .alert-success {
+        background: #d4edda;
+        border-color: #c3e6cb;
+        color: #155724;
+    }
+
+    .alert-danger {
+        background: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+    }
+</style>
+
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="d-flex align-items-center">
+            <div class="me-3" style="font-size: 28px;">🧮</div>
+            <div>
+                <h1 class="page-title">Расчет сырья</h1>
+                <p class="page-subtitle">Расчет необходимого количества сырья для производства продукции</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Messages -->
+    @if (!string.IsNullOrEmpty(Model.Message))
+    {
+            <div class="alert-modern @(Model.MessageType == "success" ? "alert-success" : Model.MessageType == "warning" ? "alert-warning" : "alert-danger")">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span>@Model.Message</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            </div>
+    }
+
+    <div class="row">
+        <!-- Input Parameters -->
+        <div class="col-md-6">
+            <div class="modern-card">
+                <div class="card-header-modern">
+                    <div class="d-flex align-items-center">
+                        <div class="me-2">📝</div>
+                        <h5 class="mb-0">Параметры расчета</h5>
+                    </div>
+                </div>
+                <div class="card-body-modern">
+                    <form method="post">
+                        <div class="mb-3">
+                            <label asp-for="ProductTypeID" class="form-label-modern">Тип продукции *</label>
+                            <select asp-for="ProductTypeID" asp-items="Model.ProductTypes" class="form-select-modern" required>
+                                <option value="">-- Выберите тип продукции --</option>
+                            </select>
+                            <span asp-validation-for="ProductTypeID" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="MaterialTypeID" class="form-label-modern">Тип материала *</label>
+                            <select asp-for="MaterialTypeID" asp-items="Model.MaterialTypes" class="form-select-modern" required>
+                                <option value="">-- Выберите материал --</option>
+                            </select>
+                            <span asp-validation-for="MaterialTypeID" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Quantity" class="form-label-modern">Количество продукции *</label>
+                            <input asp-for="Quantity" class="form-control-modern" type="number" min="1" required />
+                            <span asp-validation-for="Quantity" class="text-danger"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="Param1" class="form-label-modern">Длина/Размер 1 (м) *</label>
+                                    <input asp-for="Param1" class="form-control-modern" type="number" step="0.1" min="0.1" required />
+                                    <span asp-validation-for="Param1" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="Param2" class="form-label-modern">Ширина/Размер 2 (м) *</label>
+                                    <input asp-for="Param2" class="form-control-modern" type="number" step="0.1" min="0.1" required />
+                                    <span asp-validation-for="Param2" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-modern w-100">
+                            <i class="fas fa-calculator me-2"></i>Рассчитать
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div class="col-md-6">
+            @if (Model.Result.HasValue && Model.Result != -1)
+            {
+                    <div class="modern-card">
+                        <div class="card-header-modern">
+                            <div class="d-flex align-items-center">
+                                <div class="me-2">📊</div>
+                                <h5 class="mb-0">Результат расчета</h5>
+                            </div>
+                        </div>
+                        <div class="card-body-modern">
+                            <div class="result-card">
+                                <div class="result-value">@Model.Result.Value.ToString("F1")</div>
+                                <div class="result-label">единиц сырья</div>
+                            </div>
+
+                            <div class="details-card">
+                                <div class="details-title">🧪 Детали расчета</div>
+                                <ul class="details-list">
+                                    <li><strong>Тип продукции:</strong> @Model.ProductTypeName</li>
+                                    <li><strong>Материал:</strong> @Model.MaterialTypeName</li>
+                                    <li><strong>Количество продукции:</strong> @Model.Quantity шт.</li>
+                                    <li><strong>Параметры:</strong> @Model.Param1 м × @Model.Param2 м</li>
+                                    <li><strong>Площадь на единицу:</strong> @((Model.Param1 * Model.Param2).ToString("F2")) м²</li>
+                                </ul>
+                            </div>
+
+                            <div class="formula-card">
+                                <div class="details-title">🔍 Формула расчета</div>
+                                <div class="formula-text">
+                                    (Параметр1 × Параметр2) × Количество × Коэффициент_типа × (1 + Процент_потерь)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            }
+            else if (Model.Result == -1)
+            {
+                    <div class="modern-card">
+                        <div class="card-header-modern" style="background: var(--danger-color) !important;">
+                            <div class="d-flex align-items-center">
+                                <div class="me-2">⚠️</div>
+                                <h5 class="mb-0">Ошибка расчета</h5>
+                            </div>
+                        </div>
+                        <div class="card-body-modern text-center">
+                            <div style="font-size: 48px; margin-bottom: 15px;">❌</div>
+                            <p style="color: var(--danger-color); font-weight: 500;">
+                                Не удалось выполнить расчет. Проверьте правильность введенных данных.
+                            </p>
+                        </div>
+                    </div>
+            }
+            else
+            {
+                    <div class="modern-card">
+                        <div class="card-body-modern text-center">
+                            <div style="font-size: 64px; margin-bottom: 20px;">🧮</div>
+                            <h5 style="color: var(--text-secondary);">Введите параметры для расчета</h5>
+                            <p style="color: var(--text-light); font-size: 14px;">
+                                Заполните форму слева, чтобы увидеть результат расчета необходимого количества сырья.
+                            </p>
+                        </div>
+                    </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Add interactive effects to form controls
+                const formControls = document.querySelectorAll('.form-control-modern, .form-select-modern');
+                formControls.forEach(control => {
+                    control.addEventListener('focus', function() {
+                        this.parentElement.classList.add('focused');
+                    });
+
+                    control.addEventListener('blur', function() {
+                        this.parentElement.classList.remove('focused');
+                    });
+                });
+
+                // Add animation to result card
+                const resultCard = document.querySelector('.result-card');
+                if (resultCard) {
+                    resultCard.style.opacity = '0';
+                    resultCard.style.transform = 'translateY(20px)';
+
+                    setTimeout(() => {
+                        resultCard.style.transition = 'all 0.5s ease';
+                        resultCard.style.opacity = '1';
+                        resultCard.style.transform = 'translateY(0)';
+                    }, 100);
+                }
+            });
+        </script>
+}

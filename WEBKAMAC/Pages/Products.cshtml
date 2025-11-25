@@ -1,0 +1,509 @@
+﻿@page
+@model ProductsModel
+@{
+    ViewData["Title"] = "Управление продукцией";
+}
+
+<style>
+    :root {
+        --primary-color: #355CBD;
+        --primary-light: #D2DFFF;
+        --primary-lighter: #F0F5FF;
+        --accent-color: #6B8CE8;
+        --text-primary: #355CBD;
+        --text-secondary: #6B8CE8;
+        --text-light: #8FA6E8;
+        --bg-main: #F5F7FF;
+        --bg-card: #FFFFFF;
+        --border-color: #E1E8FF;
+        --shadow: 0 2px 12px rgba(53, 92, 189, 0.08);
+        --danger-color: #FF4757;
+    }
+
+    body {
+        background-color: var(--bg-main);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .modern-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        margin-bottom: 25px;
+        overflow: hidden;
+    }
+
+    .card-header-modern {
+        background: var(--primary-color) !important;
+        color: white;
+        padding: 20px 25px;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .card-body-modern {
+        padding: 25px;
+    }
+
+    .page-header {
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 25px;
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow);
+    }
+
+    .page-title {
+        color: var(--text-primary);
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .page-subtitle {
+        color: var(--text-secondary);
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .form-label-modern {
+        color: var(--text-primary);
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .form-control-modern {
+        height: 42px;
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        padding: 10px 12px;
+        font-size: 14px;
+        color: var(--text-primary);
+        background: white;
+    }
+
+    .form-control-modern:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(53, 92, 189, 0.1);
+    }
+
+    .form-select-modern {
+        height: 42px;
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        padding: 10px 12px;
+        font-size: 14px;
+        color: var(--text-primary);
+        background: white;
+    }
+
+    .form-select-modern:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(53, 92, 189, 0.1);
+    }
+
+    .input-group-modern {
+        border-radius: 8px;
+    }
+
+    .input-group-modern .form-control-modern {
+        border-right: none;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .input-group-modern .input-group-text {
+        background: var(--primary-lighter);
+        border: 2px solid var(--border-color);
+        border-left: none;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        color: var(--text-primary);
+        font-weight: 600;
+    }
+
+    .btn-modern {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+    }
+
+    .btn-modern:hover {
+        background: #2A4A9C;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(53, 92, 189, 0.2);
+    }
+
+    .btn-danger-modern {
+        background: var(--danger-color);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 6px 12px;
+        font-size: 12px;
+        transition: all 0.2s ease;
+    }
+
+    .btn-danger-modern:hover {
+        background: #E84151;
+        transform: translateY(-1px);
+    }
+
+    .btn-outline-modern {
+        background: transparent;
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+        border-radius: 6px;
+        padding: 6px 12px;
+        font-size: 12px;
+        transition: all 0.2s ease;
+    }
+
+    .btn-outline-modern:hover {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-1px);
+    }
+
+    .btn-info-modern {
+        background: transparent;
+        border: 2px solid var(--accent-color);
+        color: var(--accent-color);
+        border-radius: 6px;
+        padding: 6px 12px;
+        font-size: 12px;
+        transition: all 0.2s ease;
+    }
+
+    .btn-info-modern:hover {
+        background: var(--accent-color);
+        color: white;
+        transform: translateY(-1px);
+    }
+
+    .table-modern {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+    }
+
+    .table-modern thead th {
+        background: var(--primary-color);
+        color: white;
+        font-weight: 600;
+        padding: 12px 15px;
+        border: none;
+        font-size: 14px;
+    }
+
+    .table-modern tbody tr {
+        transition: background-color 0.2s ease;
+    }
+
+    .table-modern tbody tr:nth-child(even) {
+        background-color: var(--primary-lighter);
+    }
+
+    .table-modern tbody tr:hover {
+        background-color: var(--primary-light);
+    }
+
+    .table-modern tbody td {
+        padding: 12px 15px;
+        border-color: var(--border-color);
+        color: var(--text-primary);
+        font-size: 14px;
+        vertical-align: middle;
+    }
+
+    .alert-modern {
+        background: var(--primary-lighter);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        color: var(--text-primary);
+        padding: 15px 20px;
+        margin-bottom: 20px;
+    }
+
+    .alert-success {
+        background: #d4edda;
+        border-color: #c3e6cb;
+        color: #155724;
+    }
+
+    .alert-danger {
+        background: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 40px 20px;
+        color: var(--text-light);
+    }
+
+    .empty-state i {
+        font-size: 48px;
+        margin-bottom: 15px;
+        opacity: 0.5;
+    }
+</style>
+
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="d-flex align-items-center">
+            <div class="me-3" style="font-size: 28px;">📦</div>
+            <div>
+                <h1 class="page-title">Управление продукцией</h1>
+                <p class="page-subtitle">Добавление, редактирование и удаление продукции компании</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Messages -->
+    @if (!string.IsNullOrEmpty(Model.Message))
+    {
+            <div class="alert-modern @(Model.MessageType == "success" ? "alert-success" : Model.MessageType == "warning" ? "alert-warning" : "alert-danger")">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span>@Model.Message</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            </div>
+    }
+
+    <!-- Add Product Form -->
+    <div class="modern-card">
+        <div class="card-header-modern">
+            <div class="d-flex align-items-center">
+                <div class="me-2">➕</div>
+                <h5 class="mb-0">Добавить новый продукт</h5>
+            </div>
+        </div>
+        <div class="card-body-modern">
+            <form method="post" asp-page-handler="Create">
+                <div class="row">
+                    <!-- Left Column -->
+                    <div class="col-md-6">
+                        <div class="mb-4">
+                            <label asp-for="NewProduct.ArticleNumber" class="form-label-modern">Артикул *</label>
+                            <input asp-for="NewProduct.ArticleNumber" class="form-control-modern" required maxlength="20" />
+                            <span asp-validation-for="NewProduct.ArticleNumber" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="NewProduct.ProductName" class="form-label-modern">Наименование *</label>
+                            <input asp-for="NewProduct.ProductName" class="form-control-modern" required maxlength="200" />
+                            <span asp-validation-for="NewProduct.ProductName" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="col-md-6">
+                        <div class="mb-4">
+                            <label asp-for="NewProduct.ProductTypeID" class="form-label-modern">Тип продукции *</label>
+                            <select asp-for="NewProduct.ProductTypeID" asp-items="Model.ProductTypes" class="form-select-modern" required>
+                                <option value="">-- Выберите тип --</option>
+                            </select>
+                            <span asp-validation-for="NewProduct.ProductTypeID" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="NewProduct.MaterialTypeID" class="form-label-modern">Основной материал *</label>
+                            <select asp-for="NewProduct.MaterialTypeID" asp-items="Model.MaterialTypes" class="form-select-modern" required>
+                                <option value="">-- Выберите материал --</option>
+                            </select>
+                            <span asp-validation-for="NewProduct.MaterialTypeID" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="NewProduct.MinPartnerPrice" class="form-label-modern">Минимальная стоимость для партнера *</label>
+                            <div class="input-group input-group-modern">
+                                <input asp-for="NewProduct.MinPartnerPrice" class="form-control-modern" type="number" step="0.01" min="0" required />
+                                <span class="input-group-text">₽</span>
+                            </div>
+                            <span asp-validation-for="NewProduct.MinPartnerPrice" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-end pt-3" style="border-top: 1px solid var(--border-color);">
+                    <button type="submit" class="btn-modern">
+                        <i class="fas fa-plus me-2"></i>Добавить продукт
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Products List -->
+    <div class="modern-card">
+        <div class="card-header-modern">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <div class="me-2">📋</div>
+                    <h5 class="mb-0">Список продукции</h5>
+                </div>
+                <span class="badge" style="background: rgba(255,255,255,0.2); color: white; padding: 6px 12px; border-radius: 20px;">
+                    @Model.Products.Count продуктов
+                </span>
+            </div>
+        </div>
+        <div class="card-body-modern">
+            @if (Model.Products.Any())
+            {
+                    <div class="table-responsive">
+                        <table class="table table-modern">
+                            <thead>
+                                <tr>
+                                    <th>Артикул</th>
+                                    <th>Наименование</th>
+                                    <th>Тип продукции</th>
+                                    <th>Материал</th>
+                                    <th>Минимальная цена</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var product in Model.Products)
+                            {
+                                        <tr>
+                                            <td>
+                                                <span style="font-weight: 600; color: var(--text-primary);">@product.ArticleNumber</span>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div style="font-size: 16px; margin-right: 8px;">📦</div>
+                                                    <span>@product.ProductName</span>
+                                                </div>
+                                            </td>
+                                            <td>@product.ProductType</td>
+                                            <td>@product.MaterialType</td>
+                                            <td>
+                                                <span style="font-weight: 600; color: var(--text-primary);">
+                                            @product.MinPartnerPrice.ToString("C2")
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <div class="action-buttons">
+                                                    <a asp-page="/EditProduct" asp-route-id="@product.ProductID" class="btn-outline-modern" title="Редактировать">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <a asp-page="/ProductWorkshops" asp-route-id="@product.ProductID" class="btn-info-modern" title="Цеха производства">
+                                                        <i class="fas fa-industry"></i>
+                                                    </a>
+                                                    <form method="post" asp-page-handler="Delete" asp-route-id="@product.ProductID" class="d-inline">
+                                                        <button type="submit" class="btn-danger-modern"
+                                                                onclick="return confirm('Вы уверены, что хотите удалить продукт \"@product.ProductName\"?')"
+                                                                title="Удалить">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Summary -->
+                    <div class="mt-4 p-3" style="background: var(--primary-lighter); border-radius: 8px; border: 1px solid var(--border-color);">
+                        <div class="row text-center">
+                            <div class="col-md-3">
+                                <div style="font-size: 12px; color: var(--text-secondary);">Всего продуктов</div>
+                                <div style="font-size: 16px; font-weight: 600; color: var(--text-primary);">
+                                @Model.Products.Count
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div style="font-size: 12px; color: var(--text-secondary);">Уникальных типов</div>
+                                <div style="font-size: 16px; font-weight: 600; color: var(--text-primary);">
+                                @Model.Products.Select(p => p.ProductType).Distinct().Count()
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div style="font-size: 12px; color: var(--text-secondary);">Материалов</div>
+                                <div style="font-size: 16px; font-weight: 600; color: var(--text-primary);">
+                                @Model.Products.Select(p => p.MaterialType).Distinct().Count()
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div style="font-size: 12px; color: var(--text-secondary);">Средняя цена</div>
+                                <div style="font-size: 16px; font-weight: 600; color: var(--text-primary);">
+                                @Model.Products.Average(p => p.MinPartnerPrice).ToString("C0")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            }
+            else
+            {
+                    <div class="empty-state">
+                        <div style="font-size: 64px;">📦</div>
+                        <h5 style="color: var(--text-primary); margin-bottom: 10px;">Продукция не найдена</h5>
+                        <p style="color: var(--text-light);">Добавьте первый продукт, используя форму выше.</p>
+                    </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Add interactive effects to form controls
+                const formControls = document.querySelectorAll('.form-control-modern, .form-select-modern');
+                formControls.forEach(control => {
+                    control.addEventListener('focus', function() {
+                        this.style.borderColor = 'var(--primary-color)';
+                    });
+
+                    control.addEventListener('blur', function() {
+                        this.style.borderColor = 'var(--border-color)';
+                    });
+                });
+
+                // Add animation to table rows
+                const tableRows = document.querySelectorAll('.table-modern tbody tr');
+                tableRows.forEach((row, index) => {
+                    row.style.opacity = '0';
+                    row.style.transform = 'translateX(-20px)';
+
+                    setTimeout(() => {
+                        row.style.transition = 'all 0.3s ease';
+                        row.style.opacity = '1';
+                        row.style.transform = 'translateX(0)';
+                    }, index * 50);
+                });
+
+                // Add currency formatting
+                const priceInput = document.querySelector('input[asp-for="NewProduct.MinPartnerPrice"]');
+                if (priceInput) {
+                    priceInput.addEventListener('blur', function() {
+                        const value = parseFloat(this.value);
+                        if (!isNaN(value)) {
+                            this.value = value.toFixed(2);
+                        }
+                    });
+                }
+            });
+        </script>
+}

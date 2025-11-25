@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Комфорт</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WEBKAMAC.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .navbar-brand {
+            font-family: 'Candara', sans-serif;
+            font-weight: bold;
+        }
+
+        body {
+            font-family: 'Candara', sans-serif;
+            background-color: #FFFFFF;
+        }
+
+        .bg-accent {
+            background-color: #355CBD !important;
+        }
+
+        .btn-primary {
+            background-color: #355CBD;
+            border-color: #355CBD;
+        }
+
+        .navbar-light .navbar-nav .nav-link {
+            color: #355CBD;
+        }
+
+            .navbar-light .navbar-nav .nav-link:hover {
+                color: #2a4a9c;
+            }
+
+        .nav-link.active {
+            font-weight: bold;
+            color: #2a4a9c !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-page="/Index">
+                    <i class="fas fa-couch me-2"></i>КОМФОРТ
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark @(ViewContext.RouteData.Values["Page"]?.ToString() == "/Index" ? "active" : "")"
+                               asp-area="" asp-page="/Index">Главная</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark @(ViewContext.RouteData.Values["Page"]?.ToString() == "/Products" ? "active" : "")"
+                               asp-area="" asp-page="/Products">Продукция</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark @(ViewContext.RouteData.Values["Page"]?.ToString() == "/Manufacturing" ? "active" : "")"
+                               asp-area="" asp-page="/Manufacturing">Производство</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark @(ViewContext.RouteData.Values["Page"]?.ToString() == "/Analysis" ? "active" : "")"
+                               asp-area="" asp-page="/Analysis">Аналитика</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark @(ViewContext.RouteData.Values["Page"]?.ToString() == "/CalculateRawMaterial" ? "active" : "")"
+                               asp-area="" asp-page="/CalculateRawMaterial">Расчет сырья</a>
+                        </li>
+                     
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - Производственная компания "Комфорт" - <a asp-area="" asp-page="/Privacy">Конфиденциальность</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,5 +1,5 @@
 <Solution>
-  <Project Path="API Comfort/API Comfort.csproj" Id="9c1c0519-9e4a-479a-984d-bfb0e33bd44e" />
-  <Project Path="ClassLibrary/ClassLibrary.csproj" />
-  <Project Path="ComfortDesktop/ComfortDesktop.csproj" Id="a6d208a4-270e-4893-8e55-87c0feb195fd" />
+  <Project Path="Apipka/Apipka.csproj" Id="094dca7d-762e-48fb-8567-ba51a33fe1db" />
+  <Project Path="ComfortDesktop/ComfortDesktop.csproj" Id="3bdd09b2-6706-4a4f-a272-07113786c17c" />
+  <Project Path="WEBKAMAC/WEBKAMAC.csproj" />
 </Solution>

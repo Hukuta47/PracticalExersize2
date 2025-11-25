@@ -1,0 +1,432 @@
+﻿@page "{id:int}"
+@model ProductWorkshopsModel
+@{
+    ViewData["Title"] = "Цеха производства";
+}
+
+<style>
+    :root {
+        --primary-color: #355CBD;
+        --primary-light: #D2DFFF;
+        --primary-lighter: #F0F5FF;
+        --accent-color: #6B8CE8;
+        --text-primary: #355CBD;
+        --text-secondary: #6B8CE8;
+        --text-light: #8FA6E8;
+        --bg-main: #F5F7FF;
+        --bg-card: #FFFFFF;
+        --border-color: #E1E8FF;
+        --shadow: 0 2px 12px rgba(53, 92, 189, 0.08);
+    }
+
+    body {
+        background-color: var(--bg-main);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .modern-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        margin-bottom: 25px;
+        overflow: hidden;
+    }
+
+    .card-header-modern {
+        background: var(--primary-color) !important;
+        color: white;
+        padding: 20px 25px;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .card-body-modern {
+        padding: 25px;
+    }
+
+    .page-header {
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 25px;
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow);
+    }
+
+    .page-title {
+        color: var(--text-primary);
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .page-subtitle {
+        color: var(--text-secondary);
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .breadcrumb-modern {
+        background: transparent;
+        padding: 0;
+        margin-bottom: 15px;
+    }
+
+    .breadcrumb-modern .breadcrumb-item a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .breadcrumb-modern .breadcrumb-item.active {
+        color: var(--text-primary);
+        font-weight: 600;
+    }
+
+    .table-modern {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+    }
+
+    .table-modern thead th {
+        background: var(--primary-color);
+        color: white;
+        font-weight: 600;
+        padding: 12px 15px;
+        border: none;
+        font-size: 14px;
+    }
+
+    .table-modern tbody tr {
+        transition: background-color 0.2s ease;
+    }
+
+    .table-modern tbody tr:nth-child(even) {
+        background-color: var(--primary-lighter);
+    }
+
+    .table-modern tbody tr:hover {
+        background-color: var(--primary-light);
+    }
+
+    .table-modern tbody td {
+        padding: 12px 15px;
+        border-color: var(--border-color);
+        color: var(--text-primary);
+        font-size: 14px;
+        vertical-align: middle;
+    }
+
+    .alert-modern {
+        background: var(--primary-lighter);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        color: var(--text-primary);
+        padding: 15px 20px;
+        margin-bottom: 20px;
+    }
+
+    .kpi-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .kpi-card {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: var(--shadow);
+    }
+
+    .kpi-icon {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .kpi-value {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 5px;
+    }
+
+    .kpi-label {
+        font-size: 12px;
+        color: var(--text-secondary);
+        font-weight: 500;
+    }
+
+    .btn-modern {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-modern:hover {
+        background: #2A4A9C;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(53, 92, 189, 0.2);
+        color: white;
+        text-decoration: none;
+    }
+
+    .product-info {
+        background: var(--primary-lighter);
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid var(--border-color);
+    }
+
+    .product-name {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 5px;
+    }
+
+    .product-details {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+    }
+
+    .product-detail {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        color: var(--text-secondary);
+    }
+
+    .badge-modern {
+        background: var(--primary-light);
+        color: var(--text-primary);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+</style>
+
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-modern">
+                <li class="breadcrumb-item"><a asp-page="/Products" style="color: var(--text-secondary); text-decoration: none; font-weight: 500;">📦 Продукция</a></li>
+                <li class="breadcrumb-item active" style="color: var(--text-primary); font-weight: 600;">🏭 Цеха производства</li>
+            </ol>
+        </nav>
+
+        <div class="product-info">
+            <div class="d-flex align-items-center justify-content-between flex-wrap">
+                <div>
+                    <div class="product-name">@Model.Product?.ProductName</div>
+                    <div class="product-details">
+                        <div class="product-detail">
+                            <span>📋 Артикул:</span>
+                            <span class="badge-modern">@Model.Product?.ArticleNumber</span>
+                        </div>
+                        <div class="product-detail">
+                            <span>📦 Тип:</span>
+                            <span class="badge-modern">@Model.Product?.ProductType</span>
+                        </div>
+                        <div class="product-detail">
+                            <span>🧪 Материал:</span>
+                            <span class="badge-modern">@Model.Product?.MaterialType</span>
+                        </div>
+                        <div class="product-detail">
+                            <span>💰 Цена:</span>
+                            <span class="badge-modern">@Model.Product?.MinPartnerPrice.ToString("C2")</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="font-size: 48px;">🏭</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="kpi-cards">
+        <div class="kpi-card">
+            <div class="kpi-icon">⏱️</div>
+            <div class="kpi-value">@Model.TotalManufacturingTime.ToString("F1")</div>
+            <div class="kpi-label">Общее время (ч)</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-icon">🏗️</div>
+            <div class="kpi-value">@Model.ManufacturingData.Count</div>
+            <div class="kpi-label">Цехов задействовано</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-icon">👥</div>
+            <div class="kpi-value">@Model.ManufacturingData.Sum(x => x.WorkersCount)</div>
+            <div class="kpi-label">Всего рабочих</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-icon">📊</div>
+            <div class="kpi-value">@Model.ManufacturingData.Average(x => x.ManufacturingTimeHours).ToString("F1")</div>
+            <div class="kpi-label">Среднее время (ч)</div>
+        </div>
+    </div>
+
+    <!-- Workshops Table -->
+    <div class="modern-card">
+        <div class="card-header-modern">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <div class="me-2">📋</div>
+                    <h5 class="mb-0">Цеха для производства продукции</h5>
+                </div>
+                <span class="badge" style="background: rgba(255,255,255,0.2); color: white; padding: 6px 12px; border-radius: 20px;">
+                    @Model.ManufacturingData.Count цехов
+                </span>
+            </div>
+        </div>
+        <div class="card-body-modern">
+            @if (Model.ManufacturingData.Any())
+            {
+                    <div class="table-responsive">
+                        <table class="table table-modern">
+                            <thead>
+                                <tr>
+                                    <th>Название цеха</th>
+                                    <th>Тип цеха</th>
+                                    <th>Количество человек</th>
+                                    <th>Время производства (часов)</th>
+                                    <th>Трудозатраты (ч×чел)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var data in Model.ManufacturingData)
+                            {
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div style="font-size: 16px; margin-right: 8px;">🏭</div>
+                                                    <span style="font-weight: 600;">@data.WorkshopName</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span class="badge-modern">@data.WorkshopType</span>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div style="font-size: 14px; margin-right: 6px;">👥</div>
+                                                    <span>@data.WorkersCount</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div style="font-size: 14px; margin-right: 6px;">⏱️</div>
+                                                    <span style="font-weight: 600;">@data.ManufacturingTimeHours</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span style="font-weight: 600; color: var(--text-primary);">
+                                            @((data.ManufacturingTimeHours * data.WorkersCount).ToString("F1")) ч
+                                                </span>
+                                            </td>
+                                        </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Summary -->
+                    <div class="mt-4 p-3" style="background: var(--primary-lighter); border-radius: 8px; border: 1px solid var(--border-color);">
+                        <div class="row text-center">
+                            <div class="col-md-3">
+                                <div style="font-size: 12px; color: var(--text-secondary);">Общее время</div>
+                                <div style="font-size: 16px; font-weight: 600; color: var(--text-primary);">
+                                @Model.TotalManufacturingTime.ToString("F1") ч
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div style="font-size: 12px; color: var(--text-secondary);">Всего рабочих</div>
+                                <div style="font-size: 16px; font-weight: 600; color: var(--text-primary);">
+                                @Model.ManufacturingData.Sum(x => x.WorkersCount)
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div style="font-size: 12px; color: var(--text-secondary);">Трудозатраты</div>
+                                <div style="font-size: 16px; font-weight: 600; color: var(--text-primary);">
+                                @Model.ManufacturingData.Sum(x => x.ManufacturingTimeHours * x.WorkersCount).ToString("F1") ч
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div style="font-size: 12px; color: var(--text-secondary);">Цехов</div>
+                                <div style="font-size: 16px; font-weight: 600; color: var(--text-primary);">
+                                @Model.ManufacturingData.Count
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            }
+            else
+            {
+                    <div class="alert-modern text-center">
+                        <div style="font-size: 48px; margin-bottom: 15px;">🏭</div>
+                        <h5 style="color: var(--text-primary);">Нет данных о цехах производства</h5>
+                        <p style="color: var(--text-light);">Для этого продукта пока не назначены цеха производства.</p>
+                    </div>
+            }
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <div class="text-center mt-4">
+        <a asp-page="/Products" class="btn-modern">
+            <i class="fas fa-arrow-left"></i>
+            Назад к списку продукции
+        </a>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add animation to table rows
+        const tableRows = document.querySelectorAll('.table-modern tbody tr');
+        tableRows.forEach((row, index) => {
+            row.style.opacity = '0';
+            row.style.transform = 'translateX(-20px)';
+
+            setTimeout(() => {
+                row.style.transition = 'all 0.3s ease';
+                row.style.opacity = '1';
+                row.style.transform = 'translateX(0)';
+            }, index * 50);
+        });
+
+        // Add hover effects to KPI cards
+        const kpiCards = document.querySelectorAll('.kpi-card');
+        kpiCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+                this.style.boxShadow = '0 4px 20px rgba(53, 92, 189, 0.12)';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = 'var(--shadow)';
+            });
+        });
+    });
+</script>

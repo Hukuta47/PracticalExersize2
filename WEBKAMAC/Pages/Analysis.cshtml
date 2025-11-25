@@ -1,0 +1,308 @@
+﻿@page
+@model AnalysisModel
+@{
+    ViewData["Title"] = "Аналитика";
+}
+
+<style>
+    :root {
+        --primary-color: #355CBD;
+        --primary-light: #D2DFFF;
+        --primary-lighter: #F0F5FF;
+        --accent-color: #6B8CE8;
+        --text-primary: #355CBD;
+        --text-secondary: #6B8CE8;
+        --text-light: #8FA6E8;
+        --bg-main: #F5F7FF;
+        --bg-card: #FFFFFF;
+        --border-color: #E1E8FF;
+        --shadow: 0 2px 12px rgba(53, 92, 189, 0.08);
+    }
+
+    body {
+        background-color: var(--bg-main);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .modern-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        margin-bottom: 25px;
+        overflow: hidden;
+    }
+
+    .card-header-modern {
+        background: var(--primary-color) !important;
+        color: white;
+        padding: 20px 25px;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .card-body-modern {
+        padding: 25px;
+    }
+
+    .table-modern {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+    }
+
+    .table-modern thead th {
+        background: var(--primary-color);
+        color: white;
+        font-weight: 600;
+        padding: 12px 15px;
+        border: none;
+        font-size: 14px;
+    }
+
+    .table-modern tbody tr {
+        transition: background-color 0.2s ease;
+    }
+
+    .table-modern tbody tr:nth-child(even) {
+        background-color: var(--primary-lighter);
+    }
+
+    .table-modern tbody tr:hover {
+        background-color: var(--primary-light);
+    }
+
+    .table-modern tbody td {
+        padding: 12px 15px;
+        border-color: var(--border-color);
+        color: var(--text-primary);
+        font-size: 14px;
+    }
+
+    .page-header {
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 25px;
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow);
+    }
+
+    .page-title {
+        color: var(--text-primary);
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .page-subtitle {
+        color: var(--text-secondary);
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .alert-modern {
+        background: var(--primary-lighter);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        color: var(--text-primary);
+        padding: 15px 20px;
+    }
+
+    .kpi-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .kpi-card {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: var(--shadow);
+    }
+
+    .kpi-icon {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .kpi-value {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 5px;
+    }
+
+    .kpi-label {
+        font-size: 12px;
+        color: var(--text-secondary);
+        font-weight: 500;
+    }
+</style>
+
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="d-flex align-items-center">
+            <div class="me-3" style="font-size: 28px;">📊</div>
+            <div>
+                <h1 class="page-title">Аналитика производства</h1>
+                <p class="page-subtitle">Статистика и анализ производственных процессов</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="kpi-cards">
+        <div class="kpi-card">
+            <div class="kpi-icon">📈</div>
+            <div class="kpi-value">87%</div>
+            <div class="kpi-label">Общая эффективность</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-icon">⚡</div>
+            <div class="kpi-value">4.2 ч</div>
+            <div class="kpi-label">Среднее время</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-icon">🏗️</div>
+            <div class="kpi-value">@Model.ProductionSummary.Select(s => s.Workshop).Distinct().Count()</div>
+            <div class="kpi-label">Активных цехов</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-icon">📦</div>
+            <div class="kpi-value">@Model.ProductionSummary.Sum(s => s.ProductCount)</div>
+            <div class="kpi-label">Всего продуктов</div>
+        </div>
+    </div>
+
+    <!-- Production Summary -->
+    <div class="row">
+        <div class="col-12">
+            <div class="modern-card">
+                <div class="card-header-modern">
+                    <div class="d-flex align-items-center">
+                        <div class="me-2">🏭</div>
+                        <h5 class="mb-0">Сводка по производству</h5>
+                    </div>
+                </div>
+                <div class="card-body-modern">
+                    @if (Model.ProductionSummary.Any())
+                    {
+                            <div class="table-responsive">
+                                <table class="table table-modern">
+                                    <thead>
+                                        <tr>
+                                            <th>Тип продукции</th>
+                                            <th>Цех</th>
+                                            <th>Общее время (ч)</th>
+                                            <th>Среднее время (ч)</th>
+                                            <th>Кол-во продуктов</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach (var summary in Model.ProductionSummary)
+                                    {
+                                                <tr>
+                                                    <td>@summary.ProductType</td>
+                                                    <td>@summary.Workshop</td>
+                                                    <td>@summary.TotalTime.ToString("F1")</td>
+                                                    <td>@summary.AverageTime.ToString("F1")</td>
+                                                    <td>@summary.ProductCount</td>
+                                                </tr>
+                                    }
+                                    </tbody>
+                                </table>
+                            </div>
+                    }
+                    else
+                    {
+                            <div class="alert-modern">
+                                <i class="fas fa-info-circle"></i> Нет данных для сводки
+                            </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Total Time -->
+    <div class="row">
+        <div class="col-12">
+            <div class="modern-card">
+                <div class="card-header-modern">
+                    <div class="d-flex align-items-center">
+                        <div class="me-2">⏱️</div>
+                        <h5 class="mb-0">Общее время производства по продуктам</h5>
+                    </div>
+                </div>
+                <div class="card-body-modern">
+                    @if (Model.ProductsTotalTime.Any())
+                    {
+                            <div class="table-responsive">
+                                <table class="table table-modern">
+                                    <thead>
+                                        <tr>
+                                            <th>Продукт</th>
+                                            <th>Общее время (ч)</th>
+                                            <th>Кол-во цехов</th>
+                                            <th>Трудозатраты (ч)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach (var product in Model.ProductsTotalTime)
+                                    {
+                                                <tr>
+                                                    <td>@product.ProductName</td>
+                                                    <td>@product.TotalManufacturingTime.ToString("F1")</td>
+                                                    <td>@product.WorkshopCount</td>
+                                                    <td>@product.TotalLaborHours.ToString("F1")</td>
+                                                </tr>
+                                    }
+                                    </tbody>
+                                </table>
+                            </div>
+                    }
+                    else
+                    {
+                            <div class="alert-modern">
+                                <i class="fas fa-info-circle"></i> Нет данных о времени производства
+                            </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Add some interactive effects
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add hover effects to KPI cards
+        const kpiCards = document.querySelectorAll('.kpi-card');
+        kpiCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+                this.style.boxShadow = '0 4px 20px rgba(53, 92, 189, 0.12)';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = 'var(--shadow)';
+            });
+        });
+
+        // Add row selection effect to tables
+        const tableRows = document.querySelectorAll('.table-modern tbody tr');
+        tableRows.forEach(row => {
+            row.addEventListener('click', function() {
+                tableRows.forEach(r => r.classList.remove('table-active'));
+                this.classList.add('table-active');
+            });
+        });
+    });
+</script>

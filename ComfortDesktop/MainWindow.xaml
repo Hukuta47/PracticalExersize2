@@ -1,0 +1,130 @@
+﻿<Window x:Class="ComfortDesktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ComfortDesktop"
+        xmlns:viewModels="clr-namespace:ComfortDesktop.ViewModels"
+        xmlns:views="clr-namespace:ComfortDesktop.views"
+        mc:Ignorable="d"
+        Title="Комфорт" Height="600" Width="1200">
+    <Window.Resources>
+     
+
+       
+        <Style x:Key="ModernNavButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="#355CBD"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="20,12"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Border.CornerRadius" Value="6"/>
+            <Setter Property="Margin" Value="5,0"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#E8EEFF"/>
+                    <Setter Property="Foreground" Value="#1A3A8F"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+  
+        <Style x:Key="ModernNavButtonActiveStyle" TargetType="Button" BasedOn="{StaticResource ModernNavButtonStyle}">
+            <Setter Property="Background" Value="#355CBD"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        
+        <Style x:Key="ModernBorderStyle" TargetType="Border">
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E1E8FF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="2" 
+                                    Opacity="0.1" 
+                                    BlurRadius="12"
+                                    Direction="270"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+     
+        <DataTemplate DataType="{x:Type viewModels:ProductsViewModel}">
+            <views:ProductsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:ManufacturingViewModel}">
+            <views:ManufacturingView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:AnalysisViewModel}">
+            <views:AnalysisView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:CalculationViewModel}">
+            <views:CalculationView/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+       
+        <Border Grid.Row="0" Background="#F0F5FF" BorderBrush="#D2DFFF" BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Background="#355CBD" Width="220" 
+                        BorderBrush="#2A4A9C" BorderThickness="0,0,1,0">
+                    <StackPanel Orientation="Horizontal" 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center"
+                                Margin="15,0">
+                        <TextBlock Text="🏭" 
+                                   FontSize="20" 
+                                   Margin="0,0,8,0"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Text="КОМФОРТ" 
+                                   Foreground="White" 
+                                   FontSize="18" 
+                                   FontWeight="Bold"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,0">
+                    <Button Content="📦 Продукция" 
+                            Command="{Binding ShowProductsCommand}"
+                            Style="{StaticResource ModernNavButtonStyle}"/>
+                    <Button Content="🏭 Производство" 
+                            Command="{Binding ShowManufacturingCommand}"
+                            Style="{StaticResource ModernNavButtonStyle}"/>
+                    <Button Content="📊 Аналитика" 
+                            Command="{Binding ShowAnalysisCommand}"
+                            Style="{StaticResource ModernNavButtonStyle}"/>
+                    <Button Content="🧮 Расчет сырья" 
+                            Command="{Binding ShowCalculationCommand}"
+                            Style="{StaticResource ModernNavButtonStyle}"/>
+                </StackPanel>
+
+               
+            </Grid>
+        </Border>
+
+    
+        <Border Grid.Row="1" Background="Transparent" Padding="25">
+            <Border Style="{StaticResource ModernBorderStyle}" Padding="0">
+                <ContentControl Content="{Binding CurrentView}"
+                              Margin="0"/>
+            </Border>
+        </Border>
+    </Grid>
+</Window>
