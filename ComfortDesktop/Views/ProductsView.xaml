@@ -5,298 +5,460 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ComfortDesktop.views"
         mc:Ignorable="d"
-        d:DesignHeight="600" d:DesignWidth="1200" Background="white">
-    
-    <UserControl.Resources>
-        <!-- Modern Card Style -->
-        <Style x:Key="ModernCardStyle" TargetType="Border">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="#E1E8FF"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="CornerRadius" Value="12"/>
-            <Setter Property="Padding" Value="25"/>
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect ShadowDepth="3" Opacity="0.08" BlurRadius="10" Direction="270"/>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        d:DesignHeight="600" d:DesignWidth="1200" Background="#05080c">
 
-        <!-- Header Text Style -->
-        <Style x:Key="SectionHeaderStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Foreground" Value="#355CBD"/>
-            <Setter Property="Margin" Value="0,0,0,20"/>
-        </Style>
+	<UserControl.Resources>
+		<!-- Color Resources -->
+		<Color x:Key="MetalDark">#0a0e14</Color>
+		<Color x:Key="MetalMedium">#141a23</Color>
+		<Color x:Key="MetalLight">#1e2430</Color>
+		<Color x:Key="AccentOrange">#ed8936</Color>
+		<Color x:Key="AccentRed">#f56565</Color>
+		<Color x:Key="AccentGreen">#48bb78</Color>
+		<Color x:Key="AccentBlue">#4299e1</Color>
+		<Color x:Key="AccentPurple">#9f7aea</Color>
+		<Color x:Key="TextLight">#e2e8f0</Color>
+		<Color x:Key="TextGray">#a0aec0</Color>
+		<Color x:Key="BgDark">#05080c</Color>
 
-        <!-- Input Label Style -->
-        <Style x:Key="InputLabelStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Foreground" Value="#355CBD"/>
-            <Setter Property="Margin" Value="0,0,0,8"/>
-        </Style>
+		<!-- Solid Color Brushes -->
+		<SolidColorBrush x:Key="MetalDarkBrush" Color="{StaticResource MetalDark}"/>
+		<SolidColorBrush x:Key="MetalMediumBrush" Color="{StaticResource MetalMedium}"/>
+		<SolidColorBrush x:Key="MetalLightBrush" Color="{StaticResource MetalLight}"/>
+		<SolidColorBrush x:Key="AccentOrangeBrush" Color="{StaticResource AccentOrange}"/>
+		<SolidColorBrush x:Key="AccentGreenBrush" Color="{StaticResource AccentGreen}"/>
+		<SolidColorBrush x:Key="AccentBlueBrush" Color="{StaticResource AccentBlue}"/>
+		<SolidColorBrush x:Key="AccentPurpleBrush" Color="{StaticResource AccentPurple}"/>
+		<SolidColorBrush x:Key="TextLightBrush" Color="{StaticResource TextLight}"/>
+		<SolidColorBrush x:Key="TextGrayBrush" Color="{StaticResource TextGray}"/>
+		<SolidColorBrush x:Key="BgDarkBrush" Color="{StaticResource BgDark}"/>
 
-        <!-- Modern TextBox Style -->
-        <Style x:Key="ModernTextBoxStyle" TargetType="TextBox">
-            <Setter Property="Height" Value="40"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="BorderBrush" Value="#E1E8FF"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="Foreground" Value="#355CBD"/>
-            <Setter Property="Padding" Value="12,8"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="BorderBrush" Value="#355CBD"/>
-                </Trigger>
-                <Trigger Property="IsFocused" Value="True">
-                    <Setter Property="BorderBrush" Value="#355CBD"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+		<!-- Gradient Brushes -->
+		<LinearGradientBrush x:Key="OrangeBlueGradient" StartPoint="0,0" EndPoint="1,1">
+			<GradientStop Color="{StaticResource AccentOrange}" Offset="0"/>
+			<GradientStop Color="{StaticResource AccentBlue}" Offset="1"/>
+		</LinearGradientBrush>
 
-        <!-- Modern ComboBox Style -->
-        <Style x:Key="ModernComboBoxStyle" TargetType="ComboBox">
-            <Setter Property="Height" Value="40"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="BorderBrush" Value="#E1E8FF"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="Foreground" Value="#355CBD"/>
-            <Setter Property="Padding" Value="12,8"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="BorderBrush" Value="#355CBD"/>
-                </Trigger>
-                <Trigger Property="IsFocused" Value="True">
-                    <Setter Property="BorderBrush" Value="#355CBD"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+		<LinearGradientBrush x:Key="HeaderGradient" StartPoint="0,0" EndPoint="1,0">
+			<GradientStop Color="{StaticResource AccentOrange}" Offset="0"/>
+			<GradientStop Color="{StaticResource AccentBlue}" Offset="0.5"/>
+			<GradientStop Color="{StaticResource AccentGreen}" Offset="1"/>
+		</LinearGradientBrush>
 
-        <!-- Modern Button Style -->
-        <Style x:Key="ModernButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#355CBD"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Height" Value="40"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Border.CornerRadius" Value="8"/>
-            <Setter Property="Padding" Value="20,8"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#2A4A9C"/>
-                </Trigger>
-                <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" Value="#1A3A8F"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+		<!-- Tactical Card Style -->
+		<Style x:Key="TacticalCardStyle" TargetType="Border">
+			<Setter Property="Background" Value="{StaticResource MetalMediumBrush}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource MetalLightBrush}"/>
+			<Setter Property="BorderThickness" Value="3"/>
+			<Setter Property="CornerRadius" Value="15"/>
+			<Setter Property="Padding" Value="25"/>
+			<Setter Property="Effect">
+				<Setter.Value>
+					<DropShadowEffect ShadowDepth="0" Opacity="0.5" BlurRadius="25" Color="{StaticResource AccentBlue}"/>
+				</Setter.Value>
+			</Setter>
+		</Style>
 
-        <!-- Danger Button Style -->
-        <Style x:Key="DangerButtonStyle" TargetType="Button" BasedOn="{StaticResource ModernButtonStyle}">
-            <Setter Property="Background" Value="#FF4757"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#E84151"/>
-                </Trigger>
-                <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" Value="#D63031"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+		<!-- Mission Header Style -->
+		<Style x:Key="MissionHeaderStyle" TargetType="TextBlock">
+			<Setter Property="FontSize" Value="36"/>
+			<Setter Property="FontWeight" Value="Black"/>
+			<Setter Property="Foreground" Value="{StaticResource OrangeBlueGradient}"/>
+			<Setter Property="FontFamily" Value="Segoe UI, Arial"/>
+			<Setter Property="TextAlignment" Value="Center"/>
+			
+			<Setter Property="Effect">
+				<Setter.Value>
+					<DropShadowEffect ShadowDepth="2" Opacity="0.5" BlurRadius="10" Direction="270"/>
+				</Setter.Value>
+			</Setter>
+		</Style>
 
-        <!-- Modern DataGrid Style -->
-        <Style x:Key="ModernDataGridStyle" TargetType="DataGrid">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="#E1E8FF"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="RowBackground" Value="White"/>
-            <Setter Property="AlternatingRowBackground" Value="#F8FAFF"/>
-            <Setter Property="HorizontalGridLinesBrush" Value="#F0F4FF"/>
-            <Setter Property="VerticalGridLinesBrush" Value="#F0F4FF"/>
-            <Setter Property="HeadersVisibility" Value="Column"/>
-            <Setter Property="AutoGenerateColumns" Value="False"/>
-            <Setter Property="CanUserAddRows" Value="False"/>
-            <Setter Property="CanUserDeleteRows" Value="False"/>
-            <Setter Property="CanUserReorderColumns" Value="False"/>
-            <Setter Property="CanUserResizeColumns" Value="True"/>
-            <Setter Property="CanUserSortColumns" Value="True"/>
-            <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
-        </Style>
+		<!-- Section Header Style -->
+		<Style x:Key="SectionHeaderStyle" TargetType="TextBlock">
+			<Setter Property="FontSize" Value="20"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+			<Setter Property="Foreground" Value="{StaticResource TextLightBrush}"/>
+			<Setter Property="FontFamily" Value="Segoe UI, Arial"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
 
-        <!-- DataGrid Column Header Style -->
-        <Style x:Key="DataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="#355CBD"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="10,8"/>
-            <Setter Property="BorderThickness" Value="0"/>
-        </Style>
+		<!-- Input Label Style -->
+		<Style x:Key="InputLabelStyle" TargetType="TextBlock">
+			<Setter Property="FontSize" Value="14"/>
+			<Setter Property="FontWeight" Value="SemiBold"/>
+			<Setter Property="Foreground" Value="{StaticResource TextGrayBrush}"/>
+			<Setter Property="Margin" Value="0,0,0,12"/>
 
-        <!-- DataGrid Cell Style -->
-        <Style x:Key="DataGridCellStyle" TargetType="DataGridCell">
-            <Setter Property="Padding" Value="10,8"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Style.Triggers>
-                <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="#E8EEFF"/>
-                    <Setter Property="Foreground" Value="#355CBD"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+			<Setter Property="FontFamily" Value="Segoe UI, Arial"/>
+		</Style>
 
-    </UserControl.Resources>
+		<!-- Tactical TextBox Style -->
+		<Style x:Key="TacticalTextBoxStyle" TargetType="TextBox">
+			<Setter Property="Height" Value="50"/>
+			<Setter Property="FontSize" Value="16"/>
+			<Setter Property="BorderBrush" Value="{StaticResource MetalLightBrush}"/>
+			<Setter Property="BorderThickness" Value="2"/>
+			<Setter Property="Background" Value="{StaticResource MetalDarkBrush}"/>
+			<Setter Property="Foreground" Value="{StaticResource TextLightBrush}"/>
+			<Setter Property="Padding" Value="15,0"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="FontWeight" Value="SemiBold"/>
+			<Setter Property="FontFamily" Value="Segoe UI, Arial"/>
+			<Style.Triggers>
+				<Trigger Property="IsMouseOver" Value="True">
+					<Setter Property="BorderBrush" Value="{StaticResource AccentOrangeBrush}"/>
+					<Setter Property="Effect">
+						<Setter.Value>
+							<DropShadowEffect ShadowDepth="0" Opacity="0.4" BlurRadius="15" Color="{StaticResource AccentOrange}"/>
+						</Setter.Value>
+					</Setter>
+				</Trigger>
+				<Trigger Property="IsFocused" Value="True">
+					<Setter Property="BorderBrush" Value="{StaticResource AccentOrangeBrush}"/>
+					<Setter Property="Effect">
+						<Setter.Value>
+							<DropShadowEffect ShadowDepth="0" Opacity="0.4" BlurRadius="15" Color="{StaticResource AccentOrange}"/>
+						</Setter.Value>
+					</Setter>
+				</Trigger>
+			</Style.Triggers>
+		</Style>
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="20">
-        <StackPanel>
-            <!-- Header Section -->
-            <Border Style="{StaticResource ModernCardStyle}" Margin="0,0,0,25">
-                <StackPanel>
-                    <TextBlock Text="📦 Управление продукцией" 
-                               FontSize="24" 
-                               FontWeight="Bold" 
-                               Foreground="#355CBD"
+		<!-- Tactical ComboBox Style -->
+		<Style x:Key="TacticalComboBoxStyle" TargetType="ComboBox">
+			<Setter Property="Height" Value="50"/>
+			<Setter Property="FontSize" Value="16"/>
+			<Setter Property="BorderBrush" Value="{StaticResource MetalLightBrush}"/>
+			<Setter Property="BorderThickness" Value="2"/>
+			<Setter Property="Background" Value="{StaticResource MetalDarkBrush}"/>
+			<Setter Property="Foreground" Value="{StaticResource TextLightBrush}"/>
+			<Setter Property="Padding" Value="15,0"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="FontWeight" Value="SemiBold"/>
+			<Setter Property="FontFamily" Value="Segoe UI, Arial"/>
+			<Style.Triggers>
+				<Trigger Property="IsMouseOver" Value="True">
+					<Setter Property="BorderBrush" Value="{StaticResource AccentOrangeBrush}"/>
+					<Setter Property="Effect">
+						<Setter.Value>
+							<DropShadowEffect ShadowDepth="0" Opacity="0.4" BlurRadius="15" Color="{StaticResource AccentOrange}"/>
+						</Setter.Value>
+					</Setter>
+				</Trigger>
+				<Trigger Property="IsFocused" Value="True">
+					<Setter Property="BorderBrush" Value="{StaticResource AccentOrangeBrush}"/>
+					<Setter Property="Effect">
+						<Setter.Value>
+							<DropShadowEffect ShadowDepth="0" Opacity="0.4" BlurRadius="15" Color="{StaticResource AccentOrange}"/>
+						</Setter.Value>
+					</Setter>
+				</Trigger>
+			</Style.Triggers>
+		</Style>
+
+		<!-- Deploy Button Style -->
+		<Style x:Key="DeployButtonStyle" TargetType="Button">
+			<Setter Property="Background">
+				<Setter.Value>
+					<LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+						<GradientStop Color="{StaticResource AccentOrange}" Offset="0"/>
+						<GradientStop Color="#c05621" Offset="1"/>
+					</LinearGradientBrush>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="FontSize" Value="16"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+			<Setter Property="Height" Value="50"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="Border.CornerRadius" Value="10"/>
+			<Setter Property="Cursor" Value="Hand"/>
+			<Setter Property="FontFamily" Value="Segoe UI, Arial"/>
+			<Setter Property="Padding" Value="25,12"/>
+			
+			<Style.Triggers>
+				<Trigger Property="IsMouseOver" Value="True">
+					<Setter Property="Effect">
+						<Setter.Value>
+							<DropShadowEffect ShadowDepth="0" Opacity="0.5" BlurRadius="20" Color="{StaticResource AccentOrange}"/>
+						</Setter.Value>
+					</Setter>
+					<Setter Property="RenderTransform">
+						<Setter.Value>
+							<TranslateTransform Y="-3"/>
+						</Setter.Value>
+					</Setter>
+				</Trigger>
+			</Style.Triggers>
+		</Style>
+
+		<!-- Danger Button Style -->
+		<Style x:Key="TacticalDangerButtonStyle" TargetType="Button">
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="Foreground" Value="{StaticResource AccentOrangeBrush}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource AccentOrangeBrush}"/>
+			<Setter Property="BorderThickness" Value="2"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+			<Setter Property="Height" Value="35"/>
+			<Setter Property="Border.CornerRadius" Value="8"/>
+			<Setter Property="Cursor" Value="Hand"/>
+			<Setter Property="FontFamily" Value="Segoe UI, Arial"/>
+			<Setter Property="Padding" Value="15,8"/>
+			
+			<Style.Triggers>
+				<Trigger Property="IsMouseOver" Value="True">
+					<Setter Property="Background" Value="{StaticResource AccentOrangeBrush}"/>
+					<Setter Property="Foreground" Value="White"/>
+					<Setter Property="Effect">
+						<Setter.Value>
+							<DropShadowEffect ShadowDepth="0" Opacity="0.4" BlurRadius="15" Color="{StaticResource AccentRed}"/>
+						</Setter.Value>
+					</Setter>
+				</Trigger>
+			</Style.Triggers>
+		</Style>
+
+		<!-- Tactical DataGrid Style -->
+		<Style x:Key="TacticalDataGridStyle" TargetType="DataGrid">
+			<Setter Property="Background" Value="{StaticResource MetalDarkBrush}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource MetalLightBrush}"/>
+			<Setter Property="BorderThickness" Value="2"/>
+			<Setter Property="RowBackground" Value="Transparent"/>
+			<Setter Property="AlternatingRowBackground" Value="#1A2D3748"/>
+			<Setter Property="HorizontalGridLinesBrush" Value="{StaticResource MetalLightBrush}"/>
+			<Setter Property="VerticalGridLinesBrush" Value="{StaticResource MetalLightBrush}"/>
+			<Setter Property="HeadersVisibility" Value="Column"/>
+			<Setter Property="AutoGenerateColumns" Value="False"/>
+			<Setter Property="CanUserAddRows" Value="False"/>
+			<Setter Property="CanUserDeleteRows" Value="False"/>
+			<Setter Property="CanUserReorderColumns" Value="False"/>
+			<Setter Property="CanUserResizeColumns" Value="True"/>
+			<Setter Property="CanUserSortColumns" Value="True"/>
+			<Setter Property="Foreground" Value="{StaticResource TextLightBrush}"/>
+			<Setter Property="FontWeight" Value="SemiBold"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+			<Setter Property="RowHeight" Value="45"/>
+		</Style>
+
+		<!-- DataGrid Column Header Style -->
+		<Style x:Key="TacticalColumnHeaderStyle" TargetType="DataGridColumnHeader">
+			<Setter Property="Background" Value="{StaticResource MetalLightBrush}"/>
+			<Setter Property="Foreground" Value="{StaticResource AccentBlueBrush}"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="Padding" Value="12,10"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="FontSize" Value="11"/>
+			
+			<Setter Property="FontFamily" Value="Segoe UI, Arial"/>
+		</Style>
+
+		<!-- DataGrid Cell Style -->
+		<Style x:Key="TacticalCellStyle" TargetType="DataGridCell">
+			<Setter Property="Padding" Value="12,10"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="Foreground" Value="{StaticResource TextLightBrush}"/>
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+			<Style.Triggers>
+				<Trigger Property="IsSelected" Value="True">
+					<Setter Property="Background" Value="#334299e1"/>
+					<Setter Property="Foreground" Value="{StaticResource TextLightBrush}"/>
+				</Trigger>
+				<Trigger Property="IsMouseOver" Value="True">
+					<Setter Property="Background" Value="#334299e1"/>
+				</Trigger>
+			</Style.Triggers>
+		</Style>
+
+	</UserControl.Resources>
+
+	<ScrollViewer VerticalScrollBarVisibility="Auto" Padding="15" Background="Transparent">
+		<StackPanel>
+			<!-- Mission Control Header -->
+			<Border Style="{StaticResource TacticalCardStyle}" Margin="0,0,0,25">
+				<Border.Background>
+					<LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+						<GradientStop Color="#0f1419" Offset="0"/>
+						<GradientStop Color="#1a202c" Offset="1"/>
+					</LinearGradientBrush>
+				</Border.Background>
+				<Border.BorderBrush>
+					<LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+						<GradientStop Color="{StaticResource AccentOrange}" Offset="0"/>
+						<GradientStop Color="{StaticResource AccentBlue}" Offset="0.5"/>
+						<GradientStop Color="{StaticResource AccentGreen}" Offset="1"/>
+					</LinearGradientBrush>
+				</Border.BorderBrush>
+
+				<StackPanel>
+					<TextBlock Text="📦 АРСЕНАЛ ПРОДУКЦИИ" 
+                               Style="{StaticResource MissionHeaderStyle}"
                                Margin="0,0,0,10"/>
-                    <TextBlock Text="Добавление и редактирование продуктов производства" 
-                               FontSize="14" 
-                               Foreground="#6B8CE8"
-                               FontWeight="Medium"/>
-                </StackPanel>
-            </Border>
+					<TextBlock Text="УПРАВЛЕНИЕ ПРОИЗВОДСТВЕННЫМ ПОРТФЕЛЕМ КОМПАНИИ" 
+                               FontSize="16" 
+                               Foreground="{StaticResource TextGrayBrush}"
+                               FontWeight="SemiBold"
+                               TextAlignment="Center"
+                               FontFamily="Segoe UI, Arial"/>
+				</StackPanel>
+			</Border>
 
-            <!-- Add Product Form -->
-            <Border Style="{StaticResource ModernCardStyle}" Margin="0,0,0,25">
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                        <TextBlock Text="➕" FontSize="16" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                        <TextBlock Text="Добавить новый продукт" Style="{StaticResource SectionHeaderStyle}"/>
-                    </StackPanel>
+			<!-- Deployment Terminal -->
+			<Border Style="{StaticResource TacticalCardStyle}" Margin="0,0,0,25">
+				<Border.Effect>
+					<DropShadowEffect ShadowDepth="0" Opacity="0.5" BlurRadius="25" Color="{StaticResource AccentOrange}"/>
+				</Border.Effect>
+				<StackPanel>
+					<StackPanel Orientation="Horizontal" Margin="0,0,0,25" HorizontalAlignment="Center">
+						<TextBlock Text="🚀" FontSize="24" Margin="0,0,12,0" VerticalAlignment="Center"/>
+						<TextBlock Text="РАЗВЕРТЫВАНИЕ НОВОГО ИЗДЕЛИЯ" Style="{StaticResource SectionHeaderStyle}"/>
+					</StackPanel>
 
-                    <!-- First Row of Inputs -->
-                    <Grid Margin="0,0,0,15">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="15"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="15"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+					<!-- First Row of Inputs -->
+					<Grid Margin="0,0,0,20">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="15"/>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="15"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
 
-                        <StackPanel Grid.Column="0">
-                            <TextBlock Text="Артикул *" Style="{StaticResource InputLabelStyle}"/>
-                            <TextBox Text="{Binding NewProduct.ArticleNumber}" 
-                                     Style="{StaticResource ModernTextBoxStyle}"/>
-                        </StackPanel>
+						<StackPanel Grid.Column="0">
+							<TextBlock Text="ИДЕНТИФИКАТОР АРТИКУЛА" Style="{StaticResource InputLabelStyle}"/>
+							<TextBox Text="{Binding NewProduct.ArticleNumber}" 
+                                     Style="{StaticResource TacticalTextBoxStyle}"
+                                     Foreground="{StaticResource AccentBlueBrush}"/>
+						</StackPanel>
 
-                        <StackPanel Grid.Column="2">
-                            <TextBlock Text="Наименование *" Style="{StaticResource InputLabelStyle}"/>
-                            <TextBox Text="{Binding NewProduct.ProductName}" 
-                                     Style="{StaticResource ModernTextBoxStyle}"/>
-                        </StackPanel>
+						<StackPanel Grid.Column="2">
+							<TextBlock Text="ТАКТИЧЕСКОЕ НАИМЕНОВАНИЕ" Style="{StaticResource InputLabelStyle}"/>
+							<TextBox Text="{Binding NewProduct.ProductName}" 
+                                     Style="{StaticResource TacticalTextBoxStyle}"
+                                     Foreground="{StaticResource AccentGreenBrush}"/>
+						</StackPanel>
 
-                        <StackPanel Grid.Column="4">
-                            <TextBlock Text="Минимальная цена *" Style="{StaticResource InputLabelStyle}"/>
-                            <TextBox Text="{Binding NewProduct.MinPartnerPrice}" 
-                                     Style="{StaticResource ModernTextBoxStyle}"/>
-                        </StackPanel>
-                    </Grid>
+						<StackPanel Grid.Column="4">
+							<TextBlock Text="СТРАТЕГИЧЕСКАЯ СТОИМОСТЬ" Style="{StaticResource InputLabelStyle}"/>
+							<TextBox Text="{Binding NewProduct.MinPartnerPrice}" 
+                                     Style="{StaticResource TacticalTextBoxStyle}"
+                                     Foreground="{StaticResource AccentPurpleBrush}"/>
+						</StackPanel>
+					</Grid>
 
-                    <!-- Second Row of Inputs -->
-                    <Grid Margin="0,0,0,25">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="15"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+					<!-- Second Row of Inputs -->
+					<Grid Margin="0,0,0,30">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="15"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
 
-                        <StackPanel Grid.Column="0">
-                            <TextBlock Text="Тип продукции *" Style="{StaticResource InputLabelStyle}"/>
-                            <ComboBox ItemsSource="{Binding ProductTypes}"
+						<StackPanel Grid.Column="0">
+							<TextBlock Text="КЛАССИФИКАЦИЯ ПРОДУКЦИИ" Style="{StaticResource InputLabelStyle}"/>
+							<ComboBox ItemsSource="{Binding ProductTypes}"
                                       DisplayMemberPath="ProductTypeName"
                                       SelectedValuePath="ProductTypeID"
                                       SelectedValue="{Binding NewProduct.ProductTypeID}"
-                                      Style="{StaticResource ModernComboBoxStyle}"/>
-                        </StackPanel>
+                                      Style="{StaticResource TacticalComboBoxStyle}">
+							</ComboBox>
+						</StackPanel>
 
-                        <StackPanel Grid.Column="2">
-                            <TextBlock Text="Основной материал *" Style="{StaticResource InputLabelStyle}"/>
-                            <ComboBox ItemsSource="{Binding MaterialTypes}"
+						<StackPanel Grid.Column="2">
+							<TextBlock Text="ОСНОВНОЙ МАТЕРИАЛ" Style="{StaticResource InputLabelStyle}"/>
+							<ComboBox ItemsSource="{Binding MaterialTypes}"
                                       DisplayMemberPath="MaterialTypeName"
                                       SelectedValuePath="MaterialTypeID"
                                       SelectedValue="{Binding NewProduct.MaterialTypeID}"
-                                      Style="{StaticResource ModernComboBoxStyle}"/>
-                        </StackPanel>
-                    </Grid>
+                                      Style="{StaticResource TacticalComboBoxStyle}">
+							</ComboBox>
+						</StackPanel>
+					</Grid>
 
-                    <!-- Action Buttons -->
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Content="Добавить продукт" 
+					<!-- Action Buttons -->
+					<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+						<Button Content="🚀 АКТИВИРОВАТЬ ПРОДУКТ" 
                                 Command="{Binding CreateProductCommand}"
-                                Style="{StaticResource ModernButtonStyle}"
-                                Margin="0,0,10,0"/>
-                        <Button Content="Обновить выбранный" 
+                                Style="{StaticResource DeployButtonStyle}"
+                                Margin="0,0,15,0"/>
+						<Button Content="⚡ ОБНОВИТЬ ВЫБРАННЫЙ" 
                                 Command="{Binding UpdateProductCommand}"
-                                Style="{StaticResource ModernButtonStyle}"/>
-                    </StackPanel>
-                </StackPanel>
-            </Border>
+                                Style="{StaticResource DeployButtonStyle}"/>
+					</StackPanel>
+				</StackPanel>
+			</Border>
 
-            <!-- Products List -->
-            <Border Style="{StaticResource ModernCardStyle}">
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-                        <TextBlock Text="📋" FontSize="16" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                        <TextBlock Text="Список продукции" Style="{StaticResource SectionHeaderStyle}"/>
-                    </StackPanel>
+			<!-- Arsenal Terminal -->
+			<Border Style="{StaticResource TacticalCardStyle}">
+				<Border.Effect>
+					<DropShadowEffect ShadowDepth="0" Opacity="0.5" BlurRadius="25" Color="{StaticResource AccentBlue}"/>
+				</Border.Effect>
+				<StackPanel>
+					<StackPanel Orientation="Horizontal" Margin="0,0,0,20" HorizontalAlignment="Center">
+						<TextBlock Text="📋" FontSize="24" Margin="0,0,12,0" VerticalAlignment="Center"/>
+						<TextBlock Text="ТЕКУЩИЙ АРСЕНАЛ" Style="{StaticResource SectionHeaderStyle}"/>
+					</StackPanel>
 
-                    <DataGrid ItemsSource="{Binding Products}"
+					<DataGrid ItemsSource="{Binding Products}"
                               SelectedItem="{Binding SelectedProduct}"
-                              Style="{StaticResource ModernDataGridStyle}"
-                              ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
-                              CellStyle="{StaticResource DataGridCellStyle}"
+                              Style="{StaticResource TacticalDataGridStyle}"
+                              ColumnHeaderStyle="{StaticResource TacticalColumnHeaderStyle}"
+                              CellStyle="{StaticResource TacticalCellStyle}"
                               Height="350">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Артикул" 
+						<DataGrid.Columns>
+							<DataGridTextColumn Header="ИДЕНТИФИКАТОР" 
                                                 Binding="{Binding ArticleNumber}" 
-                                                Width="120"/>
-                            <DataGridTextColumn Header="Наименование" 
+                                                Width="140"/>
+							<DataGridTextColumn Header="НАИМЕНОВАНИЕ" 
                                                 Binding="{Binding ProductName}" 
-                                                Width="200"/>
-                            <DataGridTextColumn Header="Тип" 
+                                                Width="220"/>
+							<DataGridTextColumn Header="КЛАСС" 
                                                 Binding="{Binding ProductType}" 
-                                                Width="150"/>
-                            <DataGridTextColumn Header="Материал" 
+                                                Width="160"/>
+							<DataGridTextColumn Header="МАТЕРИАЛ" 
                                                 Binding="{Binding MaterialType}" 
-                                                Width="150"/>
-                            <DataGridTextColumn Header="Цена" 
+                                                Width="160"/>
+							<DataGridTextColumn Header="СТОИМОСТЬ" 
                                                 Binding="{Binding MinPartnerPrice, StringFormat=C2}" 
-                                                Width="120"/>
-                            <DataGridTemplateColumn Width="100">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Content="Удалить" 
+                                                Width="130"
+                                                Foreground="{StaticResource AccentGreenBrush}"/>
+							<DataGridTemplateColumn Width="120" Header="ОПЕРАЦИИ">
+								<DataGridTemplateColumn.CellTemplate>
+									<DataTemplate>
+										<Button Content="🗑️ УНИЧТОЖИТЬ" 
                                                 Command="{Binding DataContext.DeleteProductCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                                Style="{StaticResource DangerButtonStyle}"
-                                                Padding="10,5"
-                                                FontSize="12"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </StackPanel>
-            </Border>
-        </StackPanel>
-    </ScrollViewer>
-</UserControl>
+                                                Style="{StaticResource TacticalDangerButtonStyle}"
+                                                FontSize="10"
+                                                Padding="8,6"/>
+									</DataTemplate>
+								</DataGridTemplateColumn.CellTemplate>
+							</DataGridTemplateColumn>
+						</DataGrid.Columns>
+					</DataGrid>
 
+					<!-- Status Footer -->
+					<Border Background="#1A48bb78" 
+                            BorderBrush="{StaticResource AccentGreenBrush}" 
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            Padding="15,10"
+                            Margin="0,20,0,0">
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+							<TextBlock Text="🟢" FontSize="14" Margin="0,0,10,0" VerticalAlignment="Center"/>
+							<TextBlock Text="СИСТЕМА АРСЕНАЛА АКТИВНА • ГОТОВА К РАЗВЕРТЫВАНИЮ НОВЫХ ИЗДЕЛИЙ" 
+                                       FontSize="11" 
+                                       Foreground="{StaticResource AccentGreenBrush}"
+                                       FontWeight="Bold"
+                                       VerticalAlignment="Center"
+                                       />
+						</StackPanel>
+					</Border>
+				</StackPanel>
+			</Border>
+		</StackPanel>
+	</ScrollViewer>
+</UserControl>

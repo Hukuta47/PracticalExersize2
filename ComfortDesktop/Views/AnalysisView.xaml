@@ -4,227 +4,342 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ComfortDesktop.views"
-        mc:Ignorable="d" d:DesignWidth="1200" Background="White" Height="722">
+        mc:Ignorable="d" d:DesignWidth="1200" Background="#05080c">
 
+	<UserControl.Resources>
+		<!-- Color Resources -->
+		<Color x:Key="MetalDark">#0a0e14</Color>
+		<Color x:Key="MetalMedium">#141a23</Color>
+		<Color x:Key="MetalLight">#1e2430</Color>
+		<Color x:Key="AccentOrange">#ed8936</Color>
+		<Color x:Key="AccentRed">#f56565</Color>
+		<Color x:Key="AccentGreen">#48bb78</Color>
+		<Color x:Key="AccentBlue">#4299e1</Color>
+		<Color x:Key="AccentPurple">#9f7aea</Color>
+		<Color x:Key="TextLight">#e2e8f0</Color>
+		<Color x:Key="TextGray">#a0aec0</Color>
+		<Color x:Key="BgDark">#05080c</Color>
 
-    <UserControl.Resources>
-        <!-- Modern Card Style -->
-        <Style x:Key="ModernCardStyle" TargetType="Border">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="#E1E8FF"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="CornerRadius" Value="12"/>
-            <Setter Property="Padding" Value="20"/>
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect ShadowDepth="3" Opacity="0.08" BlurRadius="10" Direction="270"/>
-                </Setter.Value>
-            </Setter>
-        </Style>
+		<!-- Solid Color Brushes -->
+		<SolidColorBrush x:Key="MetalDarkBrush" Color="{StaticResource MetalDark}"/>
+		<SolidColorBrush x:Key="MetalMediumBrush" Color="{StaticResource MetalMedium}"/>
+		<SolidColorBrush x:Key="MetalLightBrush" Color="{StaticResource MetalLight}"/>
+		<SolidColorBrush x:Key="AccentOrangeBrush" Color="{StaticResource AccentOrange}"/>
+		<SolidColorBrush x:Key="AccentGreenBrush" Color="{StaticResource AccentGreen}"/>
+		<SolidColorBrush x:Key="AccentBlueBrush" Color="{StaticResource AccentBlue}"/>
+		<SolidColorBrush x:Key="AccentPurpleBrush" Color="{StaticResource AccentPurple}"/>
+		<SolidColorBrush x:Key="TextLightBrush" Color="{StaticResource TextLight}"/>
+		<SolidColorBrush x:Key="TextGrayBrush" Color="{StaticResource TextGray}"/>
+		<SolidColorBrush x:Key="BgDarkBrush" Color="{StaticResource BgDark}"/>
 
-        <!-- Header Text Style -->
-        <Style x:Key="SectionHeaderStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Foreground" Value="#355CBD"/>
-            <Setter Property="Margin" Value="0,0,0,15"/>
-        </Style>
+		<!-- Gradient Brushes -->
+		<LinearGradientBrush x:Key="OrangeBlueGradient" StartPoint="0,0" EndPoint="1,1">
+			<GradientStop Color="{StaticResource AccentOrange}" Offset="0"/>
+			<GradientStop Color="{StaticResource AccentBlue}" Offset="1"/>
+		</LinearGradientBrush>
 
-        <!-- Modern DataGrid Style -->
-        <Style x:Key="ModernDataGridStyle" TargetType="DataGrid">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="#E1E8FF"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="RowBackground" Value="White"/>
-            <Setter Property="AlternatingRowBackground" Value="#F8FAFF"/>
-            <Setter Property="HorizontalGridLinesBrush" Value="#F0F4FF"/>
-            <Setter Property="VerticalGridLinesBrush" Value="#F0F4FF"/>
-            <Setter Property="HeadersVisibility" Value="Column"/>
-            <Setter Property="AutoGenerateColumns" Value="False"/>
-            <Setter Property="CanUserAddRows" Value="False"/>
-            <Setter Property="CanUserDeleteRows" Value="False"/>
-            <Setter Property="CanUserReorderColumns" Value="False"/>
-            <Setter Property="CanUserResizeColumns" Value="True"/>
-            <Setter Property="CanUserSortColumns" Value="True"/>
-            <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
-            <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type DataGrid}">
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" 
-                                BorderThickness="{TemplateBinding BorderThickness}" 
-                                Background="{TemplateBinding Background}" 
-                                Padding="{TemplateBinding Padding}" 
-                                SnapsToDevicePixels="True"
-                                CornerRadius="8">
-                            <ScrollViewer x:Name="DG_ScrollViewer" Focusable="false">
-                                <ScrollViewer.Template>
-                                    <ControlTemplate TargetType="{x:Type ScrollViewer}">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
+		<LinearGradientBrush x:Key="HeaderGradient" StartPoint="0,0" EndPoint="1,0">
+			<GradientStop Color="{StaticResource AccentOrange}" Offset="0"/>
+			<GradientStop Color="{StaticResource AccentBlue}" Offset="0.5"/>
+			<GradientStop Color="{StaticResource AccentGreen}" Offset="1"/>
+		</LinearGradientBrush>
 
-                                            <Button Command="{x:Static DataGrid.SelectAllCommand}" 
-                                                    Width="{Binding CellsPanelHorizontalOffset, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                                                    Focusable="false"
-                                                    Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.All}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
-                                                    Background="Transparent"
-                                                    BorderBrush="Transparent"
-                                                    VerticalAlignment="Top"/>
+		<!-- Modern Card Style -->
+		<Style x:Key="TacticalCardStyle" TargetType="Border">
+			<Setter Property="Background" Value="{StaticResource MetalMediumBrush}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource MetalLightBrush}"/>
+			<Setter Property="BorderThickness" Value="3"/>
+			<Setter Property="CornerRadius" Value="15"/>
+			<Setter Property="Padding" Value="25"/>
+			<Setter Property="Effect">
+				<Setter.Value>
+					<DropShadowEffect ShadowDepth="0" Opacity="0.5" BlurRadius="25" Color="{StaticResource AccentBlue}"/>
+				</Setter.Value>
+			</Setter>
+		</Style>
 
-                                            <DataGridColumnHeadersPresenter x:Name="PART_ColumnHeadersPresenter"
-                                                                            Grid.Column="1"
-                                                                            Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Column}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+		<!-- Header Text Style -->
+		<Style x:Key="SectionHeaderStyle" TargetType="TextBlock">
+			<Setter Property="FontSize" Value="20"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+			<Setter Property="Foreground" Value="{StaticResource TextLightBrush}"/>
+			<Setter Property="FontFamily" Value="Segoe UI, Arial"/>
+			<Setter Property="TextAlignment" Value="Center"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
 
-                                            <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" 
-                                                                    Grid.Row="1" 
-                                                                    Grid.ColumnSpan="2" 
-                                                                    CanContentScroll="{TemplateBinding CanContentScroll}" />
+		<!-- Mission Header Style -->
+		<Style x:Key="MissionHeaderStyle" TargetType="TextBlock">
+			<Setter Property="FontSize" Value="36"/>
+			<Setter Property="FontWeight" Value="Black"/>
+			<Setter Property="Foreground" Value="{StaticResource OrangeBlueGradient}"/>
+			<Setter Property="FontFamily" Value="Segoe UI, Arial"/>
+			<Setter Property="TextAlignment" Value="Center"/>
+			<Setter Property="Effect">
+				<Setter.Value>
+					<DropShadowEffect ShadowDepth="2" Opacity="0.5" BlurRadius="10" Direction="270"/>
+				</Setter.Value>
+			</Setter>
+		</Style>
 
-                                            <ScrollBar x:Name="PART_VerticalScrollBar" 
-                                                       Grid.Row="1" 
-                                                       Grid.Column="2" 
-                                                       Orientation="Vertical"
-                                                       Maximum="{TemplateBinding ScrollableHeight}"
-                                                       ViewportSize="{TemplateBinding ViewportHeight}"
-                                                       Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                                       Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"/>
-                                        </Grid>
-                                    </ControlTemplate>
-                                </ScrollViewer.Template>
-                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                            </ScrollViewer>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+		<!-- Modern DataGrid Style -->
+		<Style x:Key="TacticalDataGridStyle" TargetType="DataGrid">
+			<Setter Property="Background" Value="{StaticResource MetalDarkBrush}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource MetalLightBrush}"/>
+			<Setter Property="BorderThickness" Value="2"/>
+			<Setter Property="RowBackground" Value="Transparent"/>
+			<Setter Property="AlternatingRowBackground" Value="#1A2D3748"/>
+			<Setter Property="HorizontalGridLinesBrush" Value="{StaticResource MetalLightBrush}"/>
+			<Setter Property="VerticalGridLinesBrush" Value="{StaticResource MetalLightBrush}"/>
+			<Setter Property="HeadersVisibility" Value="Column"/>
+			<Setter Property="AutoGenerateColumns" Value="False"/>
+			<Setter Property="CanUserAddRows" Value="False"/>
+			<Setter Property="CanUserDeleteRows" Value="False"/>
+			<Setter Property="CanUserReorderColumns" Value="False"/>
+			<Setter Property="CanUserResizeColumns" Value="True"/>
+			<Setter Property="CanUserSortColumns" Value="True"/>
+			<Setter Property="Foreground" Value="{StaticResource TextLightBrush}"/>
+			<Setter Property="FontWeight" Value="SemiBold"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+		</Style>
 
-        <!-- DataGrid Column Header Style -->
-        <Style x:Key="DataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="#355CBD"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="10,8"/>
-            <Setter Property="BorderThickness" Value="0"/>
-        </Style>
+		<!-- DataGrid Column Header Style -->
+		<Style x:Key="TacticalColumnHeaderStyle" TargetType="DataGridColumnHeader">
+			<Setter Property="Background" Value="{StaticResource MetalLightBrush}"/>
+			<Setter Property="Foreground" Value="{StaticResource AccentBlueBrush}"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="Padding" Value="12,10"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="FontSize" Value="11"/>
+			<Setter Property="FontFamily" Value="Segoe UI, Arial"/>
+		</Style>
 
-        <!-- DataGrid Cell Style -->
-        <Style x:Key="DataGridCellStyle" TargetType="DataGridCell">
-            <Setter Property="Padding" Value="10,8"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Style.Triggers>
-                <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="#E8EEFF"/>
-                    <Setter Property="Foreground" Value="#355CBD"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+		<!-- DataGrid Cell Style -->
+		<Style x:Key="TacticalCellStyle" TargetType="DataGridCell">
+			<Setter Property="Padding" Value="12,10"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="Foreground" Value="{StaticResource TextLightBrush}"/>
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+			<Style.Triggers>
+				<Trigger Property="IsSelected" Value="True">
+					<Setter Property="Background" Value="#334299e1"/>
+					<Setter Property="Foreground" Value="{StaticResource TextLightBrush}"/>
+				</Trigger>
+				<Trigger Property="IsMouseOver" Value="True">
+					<Setter Property="Background" Value="#334299e1"/>
+				</Trigger>
+			</Style.Triggers>
+		</Style>
 
-    </UserControl.Resources>
+		<!-- Badge Style -->
+		<Style x:Key="TacticalBadgeStyle" TargetType="Border">
+			<Setter Property="Background" Value="{StaticResource MetalLightBrush}"/>
+			<Setter Property="CornerRadius" Value="12"/>
+			<Setter Property="Padding" Value="8,4"/>
+			<Setter Property="HorizontalAlignment" Value="Left"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="20">
-        <StackPanel>
-            <!-- Header Section -->
-            <Border Style="{StaticResource ModernCardStyle}" Margin="0,0,0,25">
-                <StackPanel>
-                    <TextBlock Text="📊 Аналитика производства" 
-                               FontSize="24" 
-                               FontWeight="Bold" 
-                               Foreground="#355CBD"
+		<!-- KPI Card Style -->
+		<Style x:Key="KPICardStyle" TargetType="Border">
+			<Setter Property="Background" Value="{StaticResource MetalMediumBrush}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource MetalLightBrush}"/>
+			<Setter Property="BorderThickness" Value="2"/>
+			<Setter Property="CornerRadius" Value="12"/>
+			<Setter Property="Padding" Value="20"/>
+			<Setter Property="Width" Value="180"/>
+			<Setter Property="Height" Value="100"/>
+			<Setter Property="Effect">
+				<Setter.Value>
+					<DropShadowEffect ShadowDepth="0" Opacity="0.3" BlurRadius="15" Color="{StaticResource AccentOrange}"/>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+	</UserControl.Resources>
+
+	<ScrollViewer VerticalScrollBarVisibility="Auto" Padding="15" Background="Transparent">
+		<StackPanel>
+			<!-- Mission Control Header -->
+			<Border Style="{StaticResource TacticalCardStyle}" Margin="0,0,0,25">
+				<Border.Background>
+					<LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+						<GradientStop Color="#0f1419" Offset="0"/>
+						<GradientStop Color="#1a202c" Offset="1"/>
+					</LinearGradientBrush>
+				</Border.Background>
+				<Border.BorderBrush>
+					<LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+						<GradientStop Color="{StaticResource AccentOrange}" Offset="0"/>
+						<GradientStop Color="{StaticResource AccentBlue}" Offset="0.5"/>
+						<GradientStop Color="{StaticResource AccentGreen}" Offset="1"/>
+					</LinearGradientBrush>
+				</Border.BorderBrush>
+
+				<StackPanel>
+					<TextBlock Text="🎯 КОМАНДНЫЙ ЦЕНТР АНАЛИТИКИ" 
+                               Style="{StaticResource MissionHeaderStyle}"
                                Margin="0,0,0,10"/>
-                    <TextBlock Text="Статистика и метрики производственных процессов" 
-                               FontSize="14" 
-                               Foreground="#355CBD"
-                               FontWeight="Medium"/>
-                </StackPanel>
-            </Border>
+					<TextBlock Text="ТАКТИЧЕСКИЙ МОНИТОРИНГ ПРОИЗВОДСТВЕННЫХ ОПЕРАЦИЙ" 
+                               FontSize="16" 
+                               Foreground="{StaticResource TextGrayBrush}"
+                               FontWeight="SemiBold"
+                               TextAlignment="Center"
+                               FontFamily="Segoe UI, Arial"/>
+				</StackPanel>
+			</Border>
 
-            <!-- Main Content Grid -->
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="20"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+			<!-- KPI Dashboard -->
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,30">
+				<Border Style="{StaticResource KPICardStyle}" Margin="0,0,15,0">
+					<StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+						<TextBlock Text="📊" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+						<TextBlock Text="{Binding ProductionSummary.Count, StringFormat={}{0} ОПЕРАЦИЙ}" 
+                                   FontSize="16" 
+                                   FontWeight="Bold" 
+                                   Foreground="{StaticResource TextLightBrush}"
+                                   HorizontalAlignment="Center"/>
+						<TextBlock Text="СИСТЕМНЫХ ЗАПИСЕЙ" 
+                                   FontSize="10" 
+                                   Foreground="{StaticResource TextGrayBrush}"
+                                   HorizontalAlignment="Center"/>
+					</StackPanel>
+				</Border>
 
-                <!-- Left Column - Production Summary -->
-                <Border Grid.Column="0" Style="{StaticResource ModernCardStyle}">
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-                            <TextBlock Text="🏭" FontSize="16" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Сводка по производству" Style="{StaticResource SectionHeaderStyle}"/>
-                        </StackPanel>
+				<Border Style="{StaticResource KPICardStyle}" Margin="0,0,15,0">
+					<StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+						<TextBlock Text="🏭" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+						<TextBlock Text="{Binding WorkshopCount}" 
+                                   FontSize="16" 
+                                   FontWeight="Bold" 
+                                   Foreground="{StaticResource TextLightBrush}"
+                                   HorizontalAlignment="Center"/>
+						<TextBlock Text="АКТИВНЫХ ЦЕХОВ" 
+                                   FontSize="10" 
+                                   Foreground="{StaticResource TextGrayBrush}"
+                                   HorizontalAlignment="Center"/>
+					</StackPanel>
+				</Border>
 
-                        <DataGrid ItemsSource="{Binding ProductionSummary}"
-                                  Style="{StaticResource ModernDataGridStyle}"
-                                  ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
-                                  CellStyle="{StaticResource DataGridCellStyle}"
-                                  Height="280">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Тип продукции" 
+				<Border Style="{StaticResource KPICardStyle}" Margin="0,0,15,0">
+					<StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+						<TextBlock Text="⏱️" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+						<TextBlock Text="{Binding TotalProductionTime, StringFormat={}{0} Ч}" 
+                                   FontSize="16" 
+                                   FontWeight="Bold" 
+                                   Foreground="{StaticResource TextLightBrush}"
+                                   HorizontalAlignment="Center"/>
+						<TextBlock Text="ОБЩЕЕ ВРЕМЯ" 
+                                   FontSize="10" 
+                                   Foreground="{StaticResource TextGrayBrush}"
+                                   HorizontalAlignment="Center"/>
+					</StackPanel>
+				</Border>
+
+				<Border Style="{StaticResource KPICardStyle}">
+					<StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+						<TextBlock Text="📦" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+						<TextBlock Text="{Binding UniqueProductsCount}" 
+                                   FontSize="16" 
+                                   FontWeight="Bold" 
+                                   Foreground="{StaticResource TextLightBrush}"
+                                   HorizontalAlignment="Center"/>
+						<TextBlock Text="УНИКАЛЬНЫХ ИЗДЕЛИЙ" 
+                                   FontSize="10" 
+                                   Foreground="{StaticResource TextGrayBrush}"
+                                   HorizontalAlignment="Center"/>
+					</StackPanel>
+				</Border>
+			</StackPanel>
+
+			<!-- Main Content Grid -->
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="20"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+
+				<!-- Left Column - Production Summary -->
+				<Border Grid.Column="0" Style="{StaticResource TacticalCardStyle}">
+					<StackPanel>
+						<StackPanel Orientation="Horizontal" Margin="0,0,0,20" HorizontalAlignment="Center">
+							<TextBlock Text="🏭" FontSize="20" Margin="0,0,10,0" VerticalAlignment="Center"/>
+							<TextBlock Text="ТАКТИЧЕСКАЯ СВОДКА" Style="{StaticResource SectionHeaderStyle}"/>
+						</StackPanel>
+
+						<DataGrid ItemsSource="{Binding ProductionSummary}"
+                                  Style="{StaticResource TacticalDataGridStyle}"
+                                  ColumnHeaderStyle="{StaticResource TacticalColumnHeaderStyle}"
+                                  CellStyle="{StaticResource TacticalCellStyle}"
+                                  Height="300">
+							<DataGrid.Columns>
+								<DataGridTextColumn Header="КЛАСС ПРОДУКЦИИ" 
                                                     Binding="{Binding ProductType}" 
-                                                    Width="160"/>
-                                <DataGridTextColumn Header="Цех" 
-                                                    Binding="{Binding Workshop}" 
-                                                    Width="120"/>
-                                <DataGridTextColumn Header="Общее время (ч)" 
-                                                    Binding="{Binding TotalTime, StringFormat=F1}" 
-                                                    Width="120"/>
-                                <DataGridTextColumn Header="Среднее время (ч)" 
-                                                    Binding="{Binding AverageTime, StringFormat=F1}" 
-                                                    Width="120"/>
-                                <DataGridTextColumn Header="Кол-во" 
-                                                    Binding="{Binding ProductCount}" 
-                                                    Width="80"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </StackPanel>
-                </Border>
-
-                <!-- Right Column - Products Total Time -->
-                <Border Grid.Column="2" Style="{StaticResource ModernCardStyle}">
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-                            <TextBlock Text="⏱️" FontSize="16" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Время по продуктам" Style="{StaticResource SectionHeaderStyle}"/>
-                        </StackPanel>
-
-                        <DataGrid ItemsSource="{Binding ProductsTotalTime}"
-                                  Style="{StaticResource ModernDataGridStyle}"
-                                  ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
-                                  CellStyle="{StaticResource DataGridCellStyle}"
-                                  Height="280">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Продукт" 
-                                                    Binding="{Binding ProductName}" 
                                                     Width="180"/>
-                                <DataGridTextColumn Header="Общее время (ч)" 
-                                                    Binding="{Binding TotalManufacturingTime, StringFormat=F1}" 
+								<DataGridTextColumn Header="ЛОКАЦИЯ" 
+                                                    Binding="{Binding Workshop}" 
+                                                    Width="140"/>
+								<DataGridTextColumn Header="ВРЕМЯ ЦИКЛА" 
+                                                    Binding="{Binding TotalTime, StringFormat={}{0} Ч}" 
                                                     Width="120"/>
-                                <DataGridTextColumn Header="Цехов" 
+								<DataGridTextColumn Header="СРЕДНЕЕ ВРЕМЯ" 
+                                                    Binding="{Binding AverageTime, StringFormat={}{0} Ч}" 
+                                                    Width="120"/>
+								<DataGridTextColumn Header="КОЛИЧЕСТВО" 
+                                                    Binding="{Binding ProductCount}" 
+                                                    Width="100"/>
+							</DataGrid.Columns>
+						</DataGrid>
+					</StackPanel>
+				</Border>
+
+				<!-- Right Column - Products Total Time -->
+				<Border Grid.Column="2" Style="{StaticResource TacticalCardStyle}">
+					<StackPanel>
+						<StackPanel Orientation="Horizontal" Margin="0,0,0,20" HorizontalAlignment="Center">
+							<TextBlock Text="⏱️" FontSize="20" Margin="0,0,10,0" VerticalAlignment="Center"/>
+							<TextBlock Text="АНАЛИТИКА ИЗДЕЛИЙ" Style="{StaticResource SectionHeaderStyle}"/>
+						</StackPanel>
+
+						<DataGrid ItemsSource="{Binding ProductsTotalTime}"
+                                  Style="{StaticResource TacticalDataGridStyle}"
+                                  ColumnHeaderStyle="{StaticResource TacticalColumnHeaderStyle}"
+                                  CellStyle="{StaticResource TacticalCellStyle}"
+                                  Height="300">
+							<DataGrid.Columns>
+								<DataGridTextColumn Header="ИЗДЕЛИЕ" 
+                                                    Binding="{Binding ProductName}" 
+                                                    Width="200"/>
+								<DataGridTextColumn Header="ОБЩЕЕ ВРЕМЯ" 
+                                                    Binding="{Binding TotalManufacturingTime, StringFormat={}{0} Ч}" 
+                                                    Width="120"/>
+								<DataGridTextColumn Header="ЦЕХОВ" 
                                                     Binding="{Binding WorkshopCount}" 
                                                     Width="80"/>
-                                <DataGridTextColumn Header="Трудозатраты (ч)" 
-                                                    Binding="{Binding TotalLaborHours, StringFormat=F1}" 
+								<DataGridTextColumn Header="ТРУДОЗАТРАТЫ" 
+                                                    Binding="{Binding TotalLaborHours, StringFormat={}{0} Ч}" 
                                                     Width="120"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </StackPanel>
-                </Border>
-            </Grid>
+							</DataGrid.Columns>
+						</DataGrid>
+					</StackPanel>
+				</Border>
+			</Grid>
 
-           
-        </StackPanel>
-    </ScrollViewer>
+			<!-- Status Footer -->
+			<Border Style="{StaticResource TacticalCardStyle}" Margin="0,25,0,0">
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+					<TextBlock Text="🟢" FontSize="16" Margin="0,0,10,0" VerticalAlignment="Center"/>
+					<TextBlock Text="СИСТЕМА АНАЛИТИКИ АКТИВНА • РЕАЛЬНОЕ ВРЕМЯ • АВТОМАТИЧЕСКОЕ ОБНОВЛЕНИЕ" 
+                               FontSize="12" 
+                               Foreground="{StaticResource AccentGreenBrush}"
+                               FontWeight="SemiBold"
+                               VerticalAlignment="Center"/>
+				</StackPanel>
+			</Border>
+		</StackPanel>
+	</ScrollViewer>
 </UserControl>

@@ -5,238 +5,414 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ComfortDesktop.views"
         mc:Ignorable="d"
-         d:DesignHeight="600" d:DesignWidth="1200" Background="white">
+        d:DesignHeight="600" d:DesignWidth="1200" Background="#05080c">
 
-    <UserControl.Resources>
-        <!-- Modern Card Style -->
-        <Style x:Key="ModernCardStyle" TargetType="Border">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="#E1E8FF"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="CornerRadius" Value="12"/>
-            <Setter Property="Padding" Value="25"/>
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect ShadowDepth="3" Opacity="0.08" BlurRadius="10" Direction="270"/>
-                </Setter.Value>
-            </Setter>
-        </Style>
+	<UserControl.Resources>
+		<!-- Color Resources -->
+		<Color x:Key="MetalDark">#0a0e14</Color>
+		<Color x:Key="MetalMedium">#141a23</Color>
+		<Color x:Key="MetalLight">#1e2430</Color>
+		<Color x:Key="AccentOrange">#ed8936</Color>
+		<Color x:Key="AccentRed">#f56565</Color>
+		<Color x:Key="AccentGreen">#48bb78</Color>
+		<Color x:Key="AccentBlue">#4299e1</Color>
+		<Color x:Key="AccentPurple">#9f7aea</Color>
+		<Color x:Key="TextLight">#e2e8f0</Color>
+		<Color x:Key="TextGray">#a0aec0</Color>
+		<Color x:Key="BgDark">#05080c</Color>
 
-        <!-- Header Text Style -->
-        <Style x:Key="SectionHeaderStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Foreground" Value="#355CBD"/>
-            <Setter Property="Margin" Value="0,0,0,20"/>
-        </Style>
+		<!-- Solid Color Brushes -->
+		<SolidColorBrush x:Key="MetalDarkBrush" Color="{StaticResource MetalDark}"/>
+		<SolidColorBrush x:Key="MetalMediumBrush" Color="{StaticResource MetalMedium}"/>
+		<SolidColorBrush x:Key="MetalLightBrush" Color="{StaticResource MetalLight}"/>
+		<SolidColorBrush x:Key="AccentOrangeBrush" Color="{StaticResource AccentOrange}"/>
+		<SolidColorBrush x:Key="AccentGreenBrush" Color="{StaticResource AccentGreen}"/>
+		<SolidColorBrush x:Key="AccentBlueBrush" Color="{StaticResource AccentBlue}"/>
+		<SolidColorBrush x:Key="AccentPurpleBrush" Color="{StaticResource AccentPurple}"/>
+		<SolidColorBrush x:Key="TextLightBrush" Color="{StaticResource TextLight}"/>
+		<SolidColorBrush x:Key="TextGrayBrush" Color="{StaticResource TextGray}"/>
+		<SolidColorBrush x:Key="BgDarkBrush" Color="{StaticResource BgDark}"/>
 
-        <!-- Input Label Style -->
-        <Style x:Key="InputLabelStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Foreground" Value="#355CBD"/>
-            <Setter Property="Margin" Value="0,0,0,8"/>
-        </Style>
+		<!-- Gradient Brushes -->
+		<LinearGradientBrush x:Key="OrangeBlueGradient" StartPoint="0,0" EndPoint="1,1">
+			<GradientStop Color="{StaticResource AccentOrange}" Offset="0"/>
+			<GradientStop Color="{StaticResource AccentBlue}" Offset="1"/>
+		</LinearGradientBrush>
 
-        <!-- Modern ComboBox Style -->
-        <Style x:Key="ModernComboBoxStyle" TargetType="ComboBox">
-            <Setter Property="Height" Value="42"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="BorderBrush" Value="#E1E8FF"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="Foreground" Value="#355CBD"/>
-            <Setter Property="Padding" Value="12,8"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="BorderBrush" Value="#355CBD"/>
-                </Trigger>
-                <Trigger Property="IsFocused" Value="True">
-                    <Setter Property="BorderBrush" Value="#355CBD"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+		<LinearGradientBrush x:Key="HeaderGradient" StartPoint="0,0" EndPoint="1,0">
+			<GradientStop Color="{StaticResource AccentOrange}" Offset="0"/>
+			<GradientStop Color="{StaticResource AccentBlue}" Offset="0.5"/>
+			<GradientStop Color="{StaticResource AccentGreen}" Offset="1"/>
+		</LinearGradientBrush>
 
-        <!-- Modern TextBox Style -->
-        <Style x:Key="ModernTextBoxStyle" TargetType="TextBox">
-            <Setter Property="Height" Value="42"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="BorderBrush" Value="#E1E8FF"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="Foreground" Value="#355CBD"/>
-            <Setter Property="Padding" Value="12,8"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="BorderBrush" Value="#355CBD"/>
-                </Trigger>
-                <Trigger Property="IsFocused" Value="True">
-                    <Setter Property="BorderBrush" Value="#355CBD"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+		<!-- Tactical Card Style -->
+		<Style x:Key="TacticalCardStyle" TargetType="Border">
+			<Setter Property="Background" Value="{StaticResource MetalMediumBrush}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource MetalLightBrush}"/>
+			<Setter Property="BorderThickness" Value="3"/>
+			<Setter Property="CornerRadius" Value="15"/>
+			<Setter Property="Padding" Value="25"/>
+			<Setter Property="Effect">
+				<Setter.Value>
+					<DropShadowEffect ShadowDepth="0" Opacity="0.5" BlurRadius="25" Color="{StaticResource AccentBlue}"/>
+				</Setter.Value>
+			</Setter>
+		</Style>
 
-        <!-- Modern Button Style -->
-        <Style x:Key="ModernButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#355CBD"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Height" Value="50"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Border.CornerRadius" Value="8"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#2A4A9C"/>
-                </Trigger>
-                <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" Value="#1A3A8F"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+		<!-- Mission Header Style -->
+		<Style x:Key="MissionHeaderStyle" TargetType="TextBlock">
+			<Setter Property="FontSize" Value="36"/>
+			<Setter Property="FontWeight" Value="Black"/>
+			<Setter Property="Foreground" Value="{StaticResource OrangeBlueGradient}"/>
+			<Setter Property="FontFamily" Value="Segoe UI, Arial"/>
+			<Setter Property="TextAlignment" Value="Center"/>
+			
+			<Setter Property="Effect">
+				<Setter.Value>
+					<DropShadowEffect ShadowDepth="2" Opacity="0.5" BlurRadius="10" Direction="270"/>
+				</Setter.Value>
+			</Setter>
+		</Style>
 
-    </UserControl.Resources>
+		<!-- Section Header Style -->
+		<Style x:Key="SectionHeaderStyle" TargetType="TextBlock">
+			<Setter Property="FontSize" Value="20"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+			<Setter Property="Foreground" Value="{StaticResource TextLightBrush}"/>
+			<Setter Property="FontFamily" Value="Segoe UI, Arial"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="20">
-        <StackPanel>
-            <!-- Header Section -->
-            <Border Style="{StaticResource ModernCardStyle}" Margin="0,0,0,25">
-                <StackPanel>
-                    <TextBlock Text="🧮 Расчет сырья" 
-                               FontSize="24" 
-                               FontWeight="Bold" 
-                               Foreground="#355CBD"
+		<!-- Input Label Style -->
+		<Style x:Key="InputLabelStyle" TargetType="TextBlock">
+			<Setter Property="FontSize" Value="14"/>
+			<Setter Property="FontWeight" Value="SemiBold"/>
+			<Setter Property="Foreground" Value="{StaticResource TextGrayBrush}"/>
+			<Setter Property="Margin" Value="0,0,0,12"/>
+			
+			<Setter Property="FontFamily" Value="Segoe UI, Arial"/>
+			
+		</Style>
+
+		<!-- Tactical ComboBox Style -->
+		<Style x:Key="TacticalComboBoxStyle" TargetType="ComboBox">
+			<Setter Property="Height" Value="55"/>
+			<Setter Property="FontSize" Value="16"/>
+			<Setter Property="BorderBrush" Value="{StaticResource MetalLightBrush}"/>
+			<Setter Property="BorderThickness" Value="2"/>
+			<Setter Property="Background" Value="{StaticResource MetalDarkBrush}"/>
+			<Setter Property="Foreground" Value="{StaticResource TextLightBrush}"/>
+			<Setter Property="Padding" Value="20,0"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="FontWeight" Value="SemiBold"/>
+			<Setter Property="FontFamily" Value="Segoe UI, Arial"/>
+			<Style.Triggers>
+				<Trigger Property="IsMouseOver" Value="True">
+					<Setter Property="BorderBrush" Value="{StaticResource AccentOrangeBrush}"/>
+					<Setter Property="Effect">
+						<Setter.Value>
+							<DropShadowEffect ShadowDepth="0" Opacity="0.4" BlurRadius="15" Color="{StaticResource AccentOrange}"/>
+						</Setter.Value>
+					</Setter>
+				</Trigger>
+				<Trigger Property="IsFocused" Value="True">
+					<Setter Property="BorderBrush" Value="{StaticResource AccentOrangeBrush}"/>
+					<Setter Property="Effect">
+						<Setter.Value>
+							<DropShadowEffect ShadowDepth="0" Opacity="0.4" BlurRadius="15" Color="{StaticResource AccentOrange}"/>
+						</Setter.Value>
+					</Setter>
+				</Trigger>
+			</Style.Triggers>
+		</Style>
+
+		<!-- Tactical TextBox Style -->
+		<Style x:Key="TacticalTextBoxStyle" TargetType="TextBox">
+			<Setter Property="Height" Value="55"/>
+			<Setter Property="FontSize" Value="16"/>
+			<Setter Property="BorderBrush" Value="{StaticResource MetalLightBrush}"/>
+			<Setter Property="BorderThickness" Value="2"/>
+			<Setter Property="Background" Value="{StaticResource MetalDarkBrush}"/>
+			<Setter Property="Foreground" Value="{StaticResource TextLightBrush}"/>
+			<Setter Property="Padding" Value="20,0"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="FontWeight" Value="SemiBold"/>
+			<Setter Property="FontFamily" Value="Segoe UI, Arial"/>
+			<Style.Triggers>
+				<Trigger Property="IsMouseOver" Value="True">
+					<Setter Property="BorderBrush" Value="{StaticResource AccentOrangeBrush}"/>
+					<Setter Property="Effect">
+						<Setter.Value>
+							<DropShadowEffect ShadowDepth="0" Opacity="0.4" BlurRadius="15" Color="{StaticResource AccentOrange}"/>
+						</Setter.Value>
+					</Setter>
+				</Trigger>
+				<Trigger Property="IsFocused" Value="True">
+					<Setter Property="BorderBrush" Value="{StaticResource AccentOrangeBrush}"/>
+					<Setter Property="Effect">
+						<Setter.Value>
+							<DropShadowEffect ShadowDepth="0" Opacity="0.4" BlurRadius="15" Color="{StaticResource AccentOrange}"/>
+						</Setter.Value>
+					</Setter>
+				</Trigger>
+			</Style.Triggers>
+		</Style>
+
+		<!-- Deploy Button Style -->
+		<Style x:Key="DeployButtonStyle" TargetType="Button">
+			<Setter Property="Background">
+				<Setter.Value>
+					<LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+						<GradientStop Color="{StaticResource AccentOrange}" Offset="0"/>
+						<GradientStop Color="#c05621" Offset="1"/>
+					</LinearGradientBrush>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="FontSize" Value="20"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+			<Setter Property="Height" Value="65"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="Border.CornerRadius" Value="12"/>
+			<Setter Property="Cursor" Value="Hand"/>
+			<Setter Property="FontFamily" Value="Segoe UI, Arial"/>
+			
+			<Style.Triggers>
+				<Trigger Property="IsMouseOver" Value="True">
+					<Setter Property="Effect">
+						<Setter.Value>
+							<DropShadowEffect ShadowDepth="0" Opacity="0.5" BlurRadius="20" Color="{StaticResource AccentOrange}"/>
+						</Setter.Value>
+					</Setter>
+					<Setter Property="RenderTransform">
+						<Setter.Value>
+							<TranslateTransform Y="-3"/>
+						</Setter.Value>
+					</Setter>
+				</Trigger>
+				<Trigger Property="IsPressed" Value="True">
+					<Setter Property="Background">
+						<Setter.Value>
+							<LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+								<GradientStop Color="#c05621" Offset="0"/>
+								<GradientStop Color="{StaticResource AccentOrange}" Offset="1"/>
+							</LinearGradientBrush>
+						</Setter.Value>
+					</Setter>
+				</Trigger>
+			</Style.Triggers>
+		</Style>
+
+		<!-- Result Display Style -->
+		<Style x:Key="ResultDisplayStyle" TargetType="Border">
+			<Setter Property="Background" Value="{StaticResource MetalDarkBrush}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource MetalLightBrush}"/>
+			<Setter Property="BorderThickness" Value="2"/>
+			<Setter Property="CornerRadius" Value="15"/>
+			<Setter Property="Padding" Value="40"/>
+			<Setter Property="Effect">
+				<Setter.Value>
+					<DropShadowEffect ShadowDepth="0" Opacity="0.5" BlurRadius="25" Color="{StaticResource AccentGreen}"/>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<!-- Intel Panel Style -->
+		<Style x:Key="IntelPanelStyle" TargetType="Border">
+			<Setter Property="Background" Value="{StaticResource MetalDarkBrush}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource MetalLightBrush}"/>
+			<Setter Property="BorderThickness" Value="2"/>
+			<Setter Property="CornerRadius" Value="12"/>
+			<Setter Property="Padding" Value="20"/>
+			<Setter Property="Margin" Value="0,20,0,0"/>
+		</Style>
+
+	</UserControl.Resources>
+
+	<ScrollViewer VerticalScrollBarVisibility="Auto" Padding="15" Background="Transparent">
+		<StackPanel>
+			<!-- Mission Control Header -->
+			<Border Style="{StaticResource TacticalCardStyle}" Margin="0,0,0,25">
+				<Border.Background>
+					<LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+						<GradientStop Color="#0f1419" Offset="0"/>
+						<GradientStop Color="#1a202c" Offset="1"/>
+					</LinearGradientBrush>
+				</Border.Background>
+				<Border.BorderBrush>
+					<LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+						<GradientStop Color="{StaticResource AccentOrange}" Offset="0"/>
+						<GradientStop Color="{StaticResource AccentBlue}" Offset="0.5"/>
+						<GradientStop Color="{StaticResource AccentGreen}" Offset="1"/>
+					</LinearGradientBrush>
+				</Border.BorderBrush>
+
+				<StackPanel>
+					<TextBlock Text="🎯 КОНТРОЛЬ РЕСУРСОВ" 
+                               Style="{StaticResource MissionHeaderStyle}"
                                Margin="0,0,0,10"/>
-                    <TextBlock Text="Расчет необходимого количества сырья для производства" 
-                               FontSize="14" 
-                               Foreground="#355CBD"
-                               FontWeight="Medium"/>
-                </StackPanel>
-            </Border>
+					<TextBlock Text="ТАКТИЧЕСКИЙ РАСЧЕТ МАТЕРИАЛЬНЫХ ПОТРЕБНОСТЕЙ" 
+                               FontSize="16" 
+                               Foreground="{StaticResource TextGrayBrush}"
+                               FontWeight="SemiBold"
+                               TextAlignment="Center"
+                               FontFamily="Segoe UI, Arial"/>
+				</StackPanel>
+			</Border>
 
-            <!-- Main Content Grid -->
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="20"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+			<!-- Main Content Grid -->
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="20"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
 
-                <!-- Left Panel - Input Parameters -->
-                <Border Grid.Column="0" Style="{StaticResource ModernCardStyle}">
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                            <TextBlock Text="📝" FontSize="16" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Параметры расчета" Style="{StaticResource SectionHeaderStyle}"/>
-                        </StackPanel>
+				<!-- Left Panel - Deployment Terminal -->
+				<Border Grid.Column="0" Style="{StaticResource TacticalCardStyle}">
+					<Border.Effect>
+						<DropShadowEffect ShadowDepth="0" Opacity="0.5" BlurRadius="25" Color="{StaticResource AccentOrange}"/>
+					</Border.Effect>
+					<StackPanel>
+						<StackPanel Orientation="Horizontal" Margin="0,0,0,25" HorizontalAlignment="Center">
+							<TextBlock Text="🚀" FontSize="24" Margin="0,0,12,0" VerticalAlignment="Center"/>
+							<TextBlock Text="РАЗВЕРТЫВАНИЕ ПАРАМЕТРОВ" Style="{StaticResource SectionHeaderStyle}"/>
+						</StackPanel>
 
-                        <!-- Product Type -->
-                        <StackPanel Margin="0,0,0,20">
-                            <TextBlock Text="Тип продукции *" Style="{StaticResource InputLabelStyle}"/>
-                            <ComboBox ItemsSource="{Binding ProductTypes}"
+						<!-- Product Type -->
+						<StackPanel Margin="0,0,0,25">
+							<TextBlock Text="КЛАССИФИКАЦИЯ ПРОДУКЦИИ" Style="{StaticResource InputLabelStyle}"/>
+							<ComboBox ItemsSource="{Binding ProductTypes}"
                                       DisplayMemberPath="ProductTypeName"
                                       SelectedValuePath="ProductTypeID"
                                       SelectedValue="{Binding SelectedProductTypeId}"
-                                      Style="{StaticResource ModernComboBoxStyle}"/>
-                        </StackPanel>
+                                      Style="{StaticResource TacticalComboBoxStyle}">
+							</ComboBox>
+						</StackPanel>
 
-                        <!-- Material Type -->
-                        <StackPanel Margin="0,0,0,20">
-                            <TextBlock Text="Тип материала *" Style="{StaticResource InputLabelStyle}"/>
-                            <ComboBox ItemsSource="{Binding MaterialTypes}"
+						<!-- Material Type -->
+						<StackPanel Margin="0,0,0,25">
+							<TextBlock Text="ОСНОВНОЙ МАТЕРИАЛ" Style="{StaticResource InputLabelStyle}"/>
+							<ComboBox ItemsSource="{Binding MaterialTypes}"
                                       DisplayMemberPath="MaterialTypeName"
                                       SelectedValuePath="MaterialTypeID"
                                       SelectedValue="{Binding SelectedMaterialTypeId}"
-                                      Style="{StaticResource ModernComboBoxStyle}"/>
-                        </StackPanel>
+                                      Style="{StaticResource TacticalComboBoxStyle}">
+							</ComboBox>
+						</StackPanel>
 
-                        <!-- Quantity -->
-                        <StackPanel Margin="0,0,0,20">
-                            <TextBlock Text="Количество продукции *" Style="{StaticResource InputLabelStyle}"/>
-                            <TextBox Text="{Binding Quantity}" 
-                                     Style="{StaticResource ModernTextBoxStyle}"/>
-                        </StackPanel>
+						<!-- Quantity -->
+						<StackPanel Margin="0,0,0,25">
+							<TextBlock Text="КОЛИЧЕСТВО ПРОДУКЦИИ" Style="{StaticResource InputLabelStyle}"/>
+							<TextBox Text="{Binding Quantity}" 
+                                     Style="{StaticResource TacticalTextBoxStyle}"
+                                     Foreground="{StaticResource AccentGreenBrush}"/>
+						</StackPanel>
 
-                        <!-- Parameters Grid -->
-                        <Grid Margin="0,0,0,25">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="10"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+						<!-- Parameters Grid -->
+						<Grid Margin="0,0,0,30">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="15"/>
+								<ColumnDefinition Width="*"/>
+							</Grid.ColumnDefinitions>
 
-                            <StackPanel Grid.Column="0">
-                                <TextBlock Text="Длина/Размер 1 (м) *" Style="{StaticResource InputLabelStyle}"/>
-                                <TextBox Text="{Binding Param1}" 
-                                         Style="{StaticResource ModernTextBoxStyle}"/>
-                            </StackPanel>
+							<StackPanel Grid.Column="0">
+								<TextBlock Text="ПАРАМЕТР 1 (М)" Style="{StaticResource InputLabelStyle}"/>
+								<TextBox Text="{Binding Param1}" 
+                                         Style="{StaticResource TacticalTextBoxStyle}"
+                                         Foreground="{StaticResource AccentBlueBrush}"/>
+							</StackPanel>
 
-                            <StackPanel Grid.Column="2">
-                                <TextBlock Text="Ширина/Размер 2 (м) *" Style="{StaticResource InputLabelStyle}"/>
-                                <TextBox Text="{Binding Param2}" 
-                                         Style="{StaticResource ModernTextBoxStyle}"/>
-                            </StackPanel>
-                        </Grid>
+							<StackPanel Grid.Column="2">
+								<TextBlock Text="ПАРАМЕТР 2 (М)" Style="{StaticResource InputLabelStyle}"/>
+								<TextBox Text="{Binding Param2}" 
+                                         Style="{StaticResource TacticalTextBoxStyle}"
+                                         Foreground="{StaticResource AccentPurpleBrush}"/>
+							</StackPanel>
+						</Grid>
 
-                        <!-- Calculate Button -->
-                        <Button Content="Рассчитать" 
+						<!-- Deploy Button -->
+						<Button Content="🚀 АКТИВИРОВАТЬ РАСЧЕТ" 
                                 Command="{Binding CalculateCommand}"
-                                Style="{StaticResource ModernButtonStyle}"/>
-                    </StackPanel>
-                </Border>
+                                Style="{StaticResource DeployButtonStyle}"/>
+					</StackPanel>
+				</Border>
 
-                <!-- Right Panel - Results -->
-                <Border Grid.Column="2" Style="{StaticResource ModernCardStyle}">
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                            <TextBlock Text="📊" FontSize="16" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Результат расчета" Style="{StaticResource SectionHeaderStyle}"/>
-                        </StackPanel>
+				<!-- Right Panel - Results Terminal -->
+				<Border Grid.Column="2" Style="{StaticResource TacticalCardStyle}">
+					<Border.Effect>
+						<DropShadowEffect ShadowDepth="0" Opacity="0.5" BlurRadius="25" Color="{StaticResource AccentBlue}"/>
+					</Border.Effect>
+					<StackPanel>
+						<StackPanel Orientation="Horizontal" Margin="0,0,0,25" HorizontalAlignment="Center">
+							<TextBlock Text="📊" FontSize="24" Margin="0,0,12,0" VerticalAlignment="Center"/>
+							<TextBlock Text="РЕЗУЛЬТАТЫ ОПЕРАЦИИ" Style="{StaticResource SectionHeaderStyle}"/>
+						</StackPanel>
 
-                        <!-- Result Display -->
-                        <Border Background="#F0F5FF" 
-                                BorderBrush="#E1E8FF" 
-                                BorderThickness="2"
-                                CornerRadius="12"
-                                Padding="30"
-                                Margin="0,0,0,25">
-                            <StackPanel HorizontalAlignment="Center" 
+						<!-- Result Display -->
+						<Border Style="{StaticResource ResultDisplayStyle}">
+							<StackPanel HorizontalAlignment="Center" 
                                         VerticalAlignment="Center">
-                                <TextBlock Text="{Binding Result}" 
-                                           FontSize="42" 
-                                           FontWeight="Bold" 
-                                           Foreground="#355CBD"
-                                           HorizontalAlignment="Center"/>
-                                <TextBlock Text="единиц сырья" 
-                                           FontSize="16" 
-                                           Foreground="#6B8CE8"
-                                           FontWeight="Medium"
+								<TextBlock Text="{Binding Result}" 
+                                           FontSize="72" 
+                                           FontWeight="Black" 
+                                           Foreground="{StaticResource OrangeBlueGradient}"
                                            HorizontalAlignment="Center"
-                                           Margin="0,8,0,0"/>
-                            </StackPanel>
-                        </Border>
+                                           TextAlignment="Center"/>
+								<TextBlock Text="ЕДИНИЦ СЫРЬЯ" 
+                                           FontSize="18" 
+                                           Foreground="{StaticResource TextGrayBrush}"
+                                           FontWeight="Bold"
+                                           HorizontalAlignment="Center"
+                                           Margin="0,8,0,0"
+                                           
+                                           />
+							</StackPanel>
+						</Border>
 
-                        <!-- Additional Info -->
-                        <StackPanel Margin="0,25,0,0">
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                <TextBlock Text="💡" FontSize="12" Margin="0,0,6,0" VerticalAlignment="Center"/>
-                                <TextBlock Text="Примечания:" 
+						<!-- Intel Panel -->
+						<Border Style="{StaticResource IntelPanelStyle}">
+							<StackPanel>
+								<StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+									<TextBlock Text="🛡️" FontSize="16" Margin="0,0,8,0" VerticalAlignment="Center"/>
+									<TextBlock Text="ТАКТИЧЕСКИЕ ДАННЫЕ" 
+                                               FontSize="14" 
+                                               FontWeight="Bold"
+                                               Foreground="{StaticResource AccentOrangeBrush}"
+                                               
+                                               />
+								</StackPanel>
+
+								<TextBlock Text="• ВСЕ ПАРАМЕТРЫ ОБЯЗАТЕЛЬНЫ ДЛЯ ЗАПОЛНЕНИЯ&#x0a;• РЕЗУЛЬТАТ ОТОБРАЖАЕТСЯ В СТАНДАРТНЫХ ЕДИНИЦАХ&#x0a;• УЧИТЫВАЕТСЯ СТАНДАРТНЫЙ ПРОЦЕНТ ПОТЕРЬ 5%&#x0a;• СИСТЕМА АВТОМАТИЧЕСКИЙ ОБНОВЛЯЕТ РАСЧЕТЫ"
+                                       FontSize="12" 
+                                       Foreground="{StaticResource TextLightBrush}"
+                                       LineHeight="18"
+                                       TextWrapping="Wrap"
+                                       FontWeight="Medium"/>
+							</StackPanel>
+						</Border>
+
+						<!-- Status Indicator -->
+						<Border Background="#1A48bb78" 
+                                BorderBrush="{StaticResource AccentGreenBrush}" 
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="15,10"
+                                Margin="0,20,0,0">
+							<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+								<TextBlock Text="🟢" FontSize="14" Margin="0,0,8,0" VerticalAlignment="Center"/>
+								<TextBlock Text="СИСТЕМА РАСЧЕТА ГОТОВА К ОПЕРАЦИИ" 
                                            FontSize="12" 
-                                           FontWeight="SemiBold"
-                                           Foreground="#355CBD"/>
-                            </StackPanel>
-                            <TextBlock Text="• Все параметры обязательны для заполнения&#x0a;• Результат отображается в выбранных единицах измерения&#x0a;• Учитывается стандартный процент потерь 5%"
-                                       FontSize="11" 
-                                       Foreground="#355CBD"
-                                       LineHeight="16"
-                                       TextWrapping="Wrap"/>
-                        </StackPanel>
-                    </StackPanel>
-                </Border>
-            </Grid>
-        </StackPanel>
-    </ScrollViewer>
+                                           Foreground="{StaticResource AccentGreenBrush}"
+                                           FontWeight="Bold"
+                                           VerticalAlignment="Center"
+                                           />
+							</StackPanel>
+						</Border>
+					</StackPanel>
+				</Border>
+			</Grid>
+		</StackPanel>
+	</ScrollViewer>
 </UserControl>

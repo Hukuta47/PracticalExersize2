@@ -7,124 +7,264 @@
         xmlns:viewModels="clr-namespace:ComfortDesktop.ViewModels"
         xmlns:views="clr-namespace:ComfortDesktop.views"
         mc:Ignorable="d"
-        Title="Комфорт" Height="600" Width="1200">
-    <Window.Resources>
-     
+        Title="КОМАНДНЫЙ ЦЕНТР КОМФОРТ" Height="700" Width="1400"
+        WindowStartupLocation="CenterScreen"
+        Background="#05080c">
 
-       
-        <Style x:Key="ModernNavButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Foreground" Value="#355CBD"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Padding" Value="20,12"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="Border.CornerRadius" Value="6"/>
-            <Setter Property="Margin" Value="5,0"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#E8EEFF"/>
-                    <Setter Property="Foreground" Value="#1A3A8F"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+	<Window.Resources>
+		<!-- Color Resources -->
+		<Color x:Key="MetalDark">#0a0e14</Color>
+		<Color x:Key="MetalMedium">#141a23</Color>
+		<Color x:Key="MetalLight">#1e2430</Color>
+		<Color x:Key="AccentOrange">#ed8936</Color>
+		<Color x:Key="AccentRed">#f56565</Color>
+		<Color x:Key="AccentGreen">#48bb78</Color>
+		<Color x:Key="AccentBlue">#4299e1</Color>
+		<Color x:Key="AccentPurple">#9f7aea</Color>
+		<Color x:Key="TextLight">#e2e8f0</Color>
+		<Color x:Key="TextGray">#a0aec0</Color>
+		<Color x:Key="BgDark">#05080c</Color>
 
-  
-        <Style x:Key="ModernNavButtonActiveStyle" TargetType="Button" BasedOn="{StaticResource ModernNavButtonStyle}">
-            <Setter Property="Background" Value="#355CBD"/>
-            <Setter Property="Foreground" Value="White"/>
-        </Style>
+		<!-- Solid Color Brushes -->
+		<SolidColorBrush x:Key="MetalDarkBrush" Color="{StaticResource MetalDark}"/>
+		<SolidColorBrush x:Key="MetalMediumBrush" Color="{StaticResource MetalMedium}"/>
+		<SolidColorBrush x:Key="MetalLightBrush" Color="{StaticResource MetalLight}"/>
+		<SolidColorBrush x:Key="AccentOrangeBrush" Color="{StaticResource AccentOrange}"/>
+		<SolidColorBrush x:Key="AccentGreenBrush" Color="{StaticResource AccentGreen}"/>
+		<SolidColorBrush x:Key="AccentBlueBrush" Color="{StaticResource AccentBlue}"/>
+		<SolidColorBrush x:Key="AccentPurpleBrush" Color="{StaticResource AccentPurple}"/>
+		<SolidColorBrush x:Key="TextLightBrush" Color="{StaticResource TextLight}"/>
+		<SolidColorBrush x:Key="TextGrayBrush" Color="{StaticResource TextGray}"/>
+		<SolidColorBrush x:Key="BgDarkBrush" Color="{StaticResource BgDark}"/>
 
-        
-        <Style x:Key="ModernBorderStyle" TargetType="Border">
-            <Setter Property="CornerRadius" Value="12"/>
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="#E1E8FF"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect ShadowDepth="2" 
-                                    Opacity="0.1" 
-                                    BlurRadius="12"
-                                    Direction="270"/>
-                </Setter.Value>
-            </Setter>
-        </Style>
+		<!-- Gradient Brushes -->
+		<LinearGradientBrush x:Key="OrangeBlueGradient" StartPoint="0,0" EndPoint="1,1">
+			<GradientStop Color="{StaticResource AccentOrange}" Offset="0"/>
+			<GradientStop Color="{StaticResource AccentBlue}" Offset="1"/>
+		</LinearGradientBrush>
 
-     
-        <DataTemplate DataType="{x:Type viewModels:ProductsViewModel}">
-            <views:ProductsView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModels:ManufacturingViewModel}">
-            <views:ManufacturingView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModels:AnalysisViewModel}">
-            <views:AnalysisView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModels:CalculationViewModel}">
-            <views:CalculationView/>
-        </DataTemplate>
-    </Window.Resources>
+		<LinearGradientBrush x:Key="HeaderGradient" StartPoint="0,0" EndPoint="1,0">
+			<GradientStop Color="{StaticResource AccentOrange}" Offset="0"/>
+			<GradientStop Color="{StaticResource AccentBlue}" Offset="0.5"/>
+			<GradientStop Color="{StaticResource AccentGreen}" Offset="1"/>
+		</LinearGradientBrush>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+		<!-- Tactical Nav Button Style -->
+		<Style x:Key="TacticalNavButtonStyle" TargetType="Button">
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="BorderThickness" Value="2"/>
+			<Setter Property="BorderBrush" Value="{StaticResource MetalLightBrush}"/>
+			<Setter Property="Foreground" Value="{StaticResource TextLightBrush}"/>
+			<Setter Property="FontSize" Value="14"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+			<Setter Property="Padding" Value="25,15"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="Border.CornerRadius" Value="10"/>
+			<Setter Property="Margin" Value="8,0"/>
+			<Setter Property="FontFamily" Value="Segoe UI, Arial"/>
+			<Style.Triggers>
+				<Trigger Property="IsMouseOver" Value="True">
+					<Setter Property="Background" Value="#1A4299e1"/>
+					<Setter Property="BorderBrush" Value="{StaticResource AccentBlueBrush}"/>
+					<Setter Property="Foreground" Value="{StaticResource TextLightBrush}"/>
+					<Setter Property="Effect">
+						<Setter.Value>
+							<DropShadowEffect ShadowDepth="0" Opacity="0.4" BlurRadius="15" Color="{StaticResource AccentBlue}"/>
+						</Setter.Value>
+					</Setter>
+					<Setter Property="RenderTransform">
+						<Setter.Value>
+							<TranslateTransform Y="-2"/>
+						</Setter.Value>
+					</Setter>
+				</Trigger>
+			</Style.Triggers>
+		</Style>
 
-       
-        <Border Grid.Row="0" Background="#F0F5FF" BorderBrush="#D2DFFF" BorderThickness="0,0,0,1">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
+		<!-- Tactical Nav Button Active Style -->
+		<Style x:Key="TacticalNavButtonActiveStyle" TargetType="Button" BasedOn="{StaticResource TacticalNavButtonStyle}">
+			<Setter Property="Background">
+				<Setter.Value>
+					<LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+						<GradientStop Color="{StaticResource AccentOrange}" Offset="0"/>
+						<GradientStop Color="{StaticResource AccentBlue}" Offset="1"/>
+					</LinearGradientBrush>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="BorderBrush" Value="Transparent"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="FontWeight" Value="Black"/>
+			<Setter Property="Effect">
+				<Setter.Value>
+					<DropShadowEffect ShadowDepth="0" Opacity="0.5" BlurRadius="20" Color="{StaticResource AccentOrange}"/>
+				</Setter.Value>
+			</Setter>
+		</Style>
 
-                <Border Grid.Column="0" Background="#355CBD" Width="220" 
-                        BorderBrush="#2A4A9C" BorderThickness="0,0,1,0">
-                    <StackPanel Orientation="Horizontal" 
+		<!-- Tactical Border Style -->
+		<Style x:Key="TacticalBorderStyle" TargetType="Border">
+			<Setter Property="CornerRadius" Value="15"/>
+			<Setter Property="Background" Value="{StaticResource MetalMediumBrush}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource MetalLightBrush}"/>
+			<Setter Property="BorderThickness" Value="3"/>
+			<Setter Property="Effect">
+				<Setter.Value>
+					<DropShadowEffect ShadowDepth="0" 
+                                    Opacity="0.5" 
+                                    BlurRadius="25"
+                                    Color="{StaticResource AccentBlue}"/>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<!-- Status Indicator Style -->
+		<Style x:Key="StatusIndicatorStyle" TargetType="Border">
+			<Setter Property="Background" Value="#1A48bb78"/>
+			<Setter Property="BorderBrush" Value="{StaticResource AccentGreenBrush}"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="CornerRadius" Value="8"/>
+			<Setter Property="Padding" Value="12,8"/>
+			<Setter Property="HorizontalAlignment" Value="Right"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
+
+		<!-- Data Templates -->
+		<DataTemplate DataType="{x:Type viewModels:ProductsViewModel}">
+			<views:ProductsView/>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type viewModels:ManufacturingViewModel}">
+			<views:ManufacturingView/>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type viewModels:AnalysisViewModel}">
+			<views:AnalysisView/>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type viewModels:CalculationViewModel}">
+			<views:CalculationView/>
+		</DataTemplate>
+	</Window.Resources>
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<!-- Command Center Header -->
+		<Border Grid.Row="0" Background="{StaticResource MetalDarkBrush}" 
+                BorderBrush="{StaticResource MetalLightBrush}" BorderThickness="0,0,0,2">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+
+				<!-- Logo Section -->
+				<Border Grid.Column="0" 
+                        Background="{StaticResource MetalMediumBrush}" 
+                        Width="280" 
+                        BorderBrush="{StaticResource MetalLightBrush}" 
+                        BorderThickness="0,0,2,0">
+					<Border.Effect>
+						<DropShadowEffect ShadowDepth="0" Opacity="0.5" BlurRadius="20" Color="{StaticResource AccentBlue}"/>
+					</Border.Effect>
+					<StackPanel Orientation="Horizontal" 
                                 HorizontalAlignment="Center" 
                                 VerticalAlignment="Center"
-                                Margin="15,0">
-                        <TextBlock Text="🏭" 
-                                   FontSize="20" 
-                                   Margin="0,0,8,0"
+                                Margin="20,15">
+						<TextBlock Text="🎯" 
+                                   FontSize="28" 
+                                   Margin="0,0,12,0"
                                    VerticalAlignment="Center"/>
-                        <TextBlock Text="КОМФОРТ" 
-                                   Foreground="White" 
-                                   FontSize="18" 
-                                   FontWeight="Bold"
-                                   VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Border>
+						<StackPanel>
+							<TextBlock Text="КОМФОРТ" 
+                                       Foreground="{StaticResource OrangeBlueGradient}" 
+                                       FontSize="20" 
+                                       FontWeight="Black"
+                                       VerticalAlignment="Center"
+                                       
+                                       />
+							<TextBlock Text="КОМАНДНЫЙ ЦЕНТР" 
+                                       Foreground="{StaticResource TextGrayBrush}" 
+                                       FontSize="11" 
+                                       FontWeight="Bold"
+                                       VerticalAlignment="Center"
+                                       
+                                       />
+						</StackPanel>
+					</StackPanel>
+				</Border>
 
-                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,0">
-                    <Button Content="📦 Продукция" 
-                            Command="{Binding ShowProductsCommand}"
-                            Style="{StaticResource ModernNavButtonStyle}"/>
-                    <Button Content="🏭 Производство" 
-                            Command="{Binding ShowManufacturingCommand}"
-                            Style="{StaticResource ModernNavButtonStyle}"/>
-                    <Button Content="📊 Аналитика" 
-                            Command="{Binding ShowAnalysisCommand}"
-                            Style="{StaticResource ModernNavButtonStyle}"/>
-                    <Button Content="🧮 Расчет сырья" 
-                            Command="{Binding ShowCalculationCommand}"
-                            Style="{StaticResource ModernNavButtonStyle}"/>
-                </StackPanel>
+				<!-- Navigation Panel -->
+				<Border Grid.Column="1" Background="Transparent">
+					<StackPanel Orientation="Horizontal" 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center" 
+                                Margin="20,0">
+						<Button Content="📦 АРСЕНАЛ" 
+                                Command="{Binding ShowProductsCommand}"
+                                Style="{StaticResource TacticalNavButtonStyle}"/>
+						<Button Content="🏭 ПРОИЗВОДСТВО" 
+                                Command="{Binding ShowManufacturingCommand}"
+                                Style="{StaticResource TacticalNavButtonStyle}"/>
+						<Button Content="📊 АНАЛИТИКА" 
+                                Command="{Binding ShowAnalysisCommand}"
+                                Style="{StaticResource TacticalNavButtonStyle}"/>
+						<Button Content="🧮 РЕСУРСЫ" 
+                                Command="{Binding ShowCalculationCommand}"
+                                Style="{StaticResource TacticalNavButtonStyle}"/>
+					</StackPanel>
+				</Border>
 
-               
-            </Grid>
-        </Border>
+				<!-- Status Panel -->
+				<Border Grid.Column="2" Background="Transparent" Margin="0,0,25,0">
+					<StackPanel Orientation="Horizontal" 
+                                HorizontalAlignment="Right" 
+                                VerticalAlignment="Center"
+                                Margin="0,0,0,0">
 
-    
-        <Border Grid.Row="1" Background="Transparent" Padding="25">
-            <Border Style="{StaticResource ModernBorderStyle}" Padding="0">
-                <ContentControl Content="{Binding CurrentView}"
+						<!-- System Status -->
+						<Border Style="{StaticResource StatusIndicatorStyle}" Margin="0,0,15,0">
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="🟢" 
+                                           FontSize="12" 
+                                           Margin="0,0,8,0" 
+                                           VerticalAlignment="Center"/>
+								<TextBlock Text="СИСТЕМА АКТИВНА" 
+                                           FontSize="11" 
+                                           Foreground="{StaticResource AccentGreenBrush}"
+                                           FontWeight="Bold"
+                                           VerticalAlignment="Center"
+                                           />
+							</StackPanel>
+						</Border>
+
+						<!-- Time Display -->
+						<Border Style="{StaticResource StatusIndicatorStyle}">
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="🕒" 
+                                           FontSize="12" 
+                                           Margin="0,0,8,0" 
+                                           VerticalAlignment="Center"/>
+								<TextBlock Text="{Binding CurrentTime, StringFormat=HH:mm:ss}" 
+                                           FontSize="11" 
+                                           Foreground="{StaticResource TextLightBrush}"
+                                           FontWeight="Bold"
+                                           VerticalAlignment="Center"
+                                           />
+							</StackPanel>
+						</Border>
+					</StackPanel>
+				</Border>
+			</Grid>
+		</Border>
+
+		<!-- Main Content Area -->
+		<Border Grid.Row="1" Background="Transparent" Padding="20">
+			<Border Style="{StaticResource TacticalBorderStyle}" Padding="0">
+				<ContentControl Content="{Binding CurrentView}"
                               Margin="0"/>
-            </Border>
-        </Border>
-    </Grid>
+			</Border>
+		</Border>
+	</Grid>
 </Window>
