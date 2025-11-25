@@ -295,7 +295,7 @@
 				</Border.BorderBrush>
 
 				<StackPanel>
-					<TextBlock Text="📦 АРСЕНАЛ ПРОДУКЦИИ" 
+					<TextBlock Text="📦 ПРОДУКЦИЯ" 
                                Style="{StaticResource MissionHeaderStyle}"
                                Margin="0,0,0,10"/>
 					<TextBlock Text="УПРАВЛЕНИЕ ПРОИЗВОДСТВЕННЫМ ПОРТФЕЛЕМ КОМПАНИИ" 

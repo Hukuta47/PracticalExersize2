@@ -196,7 +196,7 @@
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,30">
 				<Border Style="{StaticResource KPICardStyle}" Margin="0,0,15,0">
 					<StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-						<TextBlock Text="📊" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+						<TextBlock Text="📊" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,5" Foreground="{StaticResource OrangeBlueGradient}"/>
 						<TextBlock Text="{Binding ProductionSummary.Count, StringFormat={}{0} ОПЕРАЦИЙ}" 
                                    FontSize="16" 
                                    FontWeight="Bold" 

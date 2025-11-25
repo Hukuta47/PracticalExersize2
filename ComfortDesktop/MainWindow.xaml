@@ -172,26 +172,17 @@
                                 HorizontalAlignment="Center" 
                                 VerticalAlignment="Center"
                                 Margin="20,15">
-						<TextBlock Text="🎯" 
+						<TextBlock Text="🛋️" 
                                    FontSize="28" 
                                    Margin="0,0,12,0"
-                                   VerticalAlignment="Center"/>
-						<StackPanel>
-							<TextBlock Text="КОМФОРТ" 
-                                       Foreground="{StaticResource OrangeBlueGradient}" 
-                                       FontSize="20" 
-                                       FontWeight="Black"
-                                       VerticalAlignment="Center"
-                                       
-                                       />
-							<TextBlock Text="КОМАНДНЫЙ ЦЕНТР" 
-                                       Foreground="{StaticResource TextGrayBrush}" 
-                                       FontSize="11" 
-                                       FontWeight="Bold"
-                                       VerticalAlignment="Center"
-                                       
-                                       />
-						</StackPanel>
+                                   VerticalAlignment="Center"
+								   Foreground="{StaticResource OrangeBlueGradient}"/>
+						<TextBlock Text="КОМФОРТ" 
+           Foreground="{StaticResource OrangeBlueGradient}" 
+           FontSize="20" 
+           FontWeight="Black"
+           VerticalAlignment="Center"
+           />
 					</StackPanel>
 				</Border>
 
@@ -201,7 +192,7 @@
                                 HorizontalAlignment="Center" 
                                 VerticalAlignment="Center" 
                                 Margin="20,0">
-						<Button Content="📦 АРСЕНАЛ" 
+						<Button Content="📦 ПРОДУКТЫ" 
                                 Command="{Binding ShowProductsCommand}"
                                 Style="{StaticResource TacticalNavButtonStyle}"/>
 						<Button Content="🏭 ПРОИЗВОДСТВО" 
